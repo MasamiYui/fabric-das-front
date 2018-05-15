@@ -12,7 +12,7 @@ public interface UserService {
 
     JSONObject userRegister(UserVO userVO);
 
-    JSONObject companyLogin(String loginStr, String password);
+    JSONObject companyLogin(String loginStr, String password) throws JsonProcessingException;
 
     JSONObject companyRegister(CompanyVO companyVO);
 

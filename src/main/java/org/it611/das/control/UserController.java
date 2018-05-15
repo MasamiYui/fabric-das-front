@@ -35,6 +35,20 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "/company/login")
+    @ResponseBody
+    public JSONObject companyLogin(@RequestParam("loginStr") String loginStr, @RequestParam("password")String password, HttpServletResponse response) throws JsonProcessingException {
+
+        JSONObject result = userService.companyLogin(loginStr, password);
+        if((int)result.get("code") == 400) {
+            return result;
+        }
+        String token = result.get("data").toString();
+        CookieUtil.addCookie(response,CookieUtil.COOKIE_TOKEN_KEY, token, CookieUtil.COOKIE_MAX_AGE);
+        return result;
+    }
+
+
 
     @RequestMapping(value = "/user/register")
     @ResponseBody
@@ -59,8 +73,6 @@ public class UserController {
         modelAndView.setViewName("login");
         return modelAndView;
     }
-
-
 
 
     @RequestMapping(value = "/index")

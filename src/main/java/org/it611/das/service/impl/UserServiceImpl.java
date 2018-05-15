@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 ;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,15 +32,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public JSONObject userLogin(String loginStr, String password) throws JsonProcessingException {
         Map<String, Object> userMap = null;
-        if(CheckUtil.checkMobileNumber(loginStr) == true) {
+        if(CheckUtil.checkMobileNumber(loginStr)) {
             userMap = userDao.findUserByPhone(loginStr);
-        }else if(CheckUtil.checkEmail(loginStr) == true) {
+        }else if(CheckUtil.checkEmail(loginStr)) {
             userMap = userDao.findUserByEmail(loginStr);
         }
 
-/*        if((int)userMap.get("state") != 1) {
-            return ResultUtil.constructResponse(400,"the state not 1, can do anything", null);
-        }*/
+        if((int)userMap.get("state") != 1) {
+            return ResultUtil.constructResponse(200,"the state not 1, can do anything", null);
+        }
 
         if(userMap == null){
             return ResultUtil.constructResponse(400,"fail.error phone and email", null);
@@ -49,11 +50,11 @@ public class UserServiceImpl implements UserService {
             return  ResultUtil.constructResponse(400, "password error.", null);
         }
 
-
         String token = UUID.randomUUID().toString();
         userMap.remove("password");
         Jedis client = RedisUtil.getJedis();
         client.set(token, new ObjectMapper().writeValueAsString(userMap));
+        client.close();
         return ResultUtil.constructResponse(200,"ok", token);
     }
 
@@ -82,8 +83,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JSONObject companyLogin(String loginStr, String password) {
-        return null;
+    public JSONObject companyLogin(String loginStr, String password) throws JsonProcessingException {
+
+        HashMap<String, Object> companyMap = null;
+        if(CheckUtil.checkEmail(loginStr)){
+            companyMap = companyDao.findCompanyByEmail(loginStr);
+        }else if(CheckUtil.checkMobileNumber(loginStr)) {
+            companyMap = companyDao.findCompanyByPhone(loginStr);
+        }else {
+            companyMap = companyDao.findCompanyByUsername(loginStr);
+        }
+        if(companyMap == null) {
+            return ResultUtil.constructResponse(400, "not current username phone or email.", null);
+        }
+
+        if(!MD5Util.verify(password, companyMap.get("password").toString())) {
+            return ResultUtil.constructResponse(400, "password error.", null);
+        }
+
+        String token = UUID.randomUUID().toString();
+        companyMap.remove("password");
+        Jedis client = RedisUtil.getJedis();
+        client.set(token, new ObjectMapper().writeValueAsString(companyMap));
+        client.close();
+
+        return ResultUtil.constructResponse(200, "ok", token);
+
     }
 
     @Override
@@ -92,10 +117,16 @@ public class UserServiceImpl implements UserService {
         Company company = Vo2PoUtil.ConpanyVo2Po(companyVO);
         int result = companyDao.addCompany(company);
 
+        HashMap<String, Object> resultMap = companyDao.findCompanyByCreditId(company.getCreditId());
+
+        if(resultMap != null) {
+
+            return ResultUtil.constructResponse(400, "the credit id have registered.", null);
+        }
+
         if (result == 0) {
             return ResultUtil.constructResponse(400, "failed to register company user.", null);
         }
-        //TODO 其他验证还未完成
 
         return ResultUtil.constructResponse(200, "ok", null);
     }
