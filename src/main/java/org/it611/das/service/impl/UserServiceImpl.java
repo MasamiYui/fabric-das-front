@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
             userMap = userDao.findUserByEmail(loginStr);
         }
 
-        if((int)userMap.get("state") != 1) {
-            return ResultUtil.constructResponse(200,"the state not 1, can do anything", null);
+        if(Integer.parseInt(userMap.get("state").toString()) != 1) {
+            return ResultUtil.constructResponse(400,"the state not 1, can do anything", null);
         }
 
         if(userMap == null){

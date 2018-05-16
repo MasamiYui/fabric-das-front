@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-/*
 @Configuration
 @EnableWebMvc
 @ComponentScan
@@ -23,13 +22,12 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         super();
     }
 
-    @Override
+   /* @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
         registry.addResourceHandler("/templates/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/templates/");
-
         super.addResourceHandlers(registry);
-    }
+    }*/
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -45,4 +43,4 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         super.addInterceptors(registry);
     }
 
-}*/
+}

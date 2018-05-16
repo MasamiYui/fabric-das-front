@@ -82,5 +82,15 @@ public class UserController {
         return modelAndView;
     }
 
+    //测试用户注册====>test
+    @RequestMapping("/userReg")
+    public String userReg(){
+        return "userRegistration";
+    }
+    //测试企业注册====>test
+    @RequestMapping("/companyReg")
+    public String companyReg(){
+        return "companyRegistration";
+    }
 
 }

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>用户注册申请</title>
+
+    <link rel="icon" type="image/x-icon" th:href="@{/ico/favicon.png}"/>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/jcstatic/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/jcstatic/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+
+    <!--引入layui的css-->
+    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+
+    <!--引入地区选择插件的css-->
+    <link href="@{/dist/css/main.css" rel="stylesheet}">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script th:src="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"></script>
+    <script th:src="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"></script>
+    <![endif]-->
+
+    <!--引入jquery-->
+    <script th:src="@{/jcstatic/vendor/jquery/jquery.js}"></script>
+
+    <style type="text/css">
+
+        #dataform .input-group .input-group-addon.aa {
+            padding: 9px 20px;
+            font-weight: 700;
+        }
+
+        #dataform .input-group .input-group-addon.aa.bb {
+            padding: 9px 27px;
+        }
+
+        .layui-upload-img {
+            width: 100px;
+            height: 100px;
+            margin: 0 10px 10px 0;
+        }
+
+        #page-wrapper {
+            margin: 0 250px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+
+    <div id="page-wrapper" style="margin:0 250px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">用户注册</h3>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <form role="form" id="dataform">
+                        <!--图片的地址-->
+                        <input type="hidden" name="files" id="files"/>
+                        <!--图片的Hash-->
+                        <input type="hidden" name="filesHash" id="filesHash"/>
+                        <!--地址-->
+                        <input type="hidden" name="address"/>
+
+                        <!--注册用户的具体表单-->
+                        <div class="panel-body">
+                            <div class="row">
+
+                                <div class="col-lg-6">
+
+                                    <div class="form-group">
+                                        <label>手机号</label>
+                                        <input name="phone" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>邮箱</label>
+                                        <input name="email" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>密码</label>
+                                        <input name="password" type="password" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>确认密码</label>
+                                        <input id="rePassword" type="password" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>性别</label>
+                                        <div class="form-group">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="sex"
+                                                       value="男" checked="true"/>男
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" name="sex"
+                                                       value="女"/>女
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+
+                                    <div class="form-group">
+                                        <label>姓名</label>
+                                        <input name="name" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>身份证号码</label>
+                                        <input name="idcard" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>民族</label>
+                                        <select id="nation" name="nation" class="form-control">
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>学号</label>
+                                        <input name="stuId" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>出生年月</label>
+                                        <input type="text" name="date" class="form-control" id='birth'/>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <label>地址</label>
+                                    <div id="distpicker2">
+                                        <div class="col-lg-3 form-group " style="padding:1px;">
+                                            <label class="sr-only" for="province5">Province</label>
+                                            <select class="form-control" id="province5"></select>
+                                        </div>
+                                        <div class="col-lg-3 form-group" style="padding:1px;">
+                                            <label class="sr-only" for="city5">City</label>
+                                            <select class="form-control" id="city5"></select>
+                                        </div>
+                                        <div class="col-lg-3 form-group" style="padding:1px;">
+                                            <label class="sr-only" for="district5">District</label>
+                                            <select class="form-control" id="district5"></select>
+                                        </div>
+                                        <div class="col-lg-3 form-group" style="padding:1px;">
+                                            <input class="form-control" id="detailAddress"
+                                                   placeholder="请输入详细地址"></input>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--上传图片-->
+                                <div class="col-lg-12">
+                                    <button type="button" class="layui-btn" id="test2">文件上传</button>
+                                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                        <!--已上传：-->
+                                        <div class="layui-upload-list" id="demo2"></div>
+                                    </blockquote>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>姓名</label>
+                                        <input name="picName" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>民族</label>
+                                        <select id="picNation" name="nation" class="form-control">
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>性别</label>
+                                        <div class="form-group">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="picSex"
+                                                       value="male" checked="true"/>男
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                <input type="radio" name="picSex"
+                                                       value="female"/>女
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>身份证号码</label>
+                                        <input name="picIdcard" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>出生年月</label>
+                                        <input type="text" name="picDate" class="form-control" id='picBirth'/>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <label>地址</label>
+                                    <input type="text" name="picAddress" class="form-control"/>
+                                </div>
+                            </div>
+
+                            <!--确认按钮-->
+                            <div class="col-lg-12 text-right" style="margin-top:10px;">
+                                <button type="button" id="btSubmit" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    确&nbsp;&nbsp;定
+                                </button>
+                                <button type="button" id="btBack" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    返&nbsp;&nbsp;回
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/jcstatic/vendor/jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/jcstatic/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/jcstatic/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!--引入layui:日期插件-->
+<script th:src="@{/jcstatic/layui/layui.js}"></script>
+
+<!--引入地区选择插件-->
+<script th:src="@{/dist/js/distpicker.data.js}"></script>
+<script th:src="@{/dist/js/distpicker.js}"></script>
+<script th:src="@{/dist/js/main.js}"></script>
+
+<script>
+    $(document).ready(function () {
+        var nations = ["汉族", "蒙古族", "回族", "藏族", "维吾尔族", "苗族", "彝族", "壮族", "布依族", "朝鲜族", "满族", "侗族", "瑶族", "白族", "土家族",
+            "哈尼族", "哈萨克族", "傣族", "黎族", "傈僳族", "佤族", "畲族", "高山族", "拉祜族", "水族", "东乡族", "纳西族", "景颇族", "柯尔克孜族",
+            "土族", "达斡尔族", "仫佬族", "羌族", "布朗族", "撒拉族", "毛南族", "仡佬族", "锡伯族", "阿昌族", "普米族", "塔吉克族", "怒族", "乌孜别克族",
+            "俄罗斯族", "鄂温克族", "德昂族", "保安族", "裕固族", "京族", "塔塔尔族", "独龙族", "鄂伦春族", "赫哲族", "门巴族", "珞巴族", "基诺族"];
+        var nation = $("#nation");
+        for (var i = 0; i < nations.length; i++) {
+            var a = nations[i];
+            nation.append("<option value='" + a + "'>" + a + "</option>");
+        }
+        var picNation = $("#picNation");
+        for (var i = 0; i < nations.length; i++) {
+            var a = nations[i];
+            picNation.append("<option value='" + a + "'>" + a + "</option>");
+        }
+        initform();
+    });
+
+    function initform() {
+        $("#btSubmit").click(function () {
+            var $this = $(this);
+            $this.prop("disabled", true);
+            if (validateForm()) {
+                var province = $("#province5").val();
+                var city = $("#city5").val();
+                var district = $("#district5").val();
+                var detailAddress = $("#detailAddress").val();
+                var address = "" + province + city + district + detailAddress;
+                $('input[name="address"]').val(address);
+                var queryString = $("#dataform").serialize();
+                console.log("表单序列化的结果" + queryString);
+                $.ajax({
+                    type: "post",
+                    url: "/user/register",
+                    data: queryString,
+                    dataType: "json",
+                    success: function (result) {
+
+                        if(result.code=200){
+                            msg("注册申请审理中");
+                            window.location.href = "/frontLogin";
+                        }
+                    },
+                    complete: function (XMLHttpRequest, textStatus) {
+                        $this.prop("disabled", false);
+                        window.location.reload(true);
+                    }
+                });
+            } else {
+                $this.prop("disabled", false);
+            }
+
+        });
+    }
+
+    function validateForm() {
+        var reg = /^\d{18}$/;
+
+        var data=$('input[name="password"]').val();
+        var picData=$('#rePassword').val();
+        if (data != picData) {
+            msg("两次密码不一致");
+            $('input[name="password"]').focus();
+            return false;
+        }
+
+         data = $('input[name="name"]').val();
+         picData = $('input[name="picName"]').val();
+        if (data != picData) {
+            msg("姓名不匹配");
+            $('input[name="name"]').focus();
+            return false;
+        }
+
+        data = $('input[name="nation"]').val();
+        picData = $('input[name="picNation"]').val();
+        if (data != picData) {
+            msg("民族不匹配");
+            $('input[name="nation"]').focus();
+            return false;
+        }
+        data = $('input[name="idcard"]').val();
+        picData = $('input[name="picIdcard"]').val();
+        if (data != picData) {
+            msg("身份证号不匹配");
+            $('input[name="idcard"]').focus();
+            return false;
+        }
+        data = $('input[name="date"]').val();
+        picData = $('input[name="picDate"]').val();
+        if (data != picData) {
+            msg("出生日期不匹配");
+            $('input[name="date"]').focus();
+            return false;
+        }
+        var province = $("#province5").val();
+        var city = $("#city5").val();
+        var district = $("#district5").val();
+        var detailAddress = $("#detailAddress").val();
+        data = "" + province + city + district + detailAddress;
+        picData = $('input[name="picAddress"]').val();
+        if (data != picData) {
+            msg("地址不匹配");
+            $('#detailAddress').focus();
+            return false;
+        }
+        return true;
+    }
+
+    function msg(data) {
+        layer.msg(data, {
+            time: 1000, //1s后自动关闭
+            icon: 5
+        });
+    }
+
+    <!-- 文件上传-->
+    var paths = "";        //上传的文件，中间用逗号隔开
+    var filesHashs = "";   //上传的文件hashmap值，中间用逗号隔开
+    layui.use('upload', function () {
+        var upload = layui.upload;
+        //多图片上传
+        upload.render({
+            elem: '#test2'
+            , url: '/asset/file_upload'
+            , multiple: true
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                });
+                photoView();
+            }
+            , done: function (res) {
+                if (res.code > 0) {
+                    var pathValue=res.data.path;
+                    paths = paths + pathValue + ",";
+                    $("#files").val(paths);
+
+                    var hashValue=res.data.path;
+                    filesHashs = filesHashs + hashValue + ",";
+                    $("#filesHash").val(filesHashs);
+                }
+                console.log(res);
+            }
+        });
+    });
+
+    function photoView() {
+        <!--照片查看器-->
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.photos({
+                photos: '#demo2'
+                , anim: 5 //0-6的选择
+            });
+        });
+    }
+
+    <!--日期-->
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#birth' //指定元素
+            , theme: 'molv'
+            , calendar: true
+        });
+        laydate.render({
+            elem: '#picBirth' //指定元素
+            , theme: 'molv'
+            , calendar: true
+        });
+    });
+
+    $("#btBack").click(function(){
+        window.location.href = "/frontLogin";
+    });
+</script>
+
+</body>
+
+</html>
