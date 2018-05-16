@@ -22,12 +22,12 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         super();
     }
 
-   /* @Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
+        registry.addResourceHandler("/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
         registry.addResourceHandler("/templates/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/templates/");
         super.addResourceHandlers(registry);
-    }*/
+    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
