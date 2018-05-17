@@ -90,7 +90,11 @@
 <script th:src="@{/jcstatic/layui/layui.js}"></script>
 
 <script>
-
+    $(document).keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#btSubmit").click();
+        }
+    });
     $("#btSubmit").click(function () {
         var queryString = $("#dataform").serialize();
         $.ajax({
@@ -121,7 +125,7 @@
         });
     }*/
 
-    $("#dataform input").focus(function(){
+    $("#dataform input").focus(function () {
         $("#callbackInfo").html("");
     });
 
