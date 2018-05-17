@@ -85,8 +85,6 @@
                         <input type="hidden" name="files" id="files"/>
                         <!--图片的Hash-->
                         <input type="hidden" name="filesHash" id="filesHash"/>
-                        <!--地址-->
-                        <input type="hidden" name="address"/>
 
                         <!--注册用户的具体表单-->
                         <div class="panel-body">
@@ -102,6 +100,9 @@
                                         <label>邮箱</label>
                                         <input name="email" class="form-control"/>
                                     </div>
+                                </div>
+
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>密码</label>
                                         <input name="password" type="password" class="form-control"/>
@@ -110,7 +111,27 @@
                                         <label>确认密码</label>
                                         <input id="rePassword" type="password" class="form-control"/>
                                     </div>
+                                </div>
 
+                                <!--上传图片-->
+                                <div class="col-lg-12">
+                                    <button type="button" class="layui-btn" id="test2">文件上传</button>
+                                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                        <!--已上传：-->
+                                        <div class="layui-upload-list" id="demo2"></div>
+                                    </blockquote>
+                                </div>
+                                <div class="col-lg-3" style="background-color: #cccccc;font-size: 20px;margin-bottom: 20px;margin-left:16px;height: 30px;" th:text="附件信息"></div>
+                                <div class="col-lg-12"></div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>姓名</label>
+                                        <input name="name" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>身份证号码</label>
+                                        <input name="idcard" class="form-control"/>
+                                    </div>
                                     <div class="form-group">
                                         <label>性别</label>
                                         <div class="form-group">
@@ -128,105 +149,22 @@
                                 </div>
 
                                 <div class="col-lg-6">
-
-                                    <div class="form-group">
-                                        <label>姓名</label>
-                                        <input name="name" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>身份证号码</label>
-                                        <input name="idcard" class="form-control"/>
-                                    </div>
                                     <div class="form-group">
                                         <label>民族</label>
                                         <select id="nation" name="nation" class="form-control">
                                         </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>学号</label>
-                                        <input name="stuId" class="form-control"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label>出生年月</label>
                                         <input type="text" name="date" class="form-control" id='birth'/>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <label>地址</label>
-                                    <div id="distpicker2">
-                                        <div class="col-lg-3 form-group " style="padding:1px;">
-                                            <label class="sr-only" for="province5">Province</label>
-                                            <select class="form-control" id="province5"></select>
-                                        </div>
-                                        <div class="col-lg-3 form-group" style="padding:1px;">
-                                            <label class="sr-only" for="city5">City</label>
-                                            <select class="form-control" id="city5"></select>
-                                        </div>
-                                        <div class="col-lg-3 form-group" style="padding:1px;">
-                                            <label class="sr-only" for="district5">District</label>
-                                            <select class="form-control" id="district5"></select>
-                                        </div>
-                                        <div class="col-lg-3 form-group" style="padding:1px;">
-                                            <input class="form-control" id="detailAddress"
-                                                   placeholder="请输入详细地址"></input>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--上传图片-->
-                                <div class="col-lg-12">
-                                    <button type="button" class="layui-btn" id="test2">文件上传</button>
-                                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                                        <!--已上传：-->
-                                        <div class="layui-upload-list" id="demo2"></div>
-                                    </blockquote>
-                                </div>
-
-                                <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>姓名</label>
-                                        <input name="picName" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>民族</label>
-                                        <select id="picNation" name="nation" class="form-control">
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>性别</label>
-                                        <div class="form-group">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="picSex"
-                                                       value="male" checked="true"/>男
-                                            </label>
-
-                                            <label class="radio-inline">
-                                                <input type="radio" name="picSex"
-                                                       value="female"/>女
-                                            </label>
-                                        </div>
+                                        <label>联系地址</label>
+                                        <input type="text" name="address" class="form-control" />
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>身份证号码</label>
-                                        <input name="picIdcard" class="form-control"/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>出生年月</label>
-                                        <input type="text" name="picDate" class="form-control" id='picBirth'/>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <label>地址</label>
-                                    <input type="text" name="picAddress" class="form-control"/>
-                                </div>
                             </div>
 
                             <!--确认按钮-->
@@ -278,11 +216,7 @@
             var a = nations[i];
             nation.append("<option value='" + a + "'>" + a + "</option>");
         }
-        var picNation = $("#picNation");
-        for (var i = 0; i < nations.length; i++) {
-            var a = nations[i];
-            picNation.append("<option value='" + a + "'>" + a + "</option>");
-        }
+
         initform();
     });
 
@@ -291,12 +225,6 @@
             var $this = $(this);
             $this.prop("disabled", true);
             if (validateForm()) {
-                var province = $("#province5").val();
-                var city = $("#city5").val();
-                var district = $("#district5").val();
-                var detailAddress = $("#detailAddress").val();
-                var address = "" + province + city + district + detailAddress;
-                $('input[name="address"]').val(address);
                 var queryString = $("#dataform").serialize();
                 console.log("表单序列化的结果" + queryString);
                 $.ajax({
@@ -305,15 +233,14 @@
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
-
                         if(result.code=200){
-                            msg("注册申请审理中");
-                            window.location.href = "/frontLogin";
+                            callbackMsg("用户注册帐号已提交");
+                        }else{
+                            callbackMsg("注册失败");
                         }
                     },
                     complete: function (XMLHttpRequest, textStatus) {
                         $this.prop("disabled", false);
-                        window.location.reload(true);
                     }
                 });
             } else {
@@ -328,50 +255,14 @@
 
         var data=$('input[name="password"]').val();
         var picData=$('#rePassword').val();
+        if((!data)||(!picData)) {
+            msg("密码不能为空");
+            return false;
+        }
+
         if (data != picData) {
             msg("两次密码不一致");
             $('input[name="password"]').focus();
-            return false;
-        }
-
-         data = $('input[name="name"]').val();
-         picData = $('input[name="picName"]').val();
-        if (data != picData) {
-            msg("姓名不匹配");
-            $('input[name="name"]').focus();
-            return false;
-        }
-
-        data = $('input[name="nation"]').val();
-        picData = $('input[name="picNation"]').val();
-        if (data != picData) {
-            msg("民族不匹配");
-            $('input[name="nation"]').focus();
-            return false;
-        }
-        data = $('input[name="idcard"]').val();
-        picData = $('input[name="picIdcard"]').val();
-        if (data != picData) {
-            msg("身份证号不匹配");
-            $('input[name="idcard"]').focus();
-            return false;
-        }
-        data = $('input[name="date"]').val();
-        picData = $('input[name="picDate"]').val();
-        if (data != picData) {
-            msg("出生日期不匹配");
-            $('input[name="date"]').focus();
-            return false;
-        }
-        var province = $("#province5").val();
-        var city = $("#city5").val();
-        var district = $("#district5").val();
-        var detailAddress = $("#detailAddress").val();
-        data = "" + province + city + district + detailAddress;
-        picData = $('input[name="picAddress"]').val();
-        if (data != picData) {
-            msg("地址不匹配");
-            $('#detailAddress').focus();
             return false;
         }
         return true;
@@ -384,6 +275,17 @@
         });
     }
 
+    function callbackMsg(data) {
+        layer.open({
+            title: '注册结果'
+            ,content: data
+            ,end:function(){
+                window.location.href = "/frontLogin";
+            }
+        });
+    }
+
+
     <!-- 文件上传-->
     var paths = "";        //上传的文件，中间用逗号隔开
     var filesHashs = "";   //上传的文件hashmap值，中间用逗号隔开
@@ -392,7 +294,7 @@
         //多图片上传
         upload.render({
             elem: '#test2'
-            , url: '/asset/file_upload'
+            , url: '/file/upload'
             , multiple: true
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
@@ -436,16 +338,14 @@
             , theme: 'molv'
             , calendar: true
         });
-        laydate.render({
-            elem: '#picBirth' //指定元素
-            , theme: 'molv'
-            , calendar: true
-        });
     });
 
     $("#btBack").click(function(){
         window.location.href = "/frontLogin";
     });
+
+
+
 </script>
 
 </body>
