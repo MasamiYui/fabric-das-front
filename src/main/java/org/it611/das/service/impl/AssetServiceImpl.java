@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Service
 public class AssetServiceImpl implements AssetService {
@@ -19,8 +20,9 @@ public class AssetServiceImpl implements AssetService {
     private DegreeCertificateMapper degreeCertificateMapper;
 
 
+
     @Override
-    public JSONObject addDegreeCertificate(DegreeCertificateVO vo, HttpServletRequest request) {
+    public JSONObject addDegreeCertificate(DegreeCertificateVO vo, HttpServletRequest request) throws IOException {
 
         DegreeCertificate dc = Vo2PoUtil.degreeCertificateVo2Po(request, vo);
         int result = degreeCertificateMapper.addDegreeCertificate(dc);

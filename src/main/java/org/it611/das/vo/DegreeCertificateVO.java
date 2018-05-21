@@ -10,7 +10,7 @@ public class DegreeCertificateVO {
     private String degreeName;//学位名称
     //private byte[] headPortrait;//头像（做不出）
     private String certId;//证书Id
-    private String time;//时间
+    private String time;//证书发放时间
 
     private String files;//文件地址
 

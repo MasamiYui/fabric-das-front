@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>数字资产存证平台</title>
+
+    <link rel="icon" type="image/x-icon" th:href="@{/ico/favicon.png}"/>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/jcstatic/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link th:href="@{/jcstatic/dist/css/sb-admin-2.css}" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/jcstatic/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+
+    <!--引入layui的css-->
+    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+
+    <!--引入地区选择插件的css-->
+    <link href="@{/dist/css/main.css" rel="stylesheet}">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script th:src="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"></script>
+    <script th:src="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"></script>
+    <![endif]-->
+
+    <!--引入jquery-->
+    <script th:src="@{/jcstatic/vendor/jquery/jquery.js}"></script>
+
+    <style type="text/css">
+
+        #dataform .input-group .input-group-addon.aa {
+            padding: 9px 20px;
+            font-weight: 700;
+        }
+
+        #dataform .input-group .input-group-addon.aa.bb {
+            padding: 9px 27px;
+        }
+
+        .layui-upload-img {
+            width: 100px;
+            height: 100px;
+            margin: 0 10px 10px 0;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <div th:replace="/nav::navigation"></div>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">资产申请</h3>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <form role="form" id="dataform">
+                        <!--图片的地址-->
+                        <input type="hidden" name="files" id="files"/>
+                        <!--图片的Hash-->
+                     <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
+
+
+                        <!--上传图片-->
+                        <div class="col-lg-12 ">
+                            <button type="button" class="layui-btn" id="test2">学位证书扫描件上传</button>
+                            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                <!--已上传：-->
+                                <div class="layui-upload-list" id="demo2"></div>
+                            </blockquote>
+                        </div>
+
+                        <!--资产类型的具体表单-->
+                        <div id="fcontent" class="panel-body">
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>姓名</label>
+                                        <input name="name" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>出生年月</label>
+                                        <input type="text" name="date" class="form-control" id='birth'/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>学位授予单位</label>
+                                        <select name="degreeConferringUnit" class="form-control">
+                                            <option>重庆邮电大学</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>性别</label>
+                                        <div class="form-group">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="sex" id="maleoption"
+                                                       value="male" checked="true"/>男
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="sex" id="femaleoption"
+                                                       value="female"/>女
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>专业</label>
+                                        <input name="professional" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>学位类别</label>
+                                        <select name="degreeName" class="form-control">
+                                            <option>学士</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>学位证书编号</label>
+                                        <input name="certId" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>证书发放时间</label>
+                                        <input name="time" type="text" class="form-control" id='admissiondate'/>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--确认按钮-->
+                            <div class="col-lg-12 text-right">
+                                <button type="button" id="btSubmit" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    确&nbsp;&nbsp;定
+                                </button>
+                                <button type="button" id="btBack" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    重&nbsp;&nbsp;置
+                                </button>
+                            </div>
+
+                            <!-- /.row (nested) -->
+                        </div>
+                    </form>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/jcstatic/vendor/jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/jcstatic/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/jcstatic/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/jcstatic/dist/js/sb-admin-2.js}"></script>
+
+<!--引入layui:日期插件-->
+<script th:src="@{/jcstatic/layui/layui.js}"></script>
+
+<!--引入地区选择插件-->
+<script th:src="@{/dist/js/distpicker.data.js}"></script>
+<script th:src="@{/dist/js/distpicker.js}"></script>
+<script th:src="@{/dist/js/main.js}"></script>
+
+<script>
+    $(document).ready(function () {
+        initform();
+    });
+
+    function initform() {
+        $("#btSubmit").click(function () {
+            var $this = $(this);
+            $this.prop("disabled", true);
+            if (validateForm()) {
+                var queryString = $("#dataform").serialize();
+                console.log("表单序列化的结果" + queryString);
+                $.ajax({
+                    type: "post",
+                    url: "/asset/degreeCertification/add",
+                    data: queryString,
+                    dataType: "json",
+                    success: function (result) {
+                        if(result.code=200){
+                            callbackMsg("学位证书资产申请已提交");
+                        }else{
+                            callbackMsg("提交失败");
+                        }
+                    },
+                   /* complete: function (XMLHttpRequest, textStatus) {
+                        $this.prop("disabled", false);
+                        window.location.reload(true);
+                    }*/
+                });
+            } else {
+                $this.prop("disabled", false);
+            }
+
+        });
+    }
+
+    function validateForm() {
+        var reg = /^\d{18}$/;
+
+        /*  data = $('input[name="timeOfIssume"]').val();
+          if (data == "") {
+              msg("请选择发证时间");
+              $('input[name="timeOfIssume"]').focus();
+              return false;
+          }*/
+        return true;
+    }
+
+    function msg(data) {
+        layer.msg(data, {
+            time: 1000, //1s后自动关闭
+            icon: 5
+        });
+    }
+
+    function callbackMsg(data) {
+        layer.open({
+            title: '申请结果'
+            ,content: data
+            ,end:function(){
+                window.location.href = "/certificateInsert";
+            }
+        });
+    }
+
+
+    <!-- 文件上传-->
+    var photoCount=0;
+    layui.use('upload', function () {
+        var upload = layui.upload;
+        //多图片上传
+        upload.render({
+            elem: '#test2'
+            , url: '/file/upload'
+            , multiple: false
+            , number: 1
+            , before: function (obj) {
+                if(photoCount==1){
+                    msg("只能上传一张图片");
+                    return false;
+                }
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                });
+                photoView();
+            }
+            , done: function (res) {
+                if (res.code > 0) {
+                    photoCount++;
+                    $("#files").val(res.data.path);
+                   // $("#filesHash").val(res.data.filesHash);
+                }
+                console.log(res);
+            }
+        });
+    });
+
+    function photoView() {
+        <!--照片查看器-->
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.photos({
+                photos: '#demo2'
+                , anim: 5 //0-6的选择
+            });
+        });
+    }
+
+    $('#demo2').click(function () {
+        photoView();
+    });
+
+    <!--日期-->
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#birth' //指定元素
+            , theme: 'molv'
+            , calendar: true
+        });
+        laydate.render({
+            elem: '#admissiondate' //指定元素
+            , theme: 'molv'
+            , calendar: true
+        });
+    });
+</script>
+
+</body>
+
+</html>

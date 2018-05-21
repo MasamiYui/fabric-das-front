@@ -16,6 +16,7 @@ public class DegreeCertificate {
 
     private String files;//文件地址
     private String fileHash;//文件Hash
+    private String transactionId;
     private String state;//文件状态
     private String submitTime;//提交时间
 
@@ -131,7 +132,15 @@ public class DegreeCertificate {
         this.submitTime = submitTime;
     }
 
-    public DegreeCertificate(String id, String userId, String name, String sex, String date, String degreeConferringUnit, String professional, String degreeName, String certId, String time, String files, String fileHash, String state, String submitTime) {
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public DegreeCertificate(String id, String userId, String name, String sex, String date, String degreeConferringUnit, String professional, String degreeName, String certId, String time, String files, String fileHash, String transactionId, String state, String submitTime) {
         this.id = id;
         this.userId = userId;
         this.name = name;
@@ -144,9 +153,8 @@ public class DegreeCertificate {
         this.time = time;
         this.files = files;
         this.fileHash = fileHash;
+        this.transactionId = transactionId;
         this.state = state;
         this.submitTime = submitTime;
     }
-
-
 }

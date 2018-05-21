@@ -3,10 +3,10 @@
 <mapper namespace="org.it611.das.mapper.DegreeCertificateMapper" >
 
     <insert id="addDegreeCertificate" parameterType="org.it611.das.domain.DegreeCertificate">
-        INSERT INTO tb_degreecertification(id, owner_id, `name`, sex, `date`, degree_conferring_unit, professional, cert_id, `time`, files, fileshash, state,
-        submit_time)
-        VALUES (#{id}, #{userId}, #{name}, #{sex}, #{date}, #{degreeConferringUnit}, #{professional}, #{degreeName}, #{time}, #{files},
-        #{fileHash}, #{state}, #{submitTime})
+        INSERT INTO tb_degreecertification(id, owner_id, `name`, sex, `date`, degree_conferring_unit, professional, degree_name, cert_id, `time`, files, fileshash,
+        transaction_id, state, submit_time)
+        VALUES (#{id}, #{userId}, #{name}, #{sex}, #{date}, #{degreeConferringUnit}, #{professional}, #{degreeName}, #{certId}, #{time}, #{files},#{fileHash},
+        #{transactionId}, #{state}, #{submitTime})
     </insert>
 
 </mapper>

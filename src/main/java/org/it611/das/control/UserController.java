@@ -63,7 +63,6 @@ public class UserController {
     }
 
 
-
     @RequestMapping(value = "/user/register")
     @ResponseBody
     public JSONObject userRegister(UserVO userVO){

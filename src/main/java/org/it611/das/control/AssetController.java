@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Controller
 public class AssetController {
@@ -18,11 +19,15 @@ public class AssetController {
 
     @RequestMapping("/asset/degreeCertification/add")
     @ResponseBody
-    public JSONObject addDegreeCertification(HttpServletRequest request, DegreeCertificateVO certificateVO){
+    public JSONObject addDegreeCertification(HttpServletRequest request, DegreeCertificateVO certificateVO) throws IOException {
 
         JSONObject resultData = assetService.addDegreeCertificate(certificateVO, request);
         return resultData;
     }
+
+    //     学历证书
+    @RequestMapping("/certificateInsert")
+    public String certificateInsert(){return "insert_certificate";}
 
 
 }
