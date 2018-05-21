@@ -24,6 +24,9 @@
     <!-- Custom Fonts -->
     <link th:href="@{/jcstatic/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
 
+    <!--引入layui的css-->
+    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -53,12 +56,15 @@
                                 <input class="form-control" placeholder="Password" name="password" type="password"
                                        value="">
                             </div>
+                            <div class="form-group">
+                                <span style="color:red;" id="callbackInfo"></span>
+                            </div>
 
                             <!-- Change this to a button or input when using this as a form -->
                             <a id="btSubmit" class="btn btn-lg btn-success btn-block">Login</a>
                             <div class="form-group" style="margin-top:10px;text-align: right;">
-                                <span><a  href="/userReg">用户注册</a> </span>
-                                <span><a  href="/companyReg">企业注册</a> </span>
+                                <span><a href="/userReg">用户注册</a> </span>
+                                <span><a href="/companyReg">企业注册</a> </span>
                             </div>
                         </fieldset>
                     </form>
@@ -80,8 +86,15 @@
 <!-- Custom Theme JavaScript -->
 <script th:src="@{/jcstatic/dist/js/sb-admin-2.js}"></script>
 
-<script>
+<!--引入layu-->
+<script th:src="@{/jcstatic/layui/layui.js}"></script>
 
+<script>
+    $(document).keyup(function (event) {
+        if (event.keyCode == 13) {
+            $("#btSubmit").click();
+        }
+    });
     $("#btSubmit").click(function () {
         var queryString = $("#dataform").serialize();
         $.ajax({
@@ -89,11 +102,32 @@
             url: "/user/login",
             data: queryString,
             dataType: "json",
-            success: function (data) {
-            },
+            success: function (result) {
+                if (result.code == "400") {
+                    $("#callbackInfo").text("帐号或密码不正确");
+                } else if (result.code == "200") {
+                    window.location.href = "/userHome";
+                }
+            }
         });
     });
 
+    /*function callbackMsg(data) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.open({
+                title: '登陆结果'
+                , content: data
+                , end: function () {
+                    window.location.href = "/frontLogin";
+                }
+            });
+        });
+    }*/
+
+    $("#dataform input").focus(function () {
+        $("#callbackInfo").html("");
+    });
 
 </script>
 

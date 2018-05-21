@@ -55,6 +55,12 @@ public class UserServiceImpl implements UserService {
         Jedis client = RedisUtil.getJedis();
         client.set(token, new ObjectMapper().writeValueAsString(userMap));
         client.close();
+/*
+        Map dataMap = new HashMap();
+        dataMap.put("token",token);
+        dataMap.put("id",userMap.get("id"));
+*/
+
         return ResultUtil.constructResponse(200,"ok", token);
     }
 
@@ -115,18 +121,34 @@ public class UserServiceImpl implements UserService {
     public JSONObject companyRegister(CompanyVO companyVO) {
 
         Company company = Vo2PoUtil.ConpanyVo2Po(companyVO);
-        int result = companyDao.addCompany(company);
 
         HashMap<String, Object> resultMap = companyDao.findCompanyByCreditId(company.getCreditId());
 
-        if(resultMap != null) {
+        if(resultMap!=null) {
 
             return ResultUtil.constructResponse(400, "the credit id have registered.", null);
         }
 
-        if (result == 0) {
-            return ResultUtil.constructResponse(400, "failed to register company user.", null);
+        String ss=company.getCompanyEmail();
+
+        resultMap = companyDao.findCompanyByEmail(ss);
+
+
+        if(resultMap!=null) {
+            return ResultUtil.constructResponse(400, "the email have registered.", null);
         }
+
+        resultMap = companyDao.findCompanyByUsername(company.getUsername());
+        if(resultMap!=null) {
+            return ResultUtil.constructResponse(400, "the username have registered.", null);
+        }
+
+        int result = companyDao.addCompany(company);
+
+        if (result == 0) {
+            return ResultUtil.constructResponse(400, "failed to register company.", null);
+        }
+
 
         return ResultUtil.constructResponse(200, "ok", null);
     }

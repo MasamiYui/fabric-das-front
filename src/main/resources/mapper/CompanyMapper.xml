@@ -43,7 +43,7 @@
         establishment_time as establishmentTime, start_time as startTime, end_time as endTime, business_scope as businessScope,
         registration_authority as registrationAuthority, registration_time as registrationTime, files, state, submit_time as submitTime
         FROM tb_company
-        WHERE company_email = #{email}
+        WHERE company_email = #{email} and company_email!=''
     </select>
 
 </mapper>
