@@ -6,11 +6,13 @@ import org.it611.das.vo.DegreeCertificateVO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 
-public interface AssetService {
+public interface CertAssetService {
 
     JSONObject addDegreeCertificate(DegreeCertificateVO vo, HttpServletRequest request) throws IOException;
 
+    HashMap<String, Object> selectCertAssetList(int currentPage, int numberOfPages);
 
-
+    HashMap selCertDetail(String id);
 }
