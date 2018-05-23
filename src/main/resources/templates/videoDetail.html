@@ -85,16 +85,16 @@
                                     <td>申请人</td>
                                     <td th:text="${record.owner_id}"></td>
                                 </tr>
-                                <tr>
+                                <tr >
                                     <td>创作者</td>
                                     <td th:text="${record.author}"></td>
                                 </tr>
-                                <tr>
+                                <!--<tr id="filehash">
                                     <td>资产指纹</td>
                                     <td th:text="${record.fileshash}"></td>
-                                </tr>
+                                </tr>-->
 
-                                <tr>
+                                <tr id="filehash">
                                     <td>申请时间</td>
                                     <td th:text="${record.submit_time}"></td>
                                 </tr>
@@ -204,6 +204,7 @@
         showReportQRCode();
         showVideoQRCode();
         videoLinks();
+        fileHashTr();
     });
 
     function showReportQRCode() {
@@ -219,12 +220,12 @@
     function showVideoQRCode() {
         if (!files) return;
         var verifyUrl = "http://localhost:8086/certDetail?files=" + files;
-        var QRUrl = "http://pan.baidu.com/share/qrcode?w=120&h=120&url=" + verifyUrl;
+        var QRUrl = "http://pan.baidu.com/share/qrcode?w=125&h=125&url=" + verifyUrl;
         $("#QRcodeVideo").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
 
     function videoLinks() {
-        var patt =/^(http|ftp|https):\/\/(.)+(\.swf|\.flv|\.mp4|\.rmvb|\.avi|\.mpeg|\.ra|\.ram|\.mov|\.wmv)(.)*/;
+        var patt = /^(http|ftp|https):\/\/(.)+(\.swf|\.flv|\.mp4|\.rmvb|\.avi|\.mpeg|\.ra|\.ram|\.mov|\.wmv)(.)*/;
         var urls = new Array();
         var urlArr = files.split(",");
         for (var index in urlArr) {
@@ -236,6 +237,21 @@
         for (var link in urls) {
             $("#videoLink").append('<button style="margin-right:40px;" class="btn btn-info" onclick="link(this)" data-id="' + urls[link] + '">播放视频' + (++i) + '</button>');
         }
+    }
+
+    function fileHashTr(){
+        var filehash=[[${record.fileshash}]];
+        var hashArr = filehash.split(",");
+        var count=0;
+        for(var j in hashArr){
+            var html ='<tr>'
+                +'<td>文件' + (++count)+ '指纹</td>'
+                + '<td>' + hashArr[j]+ '</td>'
+                +'</tr>'
+            ;
+            $("#filehash").before(html);
+        }
+
     }
 
     layui.use('layer', function () {
