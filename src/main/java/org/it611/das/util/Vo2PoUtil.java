@@ -50,23 +50,21 @@ public final class Vo2PoUtil {
 
     public static Video videoVo2Po(HttpServletRequest request, VedioVO vo) throws IOException {
 
-/*        Jedis client = RedisUtil.getJedis();
-
-        String path = vo.getFiles();
-        String filesHash = client.get(path);
-
+        Jedis client = RedisUtil.getJedis();
         String token = CookieUtil.getCookie(request, CookieUtil.COOKIE_TOKEN_KEY);
         String jsonStr= client.get(token);
-                HashMap obj = new ObjectMapper().readValue(jsonStr, HashMap.class);
+        HashMap obj = new ObjectMapper().readValue(jsonStr, HashMap.class);
         String userId = obj.get("id").toString();
-        client.close();*/
 
-        //方便接口调试
-        String filesHash = "";
-        String userId="123";
-
-
-
+        String filesHash = "";//方便进行拼接
+        String[] filesArr = vo.getFiles().split(",");
+        for(int i=0; i<filesArr.length; i++){
+            String temp = client.get(filesArr[0]);
+            filesHash = filesHash + temp+ ",";
+        }
+        //去掉,
+        filesHash.substring(0, filesHash.length()-1);
+        client.close();
         return new Video(IdUtil.getId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
     }
 
