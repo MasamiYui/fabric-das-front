@@ -84,76 +84,50 @@
                     <form role="form" id="dataform">
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
+                        <input type="hidden" name="author" id="author"/>
                         <!--图片的Hash-->
-                     <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
-
-
-                        <!--上传图片-->
-                        <div class="col-lg-12 ">
-                            <button type="button" class="layui-btn" id="test2">学位证书扫描件上传</button>
-                            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                                <!--已上传：-->
-                                <div class="layui-upload-list" id="demo2"></div>
-                            </blockquote>
-                        </div>
+                        <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
 
                         <!--资产类型的具体表单-->
                         <div id="fcontent" class="panel-body">
                             <div class="row">
-
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label>姓名</label>
-                                        <input name="name" class="form-control"/>
+                                        <label>作品名称</label>
+                                        <input name="title" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <label>出生年月</label>
-                                        <input type="text" name="date" class="form-control" id='birth'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>学位授予单位</label>
-                                        <select name="degreeConferringUnit" class="form-control">
-                                            <option>重庆邮电大学</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>性别</label>
-                                        <div class="form-group">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="sex" id="maleoption"
-                                                       value="男" checked="true"/>男
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="sex" id="femaleoption"
-                                                       value="女"/>女
-                                            </label>
-                                        </div>
+                                        <label>创作者<a onclick="addUser()" style="margin-left: 30px;" href="#"><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-plus"></i> </a></label>
+                                        <span id="adduser">
+                                            <input type="text"   class="form-control"
+                                                   th:placeholder="第一创作者"/>
+                                            <input type="text"   class="form-control" placeholder="第二创作者"/>
+                                        </span>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label>专业</label>
-                                        <input name="professional" class="form-control"/>
+                                        <label>描述</label>
+                                        <textarea rows="3" name="des" class="form-control"
+                                                  placeholder="请填写资产描述"></textarea>
                                     </div>
-                                    <div class="form-group">
-                                        <label>学位类别</label>
-                                        <select name="degreeName" class="form-control">
-                                            <option>学士</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>学位证书编号</label>
-                                        <input name="certId" class="form-control"/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>证书发放时间</label>
-                                        <input name="time" type="text" class="form-control" id='admissiondate'/>
-                                    </div>
-
                                 </div>
+                            </div>
 
+                            <!--上传图片-->
+                            <!--<div class="col-lg-12 ">
+                                <button type="button" class="layui-btn" id="test2">视频文件上传</button>
+                                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                    &lt;!&ndash;已上传：&ndash;&gt;
+                                    <div class="layui-upload-list" id="demo2"></div>
+                                </blockquote>
+                            </div>-->
+                            <!--上传视频-->
+                            <div class="col-lg-12 ">
+                                <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频
+                                </button>
+                                <div id="fileList" style="margin-top: 15px;"></div>
                             </div>
 
                             <!--确认按钮-->
@@ -218,20 +192,20 @@
                 console.log("表单序列化的结果" + queryString);
                 $.ajax({
                     type: "post",
-                    url: "/asset/degreeCertification/add",
+                    url: "/asset/video/add",
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
-                        if(result.code=200){
-                            callbackMsg("学位证书资产申请已提交");
-                        }else{
+                        if (result.code = 200) {
+                            callbackMsg("视频资产申请已提交");
+                        } else {
                             callbackMsg("提交失败");
                         }
                     },
-                   /* complete: function (XMLHttpRequest, textStatus) {
-                        $this.prop("disabled", false);
-                        window.location.reload(true);
-                    }*/
+                    /* complete: function (XMLHttpRequest, textStatus) {
+                         $this.prop("disabled", false);
+                         window.location.reload(true);
+                     }*/
                 });
             } else {
                 $this.prop("disabled", false);
@@ -242,13 +216,18 @@
 
     function validateForm() {
         var reg = /^\d{18}$/;
-
         /*  data = $('input[name="timeOfIssume"]').val();
           if (data == "") {
               msg("请选择发证时间");
               $('input[name="timeOfIssume"]').focus();
               return false;
           }*/
+        var author = '';
+        var userNodes=$("#adduser>input");
+        for(var i=0;i<userNodes.length;i++){
+            author= author+ userNodes.eq(i).val()+',';
+        }
+        $("#author").val(author);
         return true;
     }
 
@@ -262,77 +241,69 @@
     function callbackMsg(data) {
         layer.open({
             title: '申请结果'
-            ,content: data
-            ,end:function(){
-                window.location.href = "/certificateInsert";
+            , content: data
+            , end: function () {
+                window.location.href = "/videoForm";
             }
         });
     }
 
-
     <!-- 文件上传-->
-    var photoCount=0;
+    var paths = "";        //上传的文件，中间用逗号隔开
     layui.use('upload', function () {
         var upload = layui.upload;
-        //多图片上传
+        var videoName;
         upload.render({
-            elem: '#test2'
+            elem: '#test5'
             , url: '/file/upload'
-            , multiple: false
-            , number: 1
+            , accept: 'video' //视频
             , before: function (obj) {
-                if(photoCount==1){
-                    msg("只能上传一张图片");
-                    return false;
-                }
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
-                    $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                    videoName = file.name;
+                    loading();
                 });
-                photoView();
             }
             , done: function (res) {
                 if (res.code > 0) {
-                    photoCount++;
-                    $("#files").val(res.data.path);
-                   // $("#filesHash").val(res.data.filesHash);
+                    // $("#filesHash").val(res.data.filesHash);
+                    $('#fileList').append('<span style="width: 200px;padding-top: 10px;color:blue;" href="#"' + 'class="layui-upload-img" >' + videoName + '</span>');
+                    closeLoading();
+
+                    var pathValue=res.data.path;
+                    paths = paths + pathValue + ",";
+                    $("#files").val(paths);
                 }
-                console.log(res);
             }
         });
     });
-
-    function photoView() {
-        <!--照片查看器-->
-        layui.use('layer', function () {
-            var layer = layui.layer;
-            layer.photos({
-                photos: '#demo2'
-                , anim: 5 //0-6的选择
-            });
+    
+    function loading() {
+       var index= layer.msg('文件上传中...', {
+            icon: 16
+            ,shade: 0.01
+            ,time:0
         });
     }
+    function closeLoading(index){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.close(layer.index);
+        });
 
-    $('#demo2').click(function () {
-        photoView();
+    }
+    //添加作者
+    var arr=['','','','三','四','五','六','七','八','九'];
+    var userId=2;
+    function addUser(){
+        var html='<input type="text"   class="form-control" placeholder="第'+arr[++userId]+'创作者"/>';
+        $("#adduser").append(html);
+    }
+
+    $("#btBack").click(function () {
+        window.location.href = "/videoForm";
     });
 
-    <!--日期-->
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#birth' //指定元素
-            , theme: 'molv'
-            , calendar: true
-        });
-        laydate.render({
-            elem: '#admissiondate' //指定元素
-            , theme: 'molv'
-            , calendar: true
-        });
-    });
 </script>
 
 </body>

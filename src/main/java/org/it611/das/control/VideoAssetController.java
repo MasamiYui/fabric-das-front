@@ -51,4 +51,6 @@ public class VideoAssetController {
         return modelAndView;
     }
 
+    @RequestMapping("/videoForm")
+    public String videoForm(){return "insert_videoAssert";}
 }
