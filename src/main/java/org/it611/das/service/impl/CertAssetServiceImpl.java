@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import org.it611.das.domain.DegreeCertificate;
 import org.it611.das.mapper.DegreeCertificateMapper;
 import org.it611.das.service.CertAssetService;
+import org.it611.das.util.IdUtil;
 import org.it611.das.util.ResultUtil;
 import org.it611.das.util.Vo2PoUtil;
 import org.it611.das.vo.DegreeCertificateVO;
@@ -50,6 +51,10 @@ public class CertAssetServiceImpl implements CertAssetService {
     @Override
     public HashMap selCertDetail(String id) {
         HashMap dataMap=degreeCertificateMapper.selectCertDetailById(id);
+        /*
+        String QRcode = IdUtil.getQrCode();
+        dataMap.put("QRcode",QRcode);
+        */
         return dataMap;
     }
 }

@@ -2,6 +2,7 @@ package org.it611.das.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class IdUtil {
 
@@ -19,6 +20,12 @@ public class IdUtil {
         id=temp+random;
         return id;
     }
+    //获取二维码的验证码
+    public static String getQrCode(){
+        String code=String.valueOf(UUID.randomUUID().hashCode());
+        return code;
+    }
+
 
 
 }
