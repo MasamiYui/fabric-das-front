@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.it611.das.mapper.VideoMapper">
+
+    <insert id="addVideo" parameterType="org.it611.das.domain.Video">
+        INSERT INTO tb_video(id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state)
+        VALUES (#{id}, #{title}, #{des}, #{ownerId}, #{author}, #{files}, #{filesHash}, #{transactionId}, #{submitTime}, #{state})
+    </insert>
+
+    <select id="selectVideoTotal" resultType="long">
+          select count(*) from tb_video
+    </select>
+
+    <select id="selectVideoList" resultType="hashmap">
+        select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
+        from tb_video
+    </select>
+
+    <select id="selectVideoDetailById" parameterType="string" resultType="hashmap">
+        select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
+        from tb_video
+        <where>
+            id=#{id}
+        </where>
+    </select>
+
+
+</mapper>

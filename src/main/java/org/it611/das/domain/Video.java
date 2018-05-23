@@ -22,6 +22,98 @@ public class Video {
 
     private String state;//状态
 
+    public Video(String id, String title, String des, String ownerId, String author, String files, String filesHash, String transactionId, String submitTime, String state) {
+        this.id = id;
+        this.title = title;
+        this.des = des;
+        this.ownerId = ownerId;
+        this.author = author;
+        this.files = files;
+        this.filesHash = filesHash;
+        this.transactionId = transactionId;
+        this.submitTime = submitTime;
+        this.state = state;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getFiles() {
+        return files;
+    }
+
+    public void setFiles(String files) {
+        this.files = files;
+    }
+
+    public String getFilesHash() {
+        return filesHash;
+    }
+
+    public void setFilesHash(String filesHash) {
+        this.filesHash = filesHash;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public String getSubmitTime() {
+        return submitTime;
+    }
+
+    public void setSubmitTime(String submitTime) {
+        this.submitTime = submitTime;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
 
 
