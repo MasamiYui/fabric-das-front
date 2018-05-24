@@ -37,20 +37,21 @@ public class MusicAssetServiceImpl implements MusicAssetService {
     }
 
     @Override
-    public HashMap<String, Object> selectMusicList(int currentPage, int numberOfPages) {
-
-        HashMap dataMap = new HashMap<String, Object>();
+    public HashMap<String, Object> selectMusicAssetList(int currentPage, int numberOfPages) {
+        HashMap<String, Object> dataMap = new HashMap<String,Object>();
         PageHelper.startPage(currentPage, numberOfPages);
-        List<HashMap> resultData = musicMapper.selectMusicList();
-        long total = musicMapper.selectMusicTotal();
-        dataMap.put("rows", resultData);
+        List<HashMap> rows=musicMapper.selectMusicAssertList();
+        Long total=musicMapper.selectMusicAssertTotal();
+        dataMap.put("rows", rows);
         dataMap.put("total", total);
         return dataMap;
     }
 
     @Override
     public HashMap selectMusicDetailById(String id) {
-        HashMap dataMap = musicMapper.selectMusicDetailById(id);
-        return dataMap;
+
+        HashMap record=musicMapper.selectMusicRecordById(id);
+        return record;
     }
+
 }

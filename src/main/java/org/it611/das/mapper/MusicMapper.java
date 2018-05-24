@@ -12,14 +12,10 @@ public interface MusicMapper {
 
     int addMusic(Music music);
 
-    //查询Music资产总数
-    Long selectMusicTotal();
+    List<HashMap> selectMusicAssertList();
 
-    //查询Music的所有列表
-    List<HashMap> selectMusicList();
+    Long selectMusicAssertTotal();
 
-    //根据id查询Music详情
-    HashMap selectMusicDetailById(@Param("id") String id);
-
+    HashMap selectMusicRecordById(String id);
 
 }

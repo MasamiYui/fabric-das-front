@@ -7,20 +7,20 @@
         VALUES (#{id}, #{title}, #{des}, #{ownerId}, #{author}, #{files}, #{filesHash}, #{transactionId}, #{submitTime}, #{state})
     </insert>
 
-    <select id="selectMusicTotal" resultType="long">
-          select count(*) from tb_music
+    <select id="selectMusicAssertTotal" resultType="long">
+        select count(*) from tb_music
     </select>
 
-    <select id="selectMusicList" resultType="hashmap">
+    <select id="selectMusicAssertList" resultType="hashmap">
         select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
         from tb_music
     </select>
 
-    <select id="selectMusicDetailById" parameterType="string" resultType="hashmap">
+    <select id="selectMusicRecordById" parameterType="string" resultType="hashmap">
         select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
         from tb_music
         <where>
-            id=#{id}
+            id=#{value}
         </where>
     </select>
 

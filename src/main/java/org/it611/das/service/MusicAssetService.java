@@ -11,7 +11,7 @@ public interface MusicAssetService {
 
     JSONObject addMusic(MusicVO vo, HttpServletRequest request) throws IOException;
 
-    HashMap<String, Object> selectMusicList(int currentPage, int numberOfPages);
+    HashMap<String,Object> selectMusicAssetList(int currentPage, int numberOfPages);
 
     HashMap selectMusicDetailById(String id);
 }
