@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.it611.das.mapper.MusicMapper">
+
+    <insert id="addMusic" parameterType="org.it611.das.domain.Music">
+        INSERT INTO tb_music(id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state)
+        VALUES (#{id}, #{title}, #{des}, #{ownerId}, #{author}, #{files}, #{filesHash}, #{transactionId}, #{submitTime}, #{state})
+    </insert>
+
+    <select id="selectMusicTotal" resultType="long">
+          select count(*) from tb_music
+    </select>
+
+    <select id="selectMusicList" resultType="hashmap">
+        select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
+        from tb_music
+    </select>
+
+    <select id="selectMusicDetailById" parameterType="string" resultType="hashmap">
+        select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
+        from tb_music
+        <where>
+            id=#{id}
+        </where>
+    </select>
+
+</mapper>

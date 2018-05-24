@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qcloud.image.ImageClient;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.it611.das.fastdfs.FastDFSClient;
 import org.it611.das.util.MD5Util;
 import org.it611.das.util.RedisUtil;
@@ -81,6 +80,16 @@ public class FileController {
         client.set(path, fileHash);
         client.close();
         return ResultUtil.constructResponse(200,"ok",dataMap);
+    }
+
+
+
+    @RequestMapping("/testpdf")
+    @ResponseBody
+    public JSONObject generatePDF() throws IOException {
+
+        return null;
+
     }
 
 

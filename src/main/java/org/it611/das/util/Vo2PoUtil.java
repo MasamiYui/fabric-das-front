@@ -2,14 +2,8 @@ package org.it611.das.util;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.it611.das.domain.Company;
-import org.it611.das.domain.DegreeCertificate;
-import org.it611.das.domain.User;
-import org.it611.das.domain.Video;
-import org.it611.das.vo.CompanyVO;
-import org.it611.das.vo.DegreeCertificateVO;
-import org.it611.das.vo.UserVO;
-import org.it611.das.vo.VedioVO;
+import org.it611.das.domain.*;
+import org.it611.das.vo.*;
 import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +60,26 @@ public final class Vo2PoUtil {
         filesHash.substring(0, filesHash.length()-1);
         client.close();
         return new Video(IdUtil.getId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
+    }
+
+    public static Music musicVo2Po(HttpServletRequest request, MusicVO vo) throws IOException {
+
+        Jedis client = RedisUtil.getJedis();
+        String token = CookieUtil.getCookie(request, CookieUtil.COOKIE_TOKEN_KEY);
+        String jsonStr= client.get(token);
+        HashMap obj = new ObjectMapper().readValue(jsonStr, HashMap.class);
+        String userId = obj.get("id").toString();
+
+        String filesHash = "";//方便进行拼接
+        String[] filesArr = vo.getFiles().split(",");
+        for(int i=0; i<filesArr.length; i++){
+            String temp = client.get(filesArr[0]);
+            filesHash = filesHash + temp+ ",";
+        }
+        //去掉,
+        filesHash.substring(0, filesHash.length()-1);
+        client.close();
+        return new Music(IdUtil.getId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
     }
 
 }
