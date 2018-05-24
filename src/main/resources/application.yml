@@ -8,6 +8,10 @@ logging:
     org.it611.das.mapper : debug
 
 spring:
+    http:
+        multipart:
+          max-file-size: 100Mb
+          max-request-size: 100Mb
     mvc:
         favicon:
           enabled: false

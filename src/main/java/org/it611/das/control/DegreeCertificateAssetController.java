@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 @Controller
-public class CertificateAssetController {
+public class DegreeCertificateAssetController {
 
     @Autowired
     private CertAssetService certAssetService;
@@ -33,7 +33,6 @@ public class CertificateAssetController {
     public String certificateInsert() {
         return "insert_certificate";
     }
-
 
     //获取学位证书列表
     @RequestMapping("/certList")

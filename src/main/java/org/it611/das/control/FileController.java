@@ -37,6 +37,9 @@ public class FileController {
         Jedis client = RedisUtil.getJedis();
         client.set(path, fileHash);
         client.close();
+
+        System.out.println("=======>>>"+dataMap.get("path"));
+        System.out.println("=======>>>"+fileHash);
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
 

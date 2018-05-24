@@ -29,6 +29,9 @@ public class VideoAssetController {
     }
 
 
+    @RequestMapping("/videoAssetListIndex")
+    public String videoIndex(){return "videoAsset_list";}
+
     @RequestMapping("/videoAsset/videoList")
     @ResponseBody
     public JSONObject videoList(int currentPage, int numberOfPages) {
@@ -39,6 +42,7 @@ public class VideoAssetController {
 
 
     @RequestMapping("/videoDetail")
+    @ResponseBody
     public ModelAndView videoDetail(String id){
         HashMap record = videoAssetService.selectVedioDetailById(id);
         ModelAndView modelAndView = new ModelAndView();
@@ -47,4 +51,6 @@ public class VideoAssetController {
         return modelAndView;
     }
 
+    @RequestMapping("/videoForm")
+    public String videoForm(){return "insert_videoAssert";}
 }
