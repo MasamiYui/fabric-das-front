@@ -4,7 +4,8 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.*;
-import org.it611.das.fastdfs.FastDFSClient;
+import org.it611.das.util.FileUtil;
+import org.it611.das.util.QRUtil;
 
 import java.io.*;
 import java.util.HashMap;
@@ -13,18 +14,20 @@ import java.util.UUID;
 
 public class PDFTemplate {
 
-    public static String generateDegreeCertification(String templatePath, HashMap degreeCertificateMap) throws IOException, DocumentException {
+    public static String generateDegreeCertification(HashMap degreeCertificateMap, String QRText) throws IOException, DocumentException {
+
+        //学历证书模板路径
+        String templatePath = PDFTemplate.class.getResource("/").getPath()+"pdf/"+"degreeCertificate.pdf";
+        templatePath = templatePath.substring(1, templatePath.length());//TODO linux下可能不需要
+        System.out.println(templatePath);
 
         // 生成的文件路径
-       // String targetPath = "C:\\Users\\YUI\\Desktop\\result3.pdf";
-        String targetPath = PDFTemplate.class.getResource("/").getPath()+"tmp/";//TODO：linux下路径可能需要修改（到时记得修改）
+        String targetPath = PDFTemplate.class.getResource("/").getPath()+"tmp/"+UUID.randomUUID().toString()+".pdf";//TODO：linux下路径可能需要修改
+        targetPath = targetPath.substring(1, targetPath.length());
 
-        System.out.println(targetPath);
         // 书签名
         String fieldName = "image1";
 
-        // 图片路径
-        String imagePath = PDFTemplate.class.getResource("/").getPath()+"pdf/"+"degreeCertificate.pdf";
 
         // 读取模板文件
         InputStream input = new FileInputStream(new File(templatePath));
@@ -39,8 +42,8 @@ public class PDFTemplate {
         form.addSubstitutionFont(baseFont);
 
         //表单处理
-        form.setField("assetId", degreeCertificateMap.get("assetId").toString());
-        form.setField("owner", degreeCertificateMap.get("owner").toString());
+        form.setField("assetId", degreeCertificateMap.get("id").toString());
+        form.setField("owner", degreeCertificateMap.get("ownerId").toString());
         form.setField("name", degreeCertificateMap.get("name").toString());
         form.setField("sex", degreeCertificateMap.get("sex").toString());
         form.setField("date", degreeCertificateMap.get("date").toString());
@@ -48,7 +51,7 @@ public class PDFTemplate {
         form.setField("professional", degreeCertificateMap.get("professional").toString());
         form.setField("degreeName",degreeCertificateMap.get("degreeName").toString());
         form.setField("certId",degreeCertificateMap.get("certId").toString());
-        form.setField("fileshash", degreeCertificateMap.get("fileshash").toString());
+        form.setField("fileshash", degreeCertificateMap.get("filesHash").toString());
         form.setField("transactionId", degreeCertificateMap.get("transactionId").toString());
         form.setField("state", degreeCertificateMap.get("state").toString());
         form.setField("time", degreeCertificateMap.get("time").toString());
@@ -59,8 +62,11 @@ public class PDFTemplate {
         float x = signRect.getLeft();
         float y = signRect.getBottom();
 
+        //生成二维码
+        String QRFilePath = QRUtil.GenerateQR(QRText);//生成QR，并且将temp文件保存到QRFilePath；
+
         // 读图片
-        Image image = Image.getInstance(imagePath);
+        Image image = Image.getInstance(QRFilePath);
         // 获取操作的页面
         PdfContentByte under = stamper.getOverContent(pageNo);
         // 根据域的大小缩放图片
@@ -71,29 +77,12 @@ public class PDFTemplate {
         stamper.close();
         reader.close();
         // 将图片提交到FastDFS获得一个URL
-        String fileName = UUID.randomUUID().toString();//暂定
-        String pdfFileUrl = FastDFSClient.uploadFile(new File(targetPath),fileName);
-        deleteFile(targetPath);//暂时不处理异常
-        return pdfFileUrl;
+        //String fileName = UUID.randomUUID().toString();//暂定
+        //String pdfFileUrl=FastDFSClient.saveFile(new File(targetPath));//将文件上传到fastDFS，返回http url
+        FileUtil.deleteFile(QRFilePath);//删除本地临时图片 TODO 暂时不处理异常
+        //FileUtil.deleteFile(targetPath);//删除本地临时PDF  TODO 暂时不处理异常
+        return targetPath;
     }
 
-
-    //工具类
-    public static boolean deleteFile(String fileName) {
-        File file = new File(fileName);
-        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
-        if (file.exists() && file.isFile()) {
-            if (file.delete()) {
-                System.out.println("删除单个文件" + fileName + "成功！");
-                return true;
-            } else {
-                System.out.println("删除单个文件" + fileName + "失败！");
-                return false;
-            }
-        } else {
-            System.out.println("删除单个文件失败：" + fileName + "不存在！");
-            return false;
-        }
-    }
 
 }
