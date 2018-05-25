@@ -11,7 +11,7 @@
 
     <title>数字资产存证平台</title>
 
-    <link rel="icon" type="image/x-icon" th:href="@{/ico/favicon.png}"/>
+    <link rel="icon" type="image/x-icon" th:href="@{/image/favicon.png}"/>
 
     <!-- Bootstrap Core CSS -->
     <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -65,79 +65,81 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <strong>资产验证报告</strong>
-                       <!-- <span style="float: right;" id="reportPrint"><a href="#"><i class="glyphicon glyphicon-print"></i> 打印</a></span>-->
+                        <!-- <span style="float: right;" id="reportPrint"><a href="#"><i class="glyphicon glyphicon-print"></i> 打印</a></span>-->
                     </div>
                     <div class="panel-body">
 
                         <div class="control-group col-lg-6">
-                        <table width="100%" class="table table-striped table-bordered table-hover"
-                               id="tableList">
-                            <tbody id="items">
-                            <tr>
-                                <td>资产编号</td>
-                                <td th:text="${record.id}"></td>
-                            </tr>
-                            <tr>
-                                <td>拥有者编号</td>
-                                <td th:text="${record.ownerId}"></td>
-                            </tr>
-                            <tr>
-                                <td>姓名</td>
-                                <td th:text="${record.name}"></td>
-                            </tr>
-                            <tr>
-                                <td>性别</td>
-                                <td th:text="${record.sex}"></td>
-                            </tr>
-                            <tr>
-                                <td>出生日期</td>
-                                <td th:text="${record.date}"></td>
-                            </tr>
-                            <tr>
-                                <td>授予单位</td>
-                                <td th:text="${record.degreeConferringUnit}"></td>
-                            </tr>
-                            <tr>
-                                <td>专业</td>
-                                <td th:text="${record.professional}"></td>
-                            </tr><tr>
-                                <td>学位类别</td>
-                                <td th:text="${record.degreeName}"></td>
-                            </tr>
-                            <tr>
-                                <td>证书编号</td>
-                                <td th:text="${record.certId}"></td>
-                            </tr>
-                            <tr>
-                                <td>发证时间</td>
-                                <td th:text="${record.time}"></td>
-                            </tr>
-                            <tr>
-                                <td>文件指纹</td>
-                                <td th:text="${record.filesHash}"></td>
-                            </tr> <tr>
-                                <td>交易单号</td>
-                                <td th:text="${record.transactionId}"></td>
-                            </tr>
-                            <tr>
-                                <td>审核状态</td>
-                                <th:block th:switch="${record.state}">
-                                    <td th:case="0">未审核</td>
-                                    <td th:case="1">已审核</td>
-                                    <td th:case="2">不通过</td>
-                                    <td th:case="3">注销</td>
-                                </th:block>
-                            </tr>
-                            </tbody>
-                        </table>
+                            <table width="100%" class="table table-striped table-bordered table-hover"
+                                   id="tableList">
+                                <tbody id="items">
+                                <tr>
+                                    <td>资产编号</td>
+                                    <td th:text="${record.id}"></td>
+                                </tr>
+                                <tr>
+                                    <td>拥有者编号</td>
+                                    <td th:text="${record.ownerId}"></td>
+                                </tr>
+                                <tr>
+                                    <td>姓名</td>
+                                    <td th:text="${record.name}"></td>
+                                </tr>
+                                <tr>
+                                    <td>性别</td>
+                                    <td th:text="${record.sex}"></td>
+                                </tr>
+                                <tr>
+                                    <td>出生日期</td>
+                                    <td th:text="${record.date}"></td>
+                                </tr>
+                                <tr>
+                                    <td>授予单位</td>
+                                    <td th:text="${record.degreeConferringUnit}"></td>
+                                </tr>
+                                <tr>
+                                    <td>专业</td>
+                                    <td th:text="${record.professional}"></td>
+                                </tr>
+                                <tr>
+                                    <td>学位类别</td>
+                                    <td th:text="${record.degreeName}"></td>
+                                </tr>
+                                <tr>
+                                    <td>证书编号</td>
+                                    <td th:text="${record.certId}"></td>
+                                </tr>
+                                <tr>
+                                    <td>发证时间</td>
+                                    <td th:text="${record.time}"></td>
+                                </tr>
+                                <tr>
+                                    <td>文件指纹</td>
+                                    <td th:text="${record.filesHash}"></td>
+                                </tr>
+                                <tr>
+                                    <td>交易单号</td>
+                                    <td th:text="${record.transactionId}"></td>
+                                </tr>
+                                <tr>
+                                    <td>审核状态</td>
+                                    <th:block th:switch="${record.state}">
+                                        <td th:case="0">未审核</td>
+                                        <td th:case="1">已审核</td>
+                                        <td th:case="2">不通过</td>
+                                        <td th:case="3">注销</td>
+                                    </th:block>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="control-group col-lg-6 layui-upload-list" id="layer-photos-demo">
 
-                            <div class="col-lg-12">
-                                    <img style="width: 100%;height: 100%;" th:if="${record.files}!=null and ${record.files}!=''" th:src="${record.files}"
-                                         class="layui-upload-img"/>
-                                    <p th:unless="${record.files}!=null and ${record.files}!=''" th:text="无图片"
-                                       class="layui-upload-img"></p>
+                            <div id="picShow" class="col-lg-12">
+                                <!--<img style="width: 100%;height: 100%;" th:if="${record.files}!=null and ${record.files}!=''" th:src="${record.files}"
+                                     class="layui-upload-img"/>
+                                <p th:unless="${record.files}!=null and ${record.files}!=''" th:text="无图片"
+                                   class="layui-upload-img"></p>-->
                             </div>
 
                             <div id="QRcodePic" style="margin: 0px;text-align: right" class="col-lg-12">
@@ -201,17 +203,31 @@
 <script th:src="@{/jcstatic/layui/layui.js}"></script>
 
 <script th:inline="javascript">
-    var recordId=[[${record.id}]];
+    var recordId = [[${record.id}]];
+    var state = [[${record.state}]];  //判断审核状态
+
 
     $(document).ready(function () {
-        showQRCode();
+        picShow();
+
+        if (state == "1") {
+            showQRCode();
+        }
     });
 
+    function picShow() {
+        var files = [[${record.files}]];
+        if (files) {
+            $("#picShow").append('<img style="width: 100%;height: 100%;" class="layui-upload-img" src="' + files + '"/>');
+        }
+
+    }
+
     function showQRCode() {
-        if(!recordId) return;
-        var verifyUrl = "http://localhost:8086/certDetail?recordId="+recordId;
-        var QRUrl="http://pan.baidu.com/share/qrcode?w=150&h=150&url="+verifyUrl;
-        $("#QRcodePic").html("<img title='"+verifyUrl+"' src='" + QRUrl + "'/>");
+        if (!recordId) return;
+        var verifyUrl = "http://localhost:8086/certDetail?recordId=" + recordId;
+        var QRUrl = "http://pan.baidu.com/share/qrcode?w=150&h=150&url=" + verifyUrl;
+        $("#QRcodePic").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
 
     layui.use('layer', function () {
@@ -222,11 +238,10 @@
         });
     });
 
-//reportPrint 打印页面
+    //reportPrint 打印页面
     $("#reportPrint").click(function () {
         window.print();
     });
-
 
 
 </script>

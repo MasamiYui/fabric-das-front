@@ -11,7 +11,7 @@
 
     <title>数字资产存证平台</title>
 
-    <link rel="icon" type="image/x-icon" th:href="@{/ico/favicon.png}"/>
+    <link rel="icon" type="image/x-icon" th:href="@{/image/favicon.png}"/>
 
     <!-- Bootstrap Core CSS -->
     <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
@@ -122,7 +122,7 @@
                                    class="layui-upload-img"></p>-->
                                 <div class="col-lg-12" style="text-align: center">
                                     <div id="QRcodeReport" style="margin: 0px;" class="col-lg-12"></div>
-                                    <div class="col-lg-12">资产报告二维码</div>
+                                    <div id="QrReportTip" class="col-lg-12" style="display: none;">资产报告二维码</div>
                                 </div>
                                 <div class="col-lg-12" style="text-align: center">
                                     <div id="QRcodeVideo" style="margin: 0px;" class="col-lg-12"></div>
@@ -199,10 +199,16 @@
 <script th:src="@{/jcstatic/layui/layui.js}"></script>
 
 <script th:inline="javascript">
+    var state = [[${record.state}]];  //判断审核状态
 
     $(document).ready(function () {
-        showReportQRCode();
+
+        if (state=="1"){
+            showReportQRCode();
+            $("#QrReportTip").show();
+        }
         showVideoQRCode();
+
         videoLinks();
         fileHashTr();
     });
@@ -219,7 +225,7 @@
 
     function showVideoQRCode() {
         if (!files) return;
-        var verifyUrl = "http://localhost:8086/certDetail?files=" + files;
+        var verifyUrl = "http://localhost:8086/videoQrcodeScanResult?files=" + files;
         var QRUrl = "http://pan.baidu.com/share/qrcode?w=125&h=125&url=" + verifyUrl;
         $("#QRcodeVideo").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
@@ -235,7 +241,7 @@
         }
         var i = 0;
         for (var link in urls) {
-            $("#videoLink").append('<button style="margin-right:40px;" class="btn btn-info" onclick="link(this)" data-id="' + urls[link] + '">播放视频' + (++i) + '</button>');
+            $("#videoLink").append('<a target="_blank" style="margin-right:40px;" class="btn btn-info"  href="/videoPalyLink?linkAddress=' + urls[link] + '">播放视频' + (++i) + '</a>');
         }
     }
 
@@ -277,6 +283,7 @@
         });
         /*layer.msg('点击任意处关闭');*/
     }
+
 
 
 </script>

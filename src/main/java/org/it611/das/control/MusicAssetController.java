@@ -54,4 +54,24 @@ public class MusicAssetController {
     @RequestMapping("/musicForm")
     public String videoForm(){return "insert_musicAssert";}
 
+
+    //音频链接地址播放
+    @RequestMapping("/musicPalyLink")
+    public ModelAndView videoPalyLink(String linkAddress){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("videoUrl", linkAddress);
+        modelAndView.setViewName("videoDetailPlay");
+        return modelAndView;
+    }
+
+
+    //音二维码扫描结果
+    @RequestMapping("/musicQrcodeScanResult")
+    public ModelAndView QrcodeScanResult(String files){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("filesPath",files);
+        modelAndView.setViewName("QRPhoneMusicList");
+        return modelAndView;
+    }
+
 }

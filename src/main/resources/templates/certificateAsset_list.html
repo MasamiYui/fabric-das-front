@@ -10,7 +10,7 @@
     <meta name="author" content=""/>
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
-
+    <link rel="icon" type="image/x-icon" th:href="@{/image/favicon.png}"/>
     <!-- Bootstrap Core CSS -->
     <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
 
@@ -222,7 +222,7 @@
                 + '<td>' + row.filesHash + '</td>'
                 + '<td>' + row.transactionId + '</td>'
                 + '<td>' + state + '</td>'
-                + '<td ><a  onclick="showDetail(this) " href="#" data-id="' + row.id + '">详情</a></td>'
+                + '<td ><a target="_blank" href="/certDetail?recordId=' + row.id + '">详情</a></td>'
                 + '</tr>';
             items.append(html);
         }

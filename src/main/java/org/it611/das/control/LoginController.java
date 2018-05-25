@@ -8,4 +8,7 @@ public class LoginController {
     @RequestMapping("/frontLogin")
     public String frontLogin(){  return "frontLogin";}
 
+    @RequestMapping("/home")
+    public String  home(){ return "home";}
+
 }

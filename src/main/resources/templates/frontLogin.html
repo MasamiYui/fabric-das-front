@@ -11,6 +11,7 @@
     <meta name="author" content="">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/image/favicon.png}"/>
 
     <!-- Bootstrap Core CSS -->
     <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -106,7 +107,7 @@
                 if (result.code == "400") {
                     $("#callbackInfo").text("帐号或密码不正确");
                 } else if (result.code == "200") {
-                    window.location.href = "/certificateInsert";
+                    window.location.href = "/home";
                 }
             }
         });
