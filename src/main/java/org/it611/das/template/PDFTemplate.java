@@ -42,6 +42,7 @@ public class PDFTemplate {
         form.addSubstitutionFont(baseFont);
 
         //表单处理
+        form.setField("assetType", "学位证书");
         form.setField("assetId", degreeCertificateMap.get("id").toString());
         form.setField("owner", degreeCertificateMap.get("ownerId").toString());
         form.setField("name", degreeCertificateMap.get("name").toString());
