@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,7 +27,7 @@ public class FileController {
 
     @RequestMapping("/file/upload")
     @ResponseBody
-    public JSONObject singleFileUpload(MultipartFile file) throws IOException {
+    public JSONObject singleFileUpload(MultipartFile file, HttpServletRequest httpServletRequest) throws IOException {
 
         if (file.isEmpty()) {
             return ResultUtil.constructResponse(400,"empty file.",null);
