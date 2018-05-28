@@ -82,4 +82,24 @@ public final class Vo2PoUtil {
         return new Music(IdUtil.getId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
     }
 
+
+    public static  Photo  photoVo2Po(HttpServletRequest request,PhotoVO vo) throws  Exception {
+        Jedis client = RedisUtil.getJedis();
+        String token = CookieUtil.getCookie(request, CookieUtil.COOKIE_TOKEN_KEY);
+        String jsonStr= client.get(token);
+        HashMap obj = new ObjectMapper().readValue(jsonStr, HashMap.class);
+        String userId = obj.get("id").toString();
+
+        String filesHash = "";//方便进行拼接
+        String[] filesArr = vo.getFiles().split(",");
+        for(int i=0; i<filesArr.length; i++){
+            String temp = client.get(filesArr[0]);
+            filesHash = filesHash + temp+ ",";
+        }
+        //去掉,
+        filesHash.substring(0, filesHash.length()-1);
+        client.close();
+        return new Photo(IdUtil.getId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
+    }
+
 }

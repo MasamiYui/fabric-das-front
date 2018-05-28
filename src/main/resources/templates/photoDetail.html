@@ -103,7 +103,8 @@
                                 </tr>
                                 <tr>
                                     <td>交易单号</td>
-                                    <td th:text="${record.transaction_id}"></td>
+                                    <!--<td th:text="${record.transaction_id}"></td>-->
+                                    <td></td>
                                 </tr>
                                 <tr>
                                     <td>审核状态</td>
@@ -117,20 +118,13 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="control-group col-lg-4 layui-upload-list" id="layer-photos-demo">
+                        <div class="control-group col-lg-4 layui-upload-list" >
                             <div class="col-lg-12">
-                                <!--<img style="width: 100%;height: 100%;" th:if="${record.files}!=null and ${record.files}!=''" th:src="${record.files}"
-                                     class="layui-upload-img"/>
-                                <p th:unless="${record.files}!=null and ${record.files}!=''" th:text="无图片"
-                                   class="layui-upload-img"></p>-->
                                 <div class="col-lg-12" style="text-align: center">
                                     <div id="QRcodeReport" style="margin: 0px;" class="col-lg-12"></div>
                                     <div id="QrReportTip" class="col-lg-12" style="display: none;">资产报告二维码</div>
                                 </div>
-                                <!--<div class="col-lg-12" style="text-align: center">
-                                    <div id="QRcodeVideo" style="margin: 0px;" class="col-lg-12"></div>
-                                    <div class="col-lg-12">视频播放二维码</div>
-                                </div>-->
+
                             </div>
                         </div>
                     </div>
@@ -139,48 +133,24 @@
 
         </div>
 
-        <!--视频链接-->
+        <!--图片-->
         <div class="row">
-            <div class="col-lg-12  panel-success">
-                <div id="videoLink" class="panel panel-info">
+            <div class="col-lg-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <strong>附件</strong>
+                    </div>
+                    <div class="panel-body">
+                        <div id="layer-photos-demo" class="layui-upload-list" style="margin:0px">
+                            <img th:if="${record.files}!=null and ${record.files}!=''" th:src="${record.files}"
+                                 class="layui-upload-img"/>
+                            <p th:unless="${record.files}!=null and ${record.files}!=''" th:text="无图片"
+                               class="layui-upload-img"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-
-        <!--图片-->
-        <!--<div class="row">
-            &lt;!&ndash; <div class="col-lg-3"></div>&ndash;&gt;
-
-            <div class="col-lg-12">
-             <button id="player">播放视频</button>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <strong>在线验证</strong>
-                    </div>
-                    <div class="panel-body">
-                        &lt;!&ndash; <div id="layer-photos-demo" class="layui-upload-list" style="margin:0px">
-                                 <img th:if="${record.files}!=null and ${record.files}!=''" th:src="${record.files}"
-                                      class="layui-upload-img"/>
-                                 <p th:unless="${record.files}!=null and ${record.files}!=''" th:text="无图片"
-                                    class="layui-upload-img"></p>
-                         </div>&ndash;&gt;
-                        <div id="QRcode" style="margin: 0px;text-align: right;" class="col-lg-12">
-                            &lt;!&ndash;<div class="controls">
-                                <span class="col-title col-lg-4">验证码</span>
-                                <span th:text="${record.QRcode}"></span>
-                            </div>&ndash;&gt;
-                        </div>
-                       &lt;!&ndash; <div id="QRcodePic" style="margin: 0px;" class="col-lg-6">
-                        </div>&ndash;&gt;
-
-                    </div>
-
-                </div>
-            </div>
-
-            &lt;!&ndash;<div class="col-lg-3"></div>&ndash;&gt;
-        </div>-->
 
     </div>
 </div>
@@ -210,46 +180,20 @@
             showReportQRCode();
             $("#QrReportTip").show();
         }
-        // showVideoQRCode();   //不需要视频播放二维码
-
-        videoLinks();
-        fileHashTr();
+     //   fileHashTr();
     });
 
     function showReportQRCode() {
         var recordId = [[${record.id}]];
         if (!recordId) return;
-        var verifyUrl = "http://localhost:8086/videoDetail?id=" + recordId;
+        var verifyUrl = "http://localhost:8086/photoDetail?id=" + recordId;
         var QRUrl = "http://pan.baidu.com/share/qrcode?w=120&h=120&url=" + verifyUrl;
         $("#QRcodeReport").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
 
-    var files = [[${record.files}]];
-
-    function showVideoQRCode() {
-        if (!files) return;
-        var verifyUrl = "http://localhost:8086/videoQrcodeScanResult?files=" + files;
-        var QRUrl = "http://pan.baidu.com/share/qrcode?w=125&h=125&url=" + verifyUrl;
-        $("#QRcodeVideo").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
-    }
-
-    function videoLinks() {
-        var patt = /^(http|ftp|https):\/\/(.)+(\.swf|\.flv|\.mp4|\.rmvb|\.avi|\.mpeg|\.ra|\.ram|\.mov|\.wmv)(.)*/i;
-        var urls = new Array();
-        var urlArr = files.split(",");
-        for (var index in urlArr) {
-            if (patt.test(urlArr[index])) {
-                urls.push(urlArr[index]);
-            }
-        }
-        var i = 0;
-        for (var link in urls) {
-            $("#videoLink").append('<a target="_blank" style="margin-right:40px;" class="btn btn-info"  href="/videoPalyLink?linkAddress=' + urls[link] + '">播放视频' + (++i) + '</a>');
-        }
-    }
-
     function fileHashTr() {
         var filehash = [[${record.fileshash}]];
+        if(!filehash) return;
         var hashArr = filehash.split(",");
         var count = 0;
         for (var j in hashArr) {
@@ -271,26 +215,9 @@
         });
     });
 
-    function link(e) {
-        var path = $(e).data("id");
-        //iframe层-多媒体
-        layer.open({
-            type: 2,
-            title: false,
-            area: ['630px', '360px'],
-            shade: 0.8,
-            closeBtn: 0,
-            shadeClose: true,
-            // content: 'http://video19.ifeng.com/video09/2017/04/18/3207130-102-008-212049.mp4?vid=e253a4b5-7a67-4272-96af-ffedef4ffba7&uid=X1XkFl&from=v_Free&pver=vHTML5Player_v2.0.0&sver=&se=%E5%B0%8F%E9%AD%94%E6%9C%AF%E5%B8%88%E9%99%88%E4%BF%8A%E5%BC%BA&cat=57-60&ptype=57&platform=pc&sourceType=h5&dt=1492521617000&gid=NxG6kWOL7uJg&sign=eae5c176858c13cfe6c24af456e1328a&tm=1527061078634&vkey=o86j5HlYcu%2B2P2s%2F4htNjKoCGai2bJ83MYm4Nt7I2UPepWcPmEoRZyZlai4lbcnDClBc1HtdpiYNZuMOFrGlZfbuDJeaBUBalscCD%2BHHVRvhp5XCEBSo%2FOt7x0oT93k8GBwxuIWSPf4lu%2FMCAI2cK4ubxDK%2FHzWee8neV45kN0geQhGHPhVDVOUkxQgTezhY%2BzlPAwh1pMYZ9m6CGw4jnPSjufAunHdmoH9pfok7mHQQ3mhlzDeJEioWUsUkgFbzVnhI%2BUUPikfsKMsSIZs47QoX730XHJrZOtrDPGJ1oIM%3D'
-            content: path
-        });
-        /*layer.msg('点击任意处关闭');*/
-    }
-
-
     $("#reportPrint").click(function () {
         var id = [[${record.id}]];
-        window.location.href = '/pdfPrint/video?id=' + id;
+        window.location.href = '/pdfPrint/?id=' + id;
     });
 
 

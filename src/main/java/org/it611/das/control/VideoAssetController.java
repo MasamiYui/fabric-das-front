@@ -42,7 +42,6 @@ public class VideoAssetController {
 
 
     @RequestMapping("/videoDetail")
-    @ResponseBody
     public ModelAndView videoDetail(String id){
         HashMap record = videoAssetService.selectVedioDetailById(id);
         ModelAndView modelAndView = new ModelAndView();

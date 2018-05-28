@@ -1,14 +1,16 @@
 package org.it611.das.control;
 
 import com.alibaba.fastjson.JSONObject;
+import org.it611.das.service.PhotoAssetService;
 import org.it611.das.service.VideoAssetService;
 import org.it611.das.util.ResponseUtil;
+import org.it611.das.vo.PhotoVO;
 import org.it611.das.vo.VedioVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -18,37 +20,38 @@ import java.util.HashMap;
 public class PhotoAssetController {
 
     @Autowired
-    private VideoAssetService videoAssetService;
+    private PhotoAssetService photoAssetService;
 
     @RequestMapping("/asset/photo/add")
     @ResponseBody
-    public JSONObject addVideo(HttpServletRequest request, VedioVO vedioVO) throws IOException {
+    public JSONObject addVideo(HttpServletRequest request, PhotoVO photoVO) throws Exception {
 
-        JSONObject resultData = videoAssetService.addVedio(vedioVO, request);
+        JSONObject resultData = photoAssetService.addPhoto(photoVO, request);
         return resultData;
     }
 
 
     @RequestMapping("/photoAssetListIndex")
-    public String videoIndex(){return "videoAsset_list";}
+    public String videoIndex(){return "photoAsset_list";}
 
     @RequestMapping("/photoAsset/photoList")
     @ResponseBody
     public JSONObject videoList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
 
-        HashMap<String, Object> data = videoAssetService.selectVedioList(request, currentPage, numberOfPages);
+        HashMap<String, Object> data = photoAssetService.selectPhotoList(request, currentPage, numberOfPages);
         return ResponseUtil.constructResponse(200, "ok", data);
     }
 
 
     @RequestMapping("/photoDetail")
-    @ResponseBody
-    public ModelAndView videoDetail(String id){
-        HashMap record = videoAssetService.selectVedioDetailById(id);
-        ModelAndView modelAndView = new ModelAndView();
+    public String videoDetail(Model model,String id){
+        HashMap record = photoAssetService.selectPhotoDetailById(id);
+        model.addAttribute("record", record);
+        return "photoDetail";
+       /* ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("record",record);
-        modelAndView.setViewName("videoDetail");//修改为相应页面
-        return modelAndView;
+        modelAndView.setViewName("photoDetail");
+        return modelAndView;*/
     }
 
     @RequestMapping("/photoForm")
