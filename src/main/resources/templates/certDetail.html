@@ -65,7 +65,10 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <strong>资产验证报告</strong>
-                        <!-- <span style="float: right;" id="reportPrint"><a href="#"><i class="glyphicon glyphicon-print"></i> 打印</a></span>-->
+                        <th:block th:if="${record.state}  eq 1 ">
+                            <span style="float: right;" id="reportPrint"><a  href="#"><i
+                                    class="glyphicon glyphicon-download-alt"></i> 下载</a></span>
+                        </th:block>
                     </div>
                     <div class="panel-body">
 
@@ -240,7 +243,11 @@
 
     //reportPrint 打印页面
     $("#reportPrint").click(function () {
-        window.print();
+        var id = [[${record.id}]];
+        window.location.href = '/pdfPrint/degreeCertificate?id='+id;
+       /* $.post("/pdfPrint/degreeCertificate",{id:id},function(result){
+
+        });*/
     });
 
 

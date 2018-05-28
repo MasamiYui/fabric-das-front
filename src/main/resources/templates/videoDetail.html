@@ -65,7 +65,10 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <strong>资产验证报告</strong>
-                        <!-- <span style="float: right;" id="reportPrint"><a href="#"><i class="glyphicon glyphicon-print"></i> 打印</a></span>-->
+                        <th:block th:if="${record.state}  eq 1 ">
+                            <span style="float: right;" id="reportPrint"><a href="#"><i
+                                    class="glyphicon glyphicon-download-alt"></i> 下载</a></span>
+                        </th:block>
                     </div>
                     <div class="panel-body">
 
@@ -85,7 +88,7 @@
                                     <td>申请人</td>
                                     <td th:text="${record.owner_id}"></td>
                                 </tr>
-                                <tr >
+                                <tr>
                                     <td>创作者</td>
                                     <td th:text="${record.author}"></td>
                                 </tr>
@@ -124,10 +127,10 @@
                                     <div id="QRcodeReport" style="margin: 0px;" class="col-lg-12"></div>
                                     <div id="QrReportTip" class="col-lg-12" style="display: none;">资产报告二维码</div>
                                 </div>
-                                <div class="col-lg-12" style="text-align: center">
+                                <!--<div class="col-lg-12" style="text-align: center">
                                     <div id="QRcodeVideo" style="margin: 0px;" class="col-lg-12"></div>
                                     <div class="col-lg-12">视频播放二维码</div>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -203,11 +206,11 @@
 
     $(document).ready(function () {
 
-        if (state=="1"){
+        if (state == "1") {
             showReportQRCode();
             $("#QrReportTip").show();
         }
-        showVideoQRCode();
+        // showVideoQRCode();   //不需要视频播放二维码
 
         videoLinks();
         fileHashTr();
@@ -245,15 +248,15 @@
         }
     }
 
-    function fileHashTr(){
-        var filehash=[[${record.fileshash}]];
+    function fileHashTr() {
+        var filehash = [[${record.fileshash}]];
         var hashArr = filehash.split(",");
-        var count=0;
-        for(var j in hashArr){
-            var html ='<tr>'
-                +'<td>文件' + (++count)+ '指纹</td>'
-                + '<td>' + hashArr[j]+ '</td>'
-                +'</tr>'
+        var count = 0;
+        for (var j in hashArr) {
+            var html = '<tr>'
+                + '<td>文件' + (++count) + '指纹</td>'
+                + '<td>' + hashArr[j] + '</td>'
+                + '</tr>'
             ;
             $("#filehash").before(html);
         }
@@ -284,6 +287,11 @@
         /*layer.msg('点击任意处关闭');*/
     }
 
+
+    $("#reportPrint").click(function () {
+        var id = [[${record.id}]];
+        window.location.href = '/pdfPrint/video?id=' + id;
+    });
 
 
 </script>
