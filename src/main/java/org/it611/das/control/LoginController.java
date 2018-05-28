@@ -2,6 +2,7 @@ package org.it611.das.control;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
@@ -13,5 +14,6 @@ public class LoginController {
 
     @RequestMapping("/user/companyUser")
     public String  companyUserhome(){ return "companyUserHome";}
+
 
 }
