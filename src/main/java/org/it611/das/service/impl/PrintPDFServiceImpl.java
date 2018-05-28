@@ -3,6 +3,8 @@ package org.it611.das.service.impl;
 import com.itextpdf.text.DocumentException;
 import org.it611.das.domain.DegreeCertificate;
 import org.it611.das.mapper.DegreeCertificateMapper;
+import org.it611.das.mapper.MusicMapper;
+import org.it611.das.mapper.VideoMapper;
 import org.it611.das.service.PrintPDFService;
 import org.it611.das.template.PDFTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,12 @@ public class PrintPDFServiceImpl implements PrintPDFService {
     @Autowired
     private DegreeCertificateMapper degreeCertificateMapper;
 
+    @Autowired
+    private MusicMapper musicMapper;
+
+    @Autowired
+    private VideoMapper videoMapper;
+
     @Override
     public String printDegreeCertification(String id) throws IOException, DocumentException {
 
@@ -24,6 +32,30 @@ public class PrintPDFServiceImpl implements PrintPDFService {
 
         //首次生成调用PDF生成工具生成
         String url = PDFTemplate.generateDegreeCertification(dataMap, "www.baidu.com");
+
+        //TODO 二次申请应该不需要重新生成
+
+        return url;
+    }
+
+    @Override
+    public String printVideo(String id) throws IOException, DocumentException {
+        HashMap dataMap = videoMapper.selectVideoDetailById(id);
+
+        //首次生成调用PDF生成工具生成
+        String url = PDFTemplate.generateVideo(dataMap, "www.baidu.com");
+
+        //TODO 二次申请应该不需要重新生成
+
+        return url;
+    }
+
+    @Override
+    public String printAudio(String id) throws IOException, DocumentException {
+        HashMap dataMap = musicMapper.selectMusicRecordById(id);
+
+        //首次生成调用PDF生成工具生成
+        String url = PDFTemplate.generateMusic(dataMap, "www.baidu.com");
 
         //TODO 二次申请应该不需要重新生成
 

@@ -6,6 +6,7 @@ import org.it611.das.domain.Video;
 import org.it611.das.mapper.VideoMapper;
 import org.it611.das.service.VideoAssetService;
 import org.it611.das.util.ResultUtil;
+import org.it611.das.util.UserQueryUtil;
 import org.it611.das.util.Vo2PoUtil;
 import org.it611.das.vo.VedioVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +38,13 @@ public class VideoAssetServiceImpl implements VideoAssetService {
     }
 
     @Override
-    public HashMap<String, Object> selectVedioList(int currentPage, int numberOfPages) {
+    public HashMap<String, Object> selectVedioList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
 
         HashMap dataMap = new HashMap<String, Object>();
         PageHelper.startPage(currentPage, numberOfPages);
-        List<HashMap> resultData = videoMapper.selectVideoList();
-        long total = videoMapper.selectVideoTotal();
+        String userId = UserQueryUtil.getUserIdByCookieAndRedis(request);
+        List<HashMap> resultData = videoMapper.selectVideoList(userId);
+        long total = videoMapper.selectVideoTotal(userId);
         dataMap.put("rows", resultData);
         dataMap.put("total", total);
         return dataMap;

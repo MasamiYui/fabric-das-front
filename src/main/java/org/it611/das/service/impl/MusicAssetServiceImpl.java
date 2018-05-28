@@ -6,6 +6,7 @@ import org.it611.das.domain.Music;
 import org.it611.das.mapper.MusicMapper;
 import org.it611.das.service.MusicAssetService;
 import org.it611.das.util.ResultUtil;
+import org.it611.das.util.UserQueryUtil;
 import org.it611.das.util.Vo2PoUtil;
 import org.it611.das.vo.MusicVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,12 @@ public class MusicAssetServiceImpl implements MusicAssetService {
     }
 
     @Override
-    public HashMap<String, Object> selectMusicAssetList(int currentPage, int numberOfPages) {
+    public HashMap<String, Object> selectMusicAssetList(HttpServletRequest request,int currentPage, int numberOfPages) throws IOException {
         HashMap<String, Object> dataMap = new HashMap<String,Object>();
         PageHelper.startPage(currentPage, numberOfPages);
-        List<HashMap> rows=musicMapper.selectMusicAssertList();
-        Long total=musicMapper.selectMusicAssertTotal();
+        String userId = UserQueryUtil.getUserIdByCookieAndRedis(request);
+        List<HashMap> rows=musicMapper.selectMusicAssertList(userId);
+        Long total=musicMapper.selectMusicAssertTotal(userId);
         dataMap.put("rows", rows);
         dataMap.put("total", total);
         return dataMap;

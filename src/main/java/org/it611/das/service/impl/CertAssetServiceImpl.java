@@ -1,18 +1,20 @@
 package org.it611.das.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import org.it611.das.domain.DegreeCertificate;
 import org.it611.das.mapper.DegreeCertificateMapper;
 import org.it611.das.service.CertAssetService;
-import org.it611.das.util.IdUtil;
-import org.it611.das.util.ResultUtil;
-import org.it611.das.util.Vo2PoUtil;
+import org.it611.das.util.*;
 import org.it611.das.vo.DegreeCertificateVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -37,11 +39,13 @@ public class CertAssetServiceImpl implements CertAssetService {
     }
 
     @Override
-    public HashMap<String, Object> selectCertAssetList(int currentPage, int numberOfPages) {
+    public HashMap<String, Object> selectCertAssetList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
         HashMap dataMap = new HashMap<String, Object>();
         PageHelper.startPage(currentPage, numberOfPages);
-        List<HashMap> resultData = degreeCertificateMapper.selectCertAssetList();
-        long total = degreeCertificateMapper.selectCertTotal();
+
+        String userId = UserQueryUtil.getUserIdByCookieAndRedis(request);
+        List<HashMap> resultData = degreeCertificateMapper.selectCertAssetList(userId);
+        long total = degreeCertificateMapper.selectCertTotal(userId);
         dataMap.put("rows", resultData);
         dataMap.put("total", total);
         return dataMap;

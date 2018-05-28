@@ -8,12 +8,15 @@
     </insert>
 
     <select id="selectMusicAssertTotal" resultType="long">
-        select count(*) from tb_music
+        select count(*)
+        from tb_music
+        where owner_id =#{userId}
     </select>
 
     <select id="selectMusicAssertList" resultType="hashmap">
         select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
         from tb_music
+        where owner_id =#{userId}
     </select>
 
     <select id="selectMusicRecordById" parameterType="string" resultType="hashmap">

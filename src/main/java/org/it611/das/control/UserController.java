@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -36,15 +37,9 @@ public class UserController {
         if((int)result.get("code") == 400) {
             return result;
         }
-        String token = result.get("data").toString();
+        String token = ((Map)result.get("data")).get("token").toString();
         CookieUtil.addCookie(response,CookieUtil.COOKIE_TOKEN_KEY, token, CookieUtil.COOKIE_MAX_AGE);
-/*
-        String userJsonStr = RedisUtil.getJedis().get(token);
-        ObjectMapper mapper = new ObjectMapper();
-        HashMap userMap = mapper.readValue(userJsonStr, HashMap.class);
 
-        modelAndView.addObject("userMap",userMap);
-        modelAndView.setViewName("userHome");*/
         return result;
     }
 

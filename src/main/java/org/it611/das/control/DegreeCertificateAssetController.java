@@ -40,9 +40,9 @@ public class DegreeCertificateAssetController {
 
     @RequestMapping("/certficateAsset/certList")
     @ResponseBody
-    public JSONObject certificatetList(int currentPage, int numberOfPages) {
+    public JSONObject certificatetList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
 
-        HashMap<String, Object> data = certAssetService.selectCertAssetList(currentPage, numberOfPages);
+        HashMap<String, Object> data = certAssetService.selectCertAssetList(request, currentPage, numberOfPages);
         return ResponseUtil.constructResponse(200, "ok", data);
     }
 

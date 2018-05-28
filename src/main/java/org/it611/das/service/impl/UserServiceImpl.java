@@ -32,36 +32,47 @@ public class UserServiceImpl implements UserService {
     @Override
     public JSONObject userLogin(String loginStr, String password) throws JsonProcessingException {
         Map<String, Object> userMap = null;
+        Map<String, Object> companyMap = null;
+        Map<String, Object> loginMap = null;
+        Map<String, Object> resultMap = new HashMap();
         if(CheckUtil.checkMobileNumber(loginStr)) {
             userMap = userDao.findUserByPhone(loginStr);
+            companyMap = companyDao.findCompanyByPhone(loginStr);
+
         }else if(CheckUtil.checkEmail(loginStr)) {
             userMap = userDao.findUserByEmail(loginStr);
+            companyMap = companyDao.findCompanyByEmail(loginStr);
         }
 
-        if(Integer.parseInt(userMap.get("state").toString()) != 1) {
-            return ResultUtil.constructResponse(400,"the state not 1, can do anything", null);
-        }
-
-        if(userMap == null){
+        if(userMap != null && companyMap == null){//普通用户登陆
+            loginMap = userMap;
+            loginMap.put("userType", 1);//1---普通用户
+        }else if(userMap ==null && companyMap!= null){//企业用户登陆
+            loginMap = companyMap;
+            loginMap.put("userType", 2);//2---企业用户
+        }else{
             return ResultUtil.constructResponse(400,"fail.error phone and email", null);
         }
 
-        if(!MD5Util.verify(password,userMap.get("password").toString())) {
+
+        if(Integer.parseInt(loginMap.get("state").toString()) != 1) {
+            return ResultUtil.constructResponse(400,"the state not 1, can do anything", null);
+        }
+
+
+        if(!MD5Util.verify(password,loginMap.get("password").toString())) {
             return  ResultUtil.constructResponse(400, "password error.", null);
         }
 
         String token = UUID.randomUUID().toString();
-        userMap.remove("password");
+        loginMap.remove("password");
         Jedis client = RedisUtil.getJedis();
-        client.set(token, new ObjectMapper().writeValueAsString(userMap));
+        client.set(token, new ObjectMapper().writeValueAsString(loginMap));
         client.close();
-/*
-        Map dataMap = new HashMap();
-        dataMap.put("token",token);
-        dataMap.put("id",userMap.get("id"));
-*/
 
-        return ResultUtil.constructResponse(200,"ok", token);
+        resultMap.put("token", token);
+        resultMap.put("userType",loginMap.get("userType"));
+        return ResultUtil.constructResponse(200,"ok", resultMap);
     }
 
     @Override

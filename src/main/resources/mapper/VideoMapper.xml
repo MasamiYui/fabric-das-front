@@ -8,12 +8,15 @@
     </insert>
 
     <select id="selectVideoTotal" resultType="long">
-          select count(*) from tb_video
+          select count(*)
+          from tb_video
+          where owner_id =#{userId}
     </select>
 
     <select id="selectVideoList" resultType="hashmap">
         select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
         from tb_video
+        where owner_id =#{userId}
     </select>
 
     <select id="selectVideoDetailById" parameterType="string" resultType="hashmap">

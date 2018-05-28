@@ -34,9 +34,9 @@ public class VideoAssetController {
 
     @RequestMapping("/videoAsset/videoList")
     @ResponseBody
-    public JSONObject videoList(int currentPage, int numberOfPages) {
+    public JSONObject videoList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
 
-        HashMap<String, Object> data = videoAssetService.selectVedioList(currentPage, numberOfPages);
+        HashMap<String, Object> data = videoAssetService.selectVedioList(request, currentPage, numberOfPages);
         return ResponseUtil.constructResponse(200, "ok", data);
     }
 

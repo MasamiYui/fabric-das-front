@@ -86,4 +86,133 @@ public class PDFTemplate {
     }
 
 
+    public static String generateMusic(HashMap MusicMap, String QRText) throws IOException, DocumentException {
+
+        String templatePath = PDFTemplate.class.getResource("/").getPath()+"pdf/"+"videoAndAudio.pdf";
+        templatePath = templatePath.substring(1, templatePath.length());//TODO linux下可能不需要
+        System.out.println(templatePath);
+
+        // 生成的文件路径
+        String targetPath = PDFTemplate.class.getResource("/").getPath()+"tmp/"+UUID.randomUUID().toString()+".pdf";//TODO：linux下路径可能需要修改
+        targetPath = targetPath.substring(1, targetPath.length());
+
+        // 书签名
+        String fieldName = "image1";
+
+
+        // 读取模板文件
+        InputStream input = new FileInputStream(new File(templatePath));
+        PdfReader reader = new PdfReader(input);
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(targetPath));
+
+        //权限控制
+        stamper.setEncryption(null, null, PdfWriter.ALLOW_PRINTING, PdfWriter.STANDARD_ENCRYPTION_128);
+        // 提取pdf中的表单
+        AcroFields form = stamper.getAcroFields();
+        BaseFont baseFont = BaseFont.createFont("STSong-Light","UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+        form.addSubstitutionFont(baseFont);
+
+        //表单处理
+        form.setField("assetType", "音频资产");
+        form.setField("assetId", MusicMap.get("id").toString());
+        form.setField("owner", MusicMap.get("owner_id").toString());
+        form.setField("title",MusicMap.get("title").toString());
+        form.setField("author",MusicMap.get("author").toString());
+        form.setField("fileshash", MusicMap.get("fileshash").toString().replace(",","\n"));
+        form.setField("transactionId", MusicMap.get("transaction_id").toString());
+
+
+        // 通过域名获取所在页和坐标，左下角为起点
+        int pageNo = form.getFieldPositions(fieldName).get(0).page;
+        Rectangle signRect = form.getFieldPositions(fieldName).get(0).position;
+        float x = signRect.getLeft();
+        float y = signRect.getBottom();
+
+        //生成二维码
+        String QRFilePath = QRUtil.GenerateQR(QRText);//生成QR，并且将temp文件保存到QRFilePath；
+
+        // 读图片
+        Image image = Image.getInstance(QRFilePath);
+        // 获取操作的页面
+        PdfContentByte under = stamper.getOverContent(pageNo);
+        // 根据域的大小缩放图片
+        image.scaleToFit(signRect.getWidth(), signRect.getHeight());
+        // 添加图片
+        image.setAbsolutePosition(x, y);
+        under.addImage(image);
+        stamper.close();
+        reader.close();
+        // 将图片提交到FastDFS获得一个URL
+        //String fileName = UUID.randomUUID().toString();//暂定
+        //String pdfFileUrl=FastDFSClient.saveFile(new File(targetPath));//将文件上传到fastDFS，返回http url
+        FileUtil.deleteFile(QRFilePath);//删除本地临时图片 TODO 暂时不处理异常
+        //FileUtil.deleteFile(targetPath);//删除本地临时PDF  TODO 暂时不处理异常
+        return targetPath;
+    }
+
+
+    public static String generateVideo(HashMap videoMap, String QRText) throws IOException, DocumentException {
+
+        String templatePath = PDFTemplate.class.getResource("/").getPath()+"pdf/"+"videoAndAudio.pdf";
+        templatePath = templatePath.substring(1, templatePath.length());//TODO linux下可能不需要
+        System.out.println(templatePath);
+
+        // 生成的文件路径
+        String targetPath = PDFTemplate.class.getResource("/").getPath()+"tmp/"+UUID.randomUUID().toString()+".pdf";//TODO：linux下路径可能需要修改
+        targetPath = targetPath.substring(1, targetPath.length());
+
+        // 书签名
+        String fieldName = "image1";
+
+
+        // 读取模板文件
+        InputStream input = new FileInputStream(new File(templatePath));
+        PdfReader reader = new PdfReader(input);
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(targetPath));
+
+        //权限控制
+        stamper.setEncryption(null, null, PdfWriter.ALLOW_PRINTING, PdfWriter.STANDARD_ENCRYPTION_128);
+        // 提取pdf中的表单
+        AcroFields form = stamper.getAcroFields();
+        BaseFont baseFont = BaseFont.createFont("STSong-Light","UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+        form.addSubstitutionFont(baseFont);
+
+        //表单处理
+        form.setField("assetType", "视频资产");
+        form.setField("assetId", videoMap.get("id").toString());
+        form.setField("owner", videoMap.get("owner_id").toString());
+        form.setField("title",videoMap.get("title").toString());
+        form.setField("author",videoMap.get("author").toString());
+        form.setField("fileshash", videoMap.get("fileshash").toString().replace(",","\n"));
+        form.setField("transactionId", videoMap.get("transaction_id").toString());
+
+        // 通过域名获取所在页和坐标，左下角为起点
+        int pageNo = form.getFieldPositions(fieldName).get(0).page;
+        Rectangle signRect = form.getFieldPositions(fieldName).get(0).position;
+        float x = signRect.getLeft();
+        float y = signRect.getBottom();
+
+        //生成二维码
+        String QRFilePath = QRUtil.GenerateQR(QRText);//生成QR，并且将temp文件保存到QRFilePath；
+
+        // 读图片
+        Image image = Image.getInstance(QRFilePath);
+        // 获取操作的页面
+        PdfContentByte under = stamper.getOverContent(pageNo);
+        // 根据域的大小缩放图片
+        image.scaleToFit(signRect.getWidth(), signRect.getHeight());
+        // 添加图片
+        image.setAbsolutePosition(x, y);
+        under.addImage(image);
+        stamper.close();
+        reader.close();
+        // 将图片提交到FastDFS获得一个URL
+        //String fileName = UUID.randomUUID().toString();//暂定
+        //String pdfFileUrl=FastDFSClient.saveFile(new File(targetPath));//将文件上传到fastDFS，返回http url
+        FileUtil.deleteFile(QRFilePath);//删除本地临时图片 TODO 暂时不处理异常
+        //FileUtil.deleteFile(targetPath);//删除本地临时PDF  TODO 暂时不处理异常
+        return targetPath;
+    }
+
+
 }

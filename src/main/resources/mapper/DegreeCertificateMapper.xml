@@ -10,13 +10,16 @@
     </insert>
 
     <select id="selectCertTotal" resultType="long">
-          select count(*) from tb_degreecertification
+          select count(*)
+          from tb_degreecertification
+          where owner_id =#{userId}
     </select>
 
-    <select id="selectCertAssetList" resultType="hashmap">
+    <select id="selectCertAssetList" parameterType="java.lang.String" resultType="hashmap">
         select id,owner_id ownerId, `name` ,sex, `date` ,degree_conferring_unit degreeConferringUnit,professional,degree_name  degreeName,cert_id certId,time,
                 files,fileshash filesHash,transaction_id transactionId,state,submit_time submitTime
         from tb_degreecertification
+        where owner_id =#{userId}
     </select>
 
     <select id="selectCertDetailById" parameterType="string" resultType="hashmap">

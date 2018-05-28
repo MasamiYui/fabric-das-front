@@ -12,9 +12,9 @@ public interface MusicMapper {
 
     int addMusic(Music music);
 
-    List<HashMap> selectMusicAssertList();
+    List<HashMap> selectMusicAssertList(@Param("userId") String userId);
 
-    Long selectMusicAssertTotal();
+    Long selectMusicAssertTotal(@Param("userId") String userId);
 
     HashMap selectMusicRecordById(String id);
 

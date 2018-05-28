@@ -45,8 +45,8 @@ public class MusicAssetController {
     public String musicAssetList(){return "musicAsset_list";}
     @RequestMapping("/musicAsset/musicList")
     @ResponseBody
-    public JSONObject musicList(int currentPage, int numberOfPages){
-        HashMap<String ,Object> result=musicAssetService.selectMusicAssetList(currentPage,numberOfPages);
+    public JSONObject musicList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
+        HashMap<String ,Object> result=musicAssetService.selectMusicAssetList(request, currentPage,numberOfPages);
         return ResponseUtil.constructResponse(200, "OK", result);
     }
 

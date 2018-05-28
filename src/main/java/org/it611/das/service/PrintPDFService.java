@@ -8,4 +8,8 @@ public interface PrintPDFService {
 
     String printDegreeCertification(String id) throws IOException, DocumentException;
 
+    String printVideo(String id) throws IOException, DocumentException;
+
+    String printAudio(String id) throws IOException, DocumentException;
+
 }

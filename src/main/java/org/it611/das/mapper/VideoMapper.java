@@ -13,10 +13,10 @@ public interface VideoMapper {
     int addVideo(Video video);
 
     //查询视频资产总数
-    Long selectVideoTotal();
+    Long selectVideoTotal(@Param("userId") String userId);
 
     //查询Video的所有列表
-    List<HashMap> selectVideoList();
+    List<HashMap> selectVideoList(@Param("userId") String userId);
 
     //根据id查询Video详情
     HashMap selectVideoDetailById(@Param("id") String id);
