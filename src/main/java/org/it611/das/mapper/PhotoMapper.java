@@ -1,6 +1,7 @@
 package org.it611.das.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.shiro.crypto.hash.Hash;
 import org.it611.das.domain.Photo;
 import org.it611.das.domain.Video;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,8 @@ public interface PhotoMapper {
 
     //根据id查询Video详情
     HashMap selectPhotoDetailById(@Param("id") String id);
+
+    HashMap selectPhotoRecordById(String id);
 
 
 }

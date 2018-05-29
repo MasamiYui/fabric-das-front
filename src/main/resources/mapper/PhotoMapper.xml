@@ -27,5 +27,12 @@
         </where>
     </select>
 
+    <select id="selectPhotoRecordById" parameterType="string" resultType="hashmap">
+        select id, title, des, owner_id, author, files, fileshash, transaction_id, submit_time, state
+        from tb_photo
+        <where>
+            id=#{value}
+        </where>
+    </select>
 
 </mapper>

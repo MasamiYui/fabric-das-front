@@ -142,10 +142,6 @@
                     </div>
                     <div class="panel-body">
                         <div id="layer-photos-demo" class="layui-upload-list" style="margin:0px">
-                            <img th:if="${record.files}!=null and ${record.files}!=''" th:src="${record.files}"
-                                 class="layui-upload-img"/>
-                            <p th:unless="${record.files}!=null and ${record.files}!=''" th:text="无图片"
-                               class="layui-upload-img"></p>
                         </div>
                     </div>
                 </div>
@@ -180,7 +176,8 @@
             showReportQRCode();
             $("#QrReportTip").show();
         }
-     //   fileHashTr();
+       fileHashTr();
+        photoShow();
     });
 
     function showReportQRCode() {
@@ -193,6 +190,7 @@
 
     function fileHashTr() {
         var filehash = [[${record.fileshash}]];
+        filehash = filehash.substring(0, filehash.length - 1);
         if(!filehash) return;
         var hashArr = filehash.split(",");
         var count = 0;
@@ -207,6 +205,20 @@
 
     }
 
+    function photoShow(){
+        var files = [[${record.files}]];
+        if(!files) return;
+        files = files.substring(0, files.length - 1);
+        var photoArr = new Array();
+         photoArr = files.split(",");
+        for (var index in photoArr) {
+            $("#layer-photos-demo").append('<img src="'+photoArr[index]+'"  class="layui-upload-img"/>');
+        }
+    }
+
+
+
+
     layui.use('layer', function () {
         var layer = layui.layer;
         layer.photos({
@@ -217,7 +229,7 @@
 
     $("#reportPrint").click(function () {
         var id = [[${record.id}]];
-        window.location.href = '/pdfPrint/?id=' + id;
+        window.location.href = '/pdfPrint/photo?id=' + id;
     });
 
 

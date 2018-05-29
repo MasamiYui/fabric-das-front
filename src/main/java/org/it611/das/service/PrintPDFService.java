@@ -12,4 +12,6 @@ public interface PrintPDFService {
 
     String printAudio(String id) throws IOException, DocumentException;
 
+    String printPhoto(String id) throws IOException, DocumentException;
+
 }

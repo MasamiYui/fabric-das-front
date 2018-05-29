@@ -93,5 +93,28 @@ public class PrintPDFController {
         FileUtil.deleteFile(pdfFilePath);//删除临时文件
     }
 
+    //打印图片资产验证报告
+    @RequestMapping("/pdfPrint/photo")
+    public void printPhotoPDF(String id, HttpServletResponse response) throws IOException, DocumentException {
+
+        String pdfFilePath = printPDFService.printPhoto(id);
+
+        //设置响应内容类型为PDF类型
+        response.setContentType("application/pdf");
+        ServletOutputStream sos = response.getOutputStream();
+        File pdf = null;
+        FileInputStream fis = null;
+        byte[] buffer = new byte[1024*1024];
+        pdf = new File(pdfFilePath);
+        response.setContentLength((int) pdf.length());
+        fis = new FileInputStream(pdf);
+        int readBytes = -1;
+        while((readBytes = fis.read(buffer, 0, 1024*1024)) != -1){
+            sos.write(buffer, 0, 1024*1024);
+        }
+        sos.close();
+        fis.close();
+        FileUtil.deleteFile(pdfFilePath);//删除临时文件
+    }
 
 }
