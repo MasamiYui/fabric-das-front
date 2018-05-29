@@ -127,6 +127,9 @@
                             <div class="col-lg-12 ">
                                 <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传音频
                                 </button>
+                                <div class="layui-inline layui-word-aux">
+                                    <strong style="color:red">只支持mp3格式，大小不能超过50Mb</strong>
+                                </div>
                                 <div id="fileList" style="margin-top: 15px;"></div>
                             </div>
 
@@ -256,7 +259,9 @@
         upload.render({
             elem: '#test5'
             , url: '/file/upload'
-            , accept: 'video' //视频
+            , accept: 'audio'
+            ,exts:'mp3'
+            ,size:51200  //50M
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {

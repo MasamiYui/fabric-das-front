@@ -64,7 +64,6 @@ public class MusicAssetController {
         return modelAndView;
     }
 
-
     //音二维码扫描结果
     @RequestMapping("/musicQrcodeScanResult")
     public ModelAndView QrcodeScanResult(String files){
