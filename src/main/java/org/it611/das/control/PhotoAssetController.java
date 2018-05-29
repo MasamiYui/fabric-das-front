@@ -55,23 +55,7 @@ public class PhotoAssetController {
     }
 
     @RequestMapping("/photoForm")
-    public String videoForm(){return "insert_videoAssert";}
+    public String videoForm(){return "insert_phototAssert";}
 
-   /* //视频链接地址播放
-    @RequestMapping("/videoPalyLink")
-    public ModelAndView videoPalyLink(String linkAddress){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("videoUrl", linkAddress);
-        modelAndView.setViewName("videoDetailPlay");
-        return modelAndView;
-    }
 
-    //视频二维码扫描结果
-    @RequestMapping("/videoQrcodeScanResult")
-    public ModelAndView QrcodeScanResult(String files){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("filesPath",files);
-        modelAndView.setViewName("QRPhoneVideoList");
-        return modelAndView;
-    }*/
 }

@@ -117,22 +117,25 @@
                             </div>
 
                             <!--上传图片-->
-                            <!--<div class="col-lg-12 ">
-                                <button type="button" class="layui-btn" id="test2">视频文件上传</button>
+                            <div class="col-lg-12 ">
+                                <button type="button" class="layui-btn" id="test2">图片文件上传</button>
+                                <div class="layui-inline layui-word-aux">
+                                    <strong style="color:red">大小不能超过10Mb</strong>
+                                </div>
                                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                                    &lt;!&ndash;已上传：&ndash;&gt;
+                                    <!--已上传：-->
                                     <div class="layui-upload-list" id="demo2"></div>
                                 </blockquote>
-                            </div>-->
-                            <!--上传视频-->
+                            </div>
+                            <!--&lt;!&ndash;上传视频&ndash;&gt;
                             <div class="col-lg-12 ">
                                 <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传视频
                                 </button>
                                 <div class="layui-inline layui-word-aux">
-                                    <strong style="color:red">支持mp4格式，大小不能超过100Mb</strong>
+                                    <strong style="color:red">文件格式必须为mp4，大小不能超过100Mb</strong>
                                 </div>
                                 <div id="fileList" style="margin-top: 15px;"></div>
-                            </div>
+                            </div>-->
 
                             <!--确认按钮-->
                             <div class="col-lg-12 text-right">
@@ -196,12 +199,12 @@
                 console.log("表单序列化的结果" + queryString);
                 $.ajax({
                     type: "post",
-                    url: "/asset/video/add",
+                    url: "/asset/photo/add",
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
                         if (result.code = 200) {
-                            callbackMsg("视频资产申请已提交");
+                            callbackMsg("图片资产申请已提交");
                         } else {
                             callbackMsg("提交失败");
                         }
@@ -256,30 +259,24 @@
     var paths = "";        //上传的文件，中间用逗号隔开
     layui.use('upload', function () {
         var upload = layui.upload;
-        var videoName;
+        var photoName;
         upload.render({
-            elem: '#test5'
+            elem: '#test2'
             , url: '/file/upload'
-            , accept: 'video' //视频
-            ,exts:'mp4'
-            ,size:102400    //100MB
+            ,size:10240    //10MB
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
-                    videoName = file.name;
-                   /* if(videoName.indexOf(".mp4")<0){
-                        layer.msg("文件格式必须为mp4" );
-                        return;
-                    }*/
+                    photoName = file.name;
+                    $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
                     loading();
                 });
             }
             , done: function (res) {
                 if (res.code > 0) {
                     // $("#filesHash").val(res.data.filesHash);
-                    $('#fileList').append('<span style="width: 200px;padding-top: 10px;color:blue;" href="#"' + 'class="layui-upload-img" >' + videoName + '</span>');
+                    // $('#fileList').append('<span style="width: 200px;padding-top: 10px;color:blue;" href="#"' + 'class="layui-upload-img" >' + videoName + '</span>');
                     closeLoading();
-
                     var pathValue=res.data.path;
                     paths = paths + pathValue + ",";
                     $("#files").val(paths);
@@ -287,6 +284,22 @@
             }
         });
     });
+
+
+    $("#demo2").click(function () {
+        photoView();
+    });
+
+    function photoView() {
+        <!--照片查看器-->
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.photos({
+                photos: '#demo2'
+                , anim: 5 //0-6的选择
+            });
+        });
+    }
     
     function loading() {
        var index= layer.msg('文件上传中...', {
