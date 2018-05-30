@@ -6,12 +6,12 @@ import java.io.IOException;
 
 public interface PrintPDFService {
 
-    String printDegreeCertification(String id) throws IOException, DocumentException;
+    String printDegreeCertification(String id) throws Exception;
 
-    String printVideo(String id) throws IOException, DocumentException;
+    String printVideo(String id) throws Exception;
 
-    String printAudio(String id) throws IOException, DocumentException;
+    String printAudio(String id) throws Exception;
 
-    String printPhoto(String id) throws IOException, DocumentException;
+    String printPhoto(String id) throws Exception;
 
 }

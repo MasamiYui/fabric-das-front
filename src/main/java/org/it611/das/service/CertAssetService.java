@@ -12,7 +12,7 @@ public interface CertAssetService {
 
     JSONObject addDegreeCertificate(DegreeCertificateVO vo, HttpServletRequest request) throws IOException;
 
-    public HashMap<String, Object> selectCertAssetList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException;
+    HashMap<String, Object> selectCertAssetList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException;
 
-    HashMap selCertDetail(String id);
+    HashMap selCertDetail(String id) throws Exception;
 }

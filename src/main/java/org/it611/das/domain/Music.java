@@ -1,7 +1,12 @@
 package org.it611.das.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "music")
 public class Music {
 
+    @Id
     private String id;//作品Id 资产Id
 
     private String title;//作品名称----  歌曲：

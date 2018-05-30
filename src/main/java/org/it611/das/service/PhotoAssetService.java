@@ -14,5 +14,5 @@ public interface PhotoAssetService {
 
     HashMap<String, Object> selectPhotoList(HttpServletRequest request, int currentPage, int numberOfPages)throws IOException;
 
-    HashMap selectPhotoDetailById(String id);
+    HashMap selectPhotoDetailById(String id) throws Exception;
 }

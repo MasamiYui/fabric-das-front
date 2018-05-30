@@ -1,7 +1,12 @@
 package org.it611.das.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "photo")
 public class Photo {
 
+    @Id
     private String id;//作品Id 资产Id
 
     private String title;//作品名称----  歌曲：
@@ -12,9 +17,9 @@ public class Photo {
 
     private String author;//创作者（作者），可以是几个，用，隔开-------小明 小红
 
-    private String files;//文件url  ，隔开
+    private String files;//文件url，隔开
 
-    private String filesHash;//文件hash  ，隔开
+    private String filesHash;//文件hash， 隔开
 
     private String transactionId;//交易号
 

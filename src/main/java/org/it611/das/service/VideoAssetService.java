@@ -13,5 +13,5 @@ public interface VideoAssetService {
 
     HashMap<String, Object> selectVedioList(HttpServletRequest request,int currentPage, int numberOfPages)throws IOException;
 
-    HashMap selectVedioDetailById(String id);
+    HashMap selectVedioDetailById(String id) throws Exception;
 }

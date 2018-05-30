@@ -86,7 +86,7 @@
                                 </tr>
                                 <tr>
                                     <td>申请人</td>
-                                    <td th:text="${record.owner_id}"></td>
+                                    <td th:text="${record.ownerId}"></td>
                                 </tr>
                                 <tr>
                                     <td>创作者</td>
@@ -99,11 +99,11 @@
 
                                 <tr id="filehash">
                                     <td>申请时间</td>
-                                    <td th:text="${record.submit_time}"></td>
+                                    <td th:text="${record.submitTime}"></td>
                                 </tr>
                                 <tr>
                                     <td>交易单号</td>
-                                    <td th:text="${record.transaction_id}"></td>
+                                    <td th:text="${record.transactionId}"></td>
                                 </tr>
                                 <tr>
                                     <td>审核状态</td>
@@ -246,7 +246,7 @@
     }
 
     function fileHashTr() {
-        var filehash = [[${record.fileshash}]];
+        var filehash = [[${record.filesHash}]];
         var hashArr = filehash.split(",");
         var count = 0;
         for (var j in hashArr) {

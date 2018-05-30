@@ -3,13 +3,18 @@ package org.it611.das.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import org.it611.das.domain.Music;
+import org.it611.das.domain.Photo;
 import org.it611.das.mapper.MusicMapper;
 import org.it611.das.service.MusicAssetService;
+import org.it611.das.util.MapUtil;
 import org.it611.das.util.ResultUtil;
 import org.it611.das.util.UserQueryUtil;
 import org.it611.das.util.Vo2PoUtil;
 import org.it611.das.vo.MusicVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,36 +29,47 @@ public class MusicAssetServiceImpl implements MusicAssetService {
     @Autowired
     private MusicMapper musicMapper;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     @Transactional
-    public JSONObject addMusic(MusicVO vo, HttpServletRequest request) throws IOException {
+    public JSONObject addMusic(MusicVO musicVO, HttpServletRequest request) throws IOException {
 
-        Music music = Vo2PoUtil.musicVo2Po(request, vo);
-        int result = musicMapper.addMusic(music);
-        if (result>0){
-            return ResultUtil.constructResponse(200, "ok", null);
+        Music music = Vo2PoUtil.musicVo2Po(request, musicVO);
+        try{
+            mongoTemplate.insert(music);
+        }catch (Exception e){
+            return ResultUtil.constructResponse(400, "insert audio failed.", null);
         }
-        return ResultUtil.constructResponse(400, "insert music failed.", null);
+        return ResultUtil.constructResponse(200, "ok", null);
     }
 
     @Override
     public HashMap<String, Object> selectMusicAssetList(HttpServletRequest request,int currentPage, int numberOfPages) throws IOException {
-        HashMap<String, Object> dataMap = new HashMap<String,Object>();
-        PageHelper.startPage(currentPage, numberOfPages);
+
+        HashMap dataMap = new HashMap<String, Object>();
         String userId = UserQueryUtil.getUserIdByCookieAndRedis(request);
-        List<HashMap> rows=musicMapper.selectMusicAssertList(userId);
-        Long total=musicMapper.selectMusicAssertTotal(userId);
-        dataMap.put("rows", rows);
+        Criteria ownerCriteria = Criteria.where("ownerId").is(userId);
+        Query query = new Query();
+        query.addCriteria(ownerCriteria);//条件查询
+        long total = mongoTemplate.count(query, Music.class);//查询总数
+        query.skip((currentPage - 1) * numberOfPages).limit(numberOfPages);//分页查询
+        List<Music> resultData = mongoTemplate.find(query, Music.class);
+        dataMap.put("rows", resultData);
         dataMap.put("total", total);
         return dataMap;
     }
 
     @Override
-    public HashMap selectMusicDetailById(String id) {
+    public HashMap selectMusicDetailById(String id) throws Exception {
 
-        HashMap record=musicMapper.selectMusicRecordById(id);
-        return record;
+        Criteria ownerCriteria = Criteria.where("id").is(id);
+        Query query = new Query();
+        query.addCriteria(ownerCriteria);//条件查询
+        List<Music> resultData = mongoTemplate.find(query, Music.class);
+        HashMap dataMap = MapUtil.convertToMap(resultData.get(0));
+        return dataMap;
     }
 
 }

@@ -23,7 +23,7 @@ public class PrintPDFController {
 
     //  学历资产输出接口   http://localhost:8086/pdfPrint/degreeCertificate?id=20180521165335145310
     @RequestMapping("/pdfPrint/degreeCertificate")
-    public void printDegreeCertificatePDF(String id, HttpServletResponse response) throws IOException, DocumentException {
+    public void printDegreeCertificatePDF(String id, HttpServletResponse response) throws Exception {
 
         String pdfFilePath = printPDFService.printDegreeCertification(id);
 
@@ -47,7 +47,7 @@ public class PrintPDFController {
 
 
     @RequestMapping("/pdfPrint/video")
-    public void printVideoPDF(String id, HttpServletResponse response) throws IOException, DocumentException {
+    public void printVideoPDF(String id, HttpServletResponse response) throws Exception {
 
         String pdfFilePath = printPDFService.printVideo(id);
 
@@ -69,9 +69,9 @@ public class PrintPDFController {
         FileUtil.deleteFile(pdfFilePath);//删除临时文件
     }
 
-    //  学历资产输出接口   http://localhost:8086/pdfPrint/degreeCertificate?id=20180521165335145310
+
     @RequestMapping("/pdfPrint/audio")
-    public void printAudioPDF(String id, HttpServletResponse response) throws IOException, DocumentException {
+    public void printAudioPDF(String id, HttpServletResponse response) throws Exception {
 
         String pdfFilePath = printPDFService.printAudio(id);
 
@@ -95,7 +95,7 @@ public class PrintPDFController {
 
     //打印图片资产验证报告
     @RequestMapping("/pdfPrint/photo")
-    public void printPhotoPDF(String id, HttpServletResponse response) throws IOException, DocumentException {
+    public void printPhotoPDF(String id, HttpServletResponse response) throws Exception {
 
         String pdfFilePath = printPDFService.printPhoto(id);
 

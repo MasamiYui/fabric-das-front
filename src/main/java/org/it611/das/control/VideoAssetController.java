@@ -42,7 +42,7 @@ public class VideoAssetController {
 
 
     @RequestMapping("/videoDetail")
-    public ModelAndView videoDetail(String id){
+    public ModelAndView videoDetail(String id) throws Exception {
         HashMap record = videoAssetService.selectVedioDetailById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("record",record);

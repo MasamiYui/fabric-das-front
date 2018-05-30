@@ -48,13 +48,12 @@ public class DegreeCertificateAssetController {
 
     //获取学位证书记录详情
     @RequestMapping("/certDetail")
-    public ModelAndView certDetail(String recordId){
+    public ModelAndView certDetail(String recordId) throws Exception {
         HashMap record = certAssetService.selCertDetail(recordId);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("record",record);
         modelAndView.setViewName("certDetail");
         return modelAndView;
     }
-
 
 }

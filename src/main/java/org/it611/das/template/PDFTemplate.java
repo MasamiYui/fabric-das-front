@@ -115,11 +115,11 @@ public class PDFTemplate {
         //表单处理
         form.setField("assetType", "音频资产");
         form.setField("assetId", MusicMap.get("id").toString());
-        form.setField("owner", MusicMap.get("owner_id").toString());
+        form.setField("owner", MusicMap.get("ownerId").toString());
         form.setField("title",MusicMap.get("title").toString());
         form.setField("author",MusicMap.get("author").toString());
-        form.setField("fileshash", MusicMap.get("fileshash").toString().replace(",","\n"));
-        form.setField("transactionId", MusicMap.get("transaction_id").toString());
+        form.setField("fileshash", MusicMap.get("filesHash").toString().replace(",","\n"));
+        form.setField("transactionId", MusicMap.get("transactionId").toString());
 
 
         // 通过域名获取所在页和坐标，左下角为起点
@@ -180,11 +180,11 @@ public class PDFTemplate {
         //表单处理
         form.setField("assetType", "视频资产");
         form.setField("assetId", videoMap.get("id").toString());
-        form.setField("owner", videoMap.get("owner_id").toString());
+        form.setField("owner", videoMap.get("ownerId").toString());
         form.setField("title",videoMap.get("title").toString());
         form.setField("author",videoMap.get("author").toString());
-        form.setField("fileshash", videoMap.get("fileshash").toString().replace(",","\n"));
-        form.setField("transactionId", videoMap.get("transaction_id").toString());
+        form.setField("fileshash", videoMap.get("filesHash").toString().replace(",","\n"));
+        form.setField("transactionId", videoMap.get("transactionId").toString());
 
         // 通过域名获取所在页和坐标，左下角为起点
         int pageNo = form.getFieldPositions(fieldName).get(0).page;

@@ -44,7 +44,7 @@ public class PhotoAssetController {
 
 
     @RequestMapping("/photoDetail")
-    public String videoDetail(Model model,String id){
+    public String videoDetail(Model model,String id) throws Exception {
         HashMap record = photoAssetService.selectPhotoDetailById(id);
         model.addAttribute("record", record);
         return "photoDetail";

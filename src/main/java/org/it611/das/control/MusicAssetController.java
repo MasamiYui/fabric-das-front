@@ -32,9 +32,9 @@ public class MusicAssetController {
 
     //返回音频资产详情
     @RequestMapping("/musicDetail")
-    public String musicDetail(Model model, String id){
-        HashMap record = musicAssetService.selectMusicDetailById(id);
+    public String musicDetail(Model model, String id) throws Exception {
 
+        HashMap record = musicAssetService.selectMusicDetailById(id);
         model.addAttribute("record",record );
         return "musicDetail";
     }
@@ -42,10 +42,15 @@ public class MusicAssetController {
 
     //返回音频资产列表
     @RequestMapping("/musicAssetListIndex")
-    public String musicAssetList(){return "musicAsset_list";}
+    public String musicAssetList(){
+
+        return "musicAsset_list";
+    }
+
     @RequestMapping("/musicAsset/musicList")
     @ResponseBody
     public JSONObject musicList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
+
         HashMap<String ,Object> result=musicAssetService.selectMusicAssetList(request, currentPage,numberOfPages);
         return ResponseUtil.constructResponse(200, "OK", result);
     }

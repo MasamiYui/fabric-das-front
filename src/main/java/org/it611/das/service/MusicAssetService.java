@@ -13,5 +13,5 @@ public interface MusicAssetService {
 
     HashMap<String, Object> selectMusicAssetList(HttpServletRequest request,int currentPage, int numberOfPages) throws IOException;
 
-    HashMap selectMusicDetailById(String id);
+    HashMap selectMusicDetailById(String id) throws Exception;
 }
