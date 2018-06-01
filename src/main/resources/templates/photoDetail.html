@@ -192,6 +192,9 @@
         var filehash = [[${record.filesHash}]];
         filehash = filehash.substring(0, filehash.length - 1);
         if(!filehash) return;
+        if(filehash.charAt(filehash.length-1)==','){
+            filehash = filehash.substring(0, filehash.length - 1);
+        }
         var hashArr = filehash.split(",");
         var count = 0;
         for (var j in hashArr) {
@@ -208,7 +211,9 @@
     function photoShow(){
         var files = [[${record.files}]];
         if(!files) return;
-        files = files.substring(0, files.length - 1);
+        if(files.charAt(files.length-1)==','){
+            files = files.substring(0, files.length - 1);
+        }
         var photoArr = new Array();
          photoArr = files.split(",");
         for (var index in photoArr) {
@@ -226,6 +231,9 @@
             , anim: 5 //0-6的选择
         });
     });
+
+
+
 
     $("#reportPrint").click(function () {
         var id = [[${record.id}]];

@@ -82,12 +82,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/index")
-    public ModelAndView index() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
-        return modelAndView;
-    }
+
 
     //测试用户注册====>test
     @RequestMapping("/userReg")

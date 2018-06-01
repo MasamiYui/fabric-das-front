@@ -66,6 +66,8 @@ public class UserServiceImpl implements UserService {
 
         String token = UUID.randomUUID().toString();
         loginMap.remove("password");
+        loginMap.put("userType", loginMap.get("userType"));
+
         Jedis client = RedisUtil.getJedis();
         client.set(token, new ObjectMapper().writeValueAsString(loginMap));
         client.close();

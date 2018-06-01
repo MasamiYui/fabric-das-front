@@ -107,14 +107,15 @@
                 if (result.code == "400") {
                     $("#callbackInfo").text("帐号或密码不正确");
                 } else if (result.code == "200") {
-                    //判断用户类型
+                   /* //判断用户类型
                     if(result.data.userType == "1"){//如果是普通用户
-                        window.location.href = "/user/commonUser";
+                        window.location.href = "/loginHome";
                     }else if(result.data.userType == "2"){//如果是企业用户
                         window.location.href = "/user/companyUser";
                     }else {
                         $("#callbackInfo").text("未知错误");
-                    }
+                    }*/
+                    window.location.href = "/loginHome";
 
                 }
             }

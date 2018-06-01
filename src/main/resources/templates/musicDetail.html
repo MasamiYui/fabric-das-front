@@ -233,6 +233,10 @@
     function videoLinks() {
         var patt = /^(http|ftp|https):\/\/(.)+(\.mp3)(.)*/i;
         var urls = new Array();
+        if(!files) return;
+        if(files.charAt(files.length-1)==','){
+            files = files.substring(0, files.length - 1);
+        }
         var urlArr = files.split(",");
         for (var index in urlArr) {
             if (patt.test(urlArr[index])) {
@@ -247,6 +251,11 @@
 
     function fileHashTr() {
         var filehash = [[${record.filesHash}]];
+        var filehash = [[${record.fileshash}]];
+        if(!filehash) return;
+        if(filehash.charAt(filehash.length-1)==','){
+            filehash = filehash.substring(0, filehash.length - 1);
+        }
         var hashArr = filehash.split(",");
         var count = 0;
         for (var j in hashArr) {
