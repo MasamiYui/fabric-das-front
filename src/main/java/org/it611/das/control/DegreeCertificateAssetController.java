@@ -31,12 +31,12 @@ public class DegreeCertificateAssetController {
     //  返回学位证书申请表单
     @RequestMapping("/certificateInsert")
     public String certificateInsert() {
-        return "insert_certificate";
+        return "insert_certificateAssert";
     }
 
     //获取学位证书列表
     @RequestMapping("/certList")
-    public String certList(){return "certificateAsset_list";}
+    public String certList(){return "index_certificateAssetList";}
 
     @RequestMapping("/certficateAsset/certList")
     @ResponseBody
@@ -52,7 +52,7 @@ public class DegreeCertificateAssetController {
         HashMap record = certAssetService.selCertDetail(recordId);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("record",record);
-        modelAndView.setViewName("certDetail");
+        modelAndView.setViewName("detail_certificateAssert");
         return modelAndView;
     }
 

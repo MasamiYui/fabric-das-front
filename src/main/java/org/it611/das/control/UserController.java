@@ -74,12 +74,6 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/login/index")
-    public ModelAndView loginIndex() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
 
 
 
@@ -87,12 +81,12 @@ public class UserController {
     //测试用户注册====>test
     @RequestMapping("/userReg")
     public String userReg(){
-        return "userRegistration";
+        return "registration_userForm";
     }
     //测试企业注册====>test
     @RequestMapping("/companyReg")
     public String companyReg(){
-        return "companyRegistration";
+        return "registration_companyForm";
     }
     //测试用户主页====>test
     @RequestMapping("/userHome")

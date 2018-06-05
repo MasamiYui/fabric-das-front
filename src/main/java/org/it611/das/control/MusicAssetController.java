@@ -36,7 +36,7 @@ public class MusicAssetController {
 
         HashMap record = musicAssetService.selectMusicDetailById(id);
         model.addAttribute("record",record );
-        return "musicDetail";
+        return "detail_musicAssert";
     }
 
 
@@ -44,7 +44,7 @@ public class MusicAssetController {
     @RequestMapping("/musicAssetListIndex")
     public String musicAssetList(){
 
-        return "musicAsset_list";
+        return "index_musicAssetList";
     }
 
     @RequestMapping("/musicAsset/musicList")
@@ -65,7 +65,7 @@ public class MusicAssetController {
     public ModelAndView videoPalyLink(String linkAddress){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("videoUrl", linkAddress);
-        modelAndView.setViewName("videoDetailPlay");
+        modelAndView.setViewName("play_videoAndAudio");
         return modelAndView;
     }
 

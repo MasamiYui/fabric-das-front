@@ -30,7 +30,7 @@ public class VideoAssetController {
 
 
     @RequestMapping("/videoAssetListIndex")
-    public String videoIndex(){return "videoAsset_list";}
+    public String videoIndex(){return "index_videoAssetList";}
 
     @RequestMapping("/videoAsset/videoList")
     @ResponseBody
@@ -46,7 +46,7 @@ public class VideoAssetController {
         HashMap record = videoAssetService.selectVedioDetailById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("record",record);
-        modelAndView.setViewName("videoDetail");//修改为相应页面
+        modelAndView.setViewName("detail_videoAssert");//修改为相应页面
         return modelAndView;
     }
 
@@ -58,7 +58,7 @@ public class VideoAssetController {
     public ModelAndView videoPalyLink(String linkAddress){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("videoUrl", linkAddress);
-        modelAndView.setViewName("videoDetailPlay");
+        modelAndView.setViewName("play_videoAndAudio");
         return modelAndView;
     }
 

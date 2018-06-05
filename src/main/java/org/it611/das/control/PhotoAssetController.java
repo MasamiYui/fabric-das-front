@@ -2,10 +2,8 @@ package org.it611.das.control;
 
 import com.alibaba.fastjson.JSONObject;
 import org.it611.das.service.PhotoAssetService;
-import org.it611.das.service.VideoAssetService;
 import org.it611.das.util.ResponseUtil;
 import org.it611.das.vo.PhotoVO;
-import org.it611.das.vo.VedioVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +30,7 @@ public class PhotoAssetController {
 
 
     @RequestMapping("/photoAssetListIndex")
-    public String videoIndex(){return "photoAsset_list";}
+    public String videoIndex(){return "index_photoAssetList";}
 
     @RequestMapping("/photoAsset/photoList")
     @ResponseBody
@@ -47,7 +45,7 @@ public class PhotoAssetController {
     public String videoDetail(Model model,String id) throws Exception {
         HashMap record = photoAssetService.selectPhotoDetailById(id);
         model.addAttribute("record", record);
-        return "photoDetail";
+        return "detail_photoAssert";
        /* ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("record",record);
         modelAndView.setViewName("photoDetail");
