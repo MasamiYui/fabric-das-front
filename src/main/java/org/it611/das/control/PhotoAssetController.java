@@ -7,7 +7,9 @@ import org.it611.das.vo.PhotoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ public class PhotoAssetController {
     @Autowired
     private PhotoAssetService photoAssetService;
 
-    @RequestMapping("/asset/photo/add")
+    @RequestMapping(value = "/asset/image", method = RequestMethod.PUT)
     @ResponseBody
     public JSONObject addVideo(HttpServletRequest request, PhotoVO photoVO) throws Exception {
 
@@ -29,10 +31,13 @@ public class PhotoAssetController {
     }
 
 
-    @RequestMapping("/photoAssetListIndex")
-    public String videoIndex(){return "index_photoAssetList";}
+    @RequestMapping(value = "/asset/image/index", method = RequestMethod.GET)
+    public String videoIndex(){
 
-    @RequestMapping("/photoAsset/photoList")
+        return "index_photoAssetList";
+    }
+
+    @RequestMapping(value = "/asset/images", method = RequestMethod.GET)
     @ResponseBody
     public JSONObject videoList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
 
@@ -41,19 +46,19 @@ public class PhotoAssetController {
     }
 
 
-    @RequestMapping("/photoDetail")
-    public String videoDetail(Model model,String id) throws Exception {
+    @RequestMapping(value = "/asset/image/{id}", method = RequestMethod.GET)
+    public String videoDetail(Model model, @PathVariable String id) throws Exception {
+
         HashMap record = photoAssetService.selectPhotoDetailById(id);
         model.addAttribute("record", record);
         return "detail_photoAssert";
-       /* ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("record",record);
-        modelAndView.setViewName("photoDetail");
-        return modelAndView;*/
     }
 
-    @RequestMapping("/photoForm")
-    public String videoForm(){return "insert_phototAssert";}
+    @RequestMapping(value = "/asset/addImage", method = RequestMethod.GET)
+    public String videoForm(){
+
+        return "insert_phototAssert";
+    }
 
 
 }

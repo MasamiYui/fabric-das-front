@@ -183,7 +183,7 @@
     function showReportQRCode() {
         var recordId = [[${record.id}]];
         if (!recordId) return;
-        var verifyUrl = "http://localhost:8086/photoDetail?id=" + recordId;
+        var verifyUrl = "http://localhost:8086/image/" + recordId;
         var QRUrl = "http://pan.baidu.com/share/qrcode?w=120&h=120&url=" + verifyUrl;
         $("#QRcodeReport").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }

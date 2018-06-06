@@ -198,8 +198,8 @@
                 var queryString = $("#dataform").serialize();
                 console.log("表单序列化的结果" + queryString);
                 $.ajax({
-                    type: "post",
-                    url: "/asset/photo/add",
+                    type: "put",
+                    url: "/asset/image",
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
@@ -324,7 +324,7 @@
     }
 
     $("#btBack").click(function () {
-        window.location.href = "/videoForm";
+        window.location.href = "/asset/image/index";
     });
 
 </script>

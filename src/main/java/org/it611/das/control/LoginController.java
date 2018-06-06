@@ -17,13 +17,14 @@ public class LoginController {
     @RequestMapping("/frontLogin")
     public String frontLogin(){  return "login";}
 
-    @RequestMapping(value = "/index")
+    @RequestMapping(value = "/")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
         return modelAndView;
     }
-    @RequestMapping("/loginHome")
+
+    @RequestMapping("/home")
     public ModelAndView   loginHome(HttpServletRequest request) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         Jedis jedis = RedisUtil.getJedis();

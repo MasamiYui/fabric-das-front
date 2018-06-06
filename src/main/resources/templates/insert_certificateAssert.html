@@ -218,8 +218,8 @@
                 var queryString = $("#dataform").serialize();
                 console.log("表单序列化的结果" + queryString);
                 $.ajax({
-                    type: "post",
-                    url: "/asset/degreeCertification/add",
+                    type: "put",
+                    url: "/asset/degreeCertification",
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
@@ -265,7 +265,7 @@
             title: '申请结果'
             ,content: data
             ,end:function(){
-                window.location.href = "/certificateInsert";
+                window.location.href = "/asset/degreeCertification/index";
             }
         });
     }

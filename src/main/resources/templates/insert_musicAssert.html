@@ -194,8 +194,8 @@
                 var queryString = $("#dataform").serialize();
                 console.log("表单序列化的结果" + queryString);
                 $.ajax({
-                    type: "post",
-                    url: "/asset/music/add",
+                    type: "put",
+                    url: "/asset/audio",
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
@@ -306,7 +306,7 @@
     }
 
     $("#btBack").click(function () {
-        window.location.href = "/musicForm";
+        window.location.href = "/asset/audio/index";
     });
 
 </script>

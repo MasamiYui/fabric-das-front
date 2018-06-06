@@ -228,7 +228,7 @@
 
     function showQRCode() {
         if (!recordId) return;
-        var verifyUrl = "http://localhost:8086/certDetail?recordId=" + recordId;
+        var verifyUrl = "http://localhost:8086/asset/degreeCertification/" + recordId;
         var QRUrl = "http://pan.baidu.com/share/qrcode?w=150&h=150&url=" + verifyUrl;
         $("#QRcodePic").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }

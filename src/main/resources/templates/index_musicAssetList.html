@@ -154,8 +154,8 @@
         var currentPage = queryParams.currentPage;
         console.log("页面加载完后：：" + JSON.stringify(queryParams));
         $.ajax({
-            type: "post",
-            url: "/musicAsset/musicList",
+            type: "get",
+            url: "/asset/audios",
             data: queryParams,
             dataType: "json",
             success: function (result) {
@@ -177,7 +177,7 @@
                         onPageClicked: function (event, originalEvent, type, page) { //异步换页
                             var subParams = getParams();
                             subParams.currentPage = page;
-                            requestResult("/musicAsset/musicList", subParams);  //这里要写清楚请求的接口
+                            requestResult("/asset/audios", subParams);  //这里要写清楚请求的接口
                         }
                     };
                     element.bootstrapPaginator(options);
@@ -191,7 +191,7 @@
     function requestResult(url, subParams) {
         console.log("点击页码时：：" + JSON.stringify(subParams));
         $.ajax({
-            type: "post",
+            type: "get",
             url: url,
             data: subParams,
             dataType: "json",
@@ -218,7 +218,7 @@
                 + '<td>' + row.author + '</td>'
                 + '<td>' + row.transactionId + '</td>'
                 + '<td>' + state + '</td>'
-                + '<td><a target="_blank" href="/musicDetail?id=' + row.id + '">详情</a></td>'
+                + '<td><a target="_blank" href="/asset/audio/' + row.id + '">详情</a></td>'
                 + '</tr>';
             items.append(html);
         }

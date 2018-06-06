@@ -11,6 +11,7 @@ import org.it611.das.util.ResultUtil;
 import org.it611.das.ocr.OcrExample;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
@@ -25,7 +26,7 @@ import java.util.Map;
 @Controller
 public class FileController {
 
-    @RequestMapping("/file/upload")
+    @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject singleFileUpload(MultipartFile file, HttpServletRequest httpServletRequest) throws IOException {
 
@@ -44,7 +45,7 @@ public class FileController {
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
 
-    @RequestMapping("/file/idcard/upload")
+    @RequestMapping(value = "/file/idcard/upload", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject idCardUpload(MultipartFile file) throws IOException {
 

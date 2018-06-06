@@ -6,7 +6,9 @@ import org.it611.das.util.ResponseUtil;
 import org.it611.das.vo.VedioVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,7 +22,7 @@ public class VideoAssetController {
     @Autowired
     private VideoAssetService videoAssetService;
 
-    @RequestMapping("/asset/video/add")
+    @RequestMapping(value = "/asset/video", method = RequestMethod.PUT)
     @ResponseBody
     public JSONObject addVideo(HttpServletRequest request, VedioVO vedioVO) throws IOException {
 
@@ -29,10 +31,10 @@ public class VideoAssetController {
     }
 
 
-    @RequestMapping("/videoAssetListIndex")
+    @RequestMapping(value = "/asset/video/index", method = RequestMethod.GET)
     public String videoIndex(){return "index_videoAssetList";}
 
-    @RequestMapping("/videoAsset/videoList")
+    @RequestMapping(value = "/asset/videos", method = RequestMethod.GET)
     @ResponseBody
     public JSONObject videoList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
 
@@ -41,8 +43,8 @@ public class VideoAssetController {
     }
 
 
-    @RequestMapping("/videoDetail")
-    public ModelAndView videoDetail(String id) throws Exception {
+    @RequestMapping(value = "/asset/video/{id}", method = RequestMethod.GET)
+    public ModelAndView videoDetail(@PathVariable String id) throws Exception {
         HashMap record = videoAssetService.selectVedioDetailById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("record",record);
@@ -50,11 +52,11 @@ public class VideoAssetController {
         return modelAndView;
     }
 
-    @RequestMapping("/videoForm")
+    @RequestMapping(value = "/asset/addVideo", method = RequestMethod.GET)
     public String videoForm(){return "insert_videoAssert";}
 
     //视频链接地址播放
-    @RequestMapping("/videoPalyLink")
+    @RequestMapping(value = "/videoPalyLink", method = RequestMethod.GET)
     public ModelAndView videoPalyLink(String linkAddress){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("videoUrl", linkAddress);

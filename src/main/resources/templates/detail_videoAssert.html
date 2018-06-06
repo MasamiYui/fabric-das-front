@@ -219,7 +219,7 @@
     function showReportQRCode() {
         var recordId = [[${record.id}]];
         if (!recordId) return;
-        var verifyUrl = "http://localhost:8086/videoDetail?id=" + recordId;
+        var verifyUrl = "http://localhost:8086/asset/video/" + recordId;
         var QRUrl = "http://pan.baidu.com/share/qrcode?w=120&h=120&url=" + verifyUrl;
         $("#QRcodeReport").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
@@ -254,7 +254,6 @@
 
     function fileHashTr() {
         var filehash = [[${record.filesHash}]];
-        var filehash = [[${record.fileshash}]];
         if(!filehash) return;
         if(filehash.charAt(filehash.length-1)==','){
             filehash = filehash.substring(0, filehash.length - 1);
