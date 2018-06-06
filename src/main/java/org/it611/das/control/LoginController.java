@@ -15,18 +15,12 @@ import java.util.HashMap;
 @Controller
 public class LoginController {
     @RequestMapping("/frontLogin")
-    public String frontLogin(){  return "frontLogin";}
-
-    @RequestMapping("/user/commonUser")
-    public String  commonUserhome(){ return "home_commonUser";}
-
-    @RequestMapping("/user/companyUser")
-    public String  companyUserhome(){ return "home_companyUser";}
+    public String frontLogin(){  return "login";}
 
     @RequestMapping(value = "/index")
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("home");
         return modelAndView;
     }
     @RequestMapping("/loginHome")

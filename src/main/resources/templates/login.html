@@ -35,14 +35,21 @@
     <script th:src="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"></script>
     <![endif]-->
 
+    <style>
+        body{
+            background: url("../image/login.jpg") no-repeat ;
+            background-size: cover;
+        }
+    </style>
+
 </head>
 
 <body>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="login-panel panel panel-default">
+        <div class="col-md-4 col-md-offset-8">
+            <div class="login-panel panel panel-default" style="margin-top: 120px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">用户登陆</h3>
                 </div>
@@ -62,7 +69,7 @@
                             </div>
 
                             <!-- Change this to a button or input when using this as a form -->
-                            <a id="btSubmit" class="btn btn-lg btn-success btn-block">Login</a>
+                            <a id="btSubmit" class="btn btn-lg btn-success btn-block">登录</a>
                             <div class="form-group" style="margin-top:10px;text-align: right;">
                                 <span><a href="/userReg">用户注册</a> </span>
                                 <span><a href="/companyReg">企业注册</a> </span>

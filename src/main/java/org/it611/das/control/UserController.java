@@ -73,33 +73,14 @@ public class UserController {
         return result;
     }
 
-
-
-
-
-
-    //测试用户注册====>test
     @RequestMapping("/userReg")
     public String userReg(){
         return "registration_userForm";
     }
-    //测试企业注册====>test
+
     @RequestMapping("/companyReg")
     public String companyReg(){
         return "registration_companyForm";
-    }
-    //测试用户主页====>test
-    @RequestMapping("/userHome")
-    public ModelAndView userHome(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        String token = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
-        String userJsonStr = RedisUtil.getJedis().get(token);
-        ObjectMapper mapper = new ObjectMapper();
-        HashMap userMap = mapper.readValue(userJsonStr, HashMap.class);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("userHome");
-        modelAndView.addObject(userMap);
-        return modelAndView;
     }
 
 }

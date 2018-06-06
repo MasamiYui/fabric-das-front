@@ -36,7 +36,7 @@ public class MusicAssetController {
 
         HashMap record = musicAssetService.selectMusicDetailById(id);
         model.addAttribute("record",record );
-        return "detail_musicAssert";
+        return "detail_audioAssert";
     }
 
 
