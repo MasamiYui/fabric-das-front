@@ -33,10 +33,10 @@ public class LoginController {
         String useType= String.valueOf(userMap.get("userType"));
         if(useType.equals("1")){
             modelAndView.addObject("loginName",userMap.get("name"));
-            modelAndView.setViewName("index_userhome");
+            modelAndView.setViewName("home_userIndex");
         }else if(useType.equals("2")){
             modelAndView.addObject("loginName",userMap.get("companyName"));
-            modelAndView.setViewName("index_companyhome");
+            modelAndView.setViewName("home_companyIndex");
         }
         return modelAndView;
 
