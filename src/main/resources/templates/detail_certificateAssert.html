@@ -229,7 +229,7 @@
     function showQRCode() {
         if (!recordId) return;
         var verifyUrl = "http://localhost:8086/asset/degreeCertification/" + recordId;
-        var QRUrl = "http://pan.baidu.com/share/qrcode?w=150&h=150&url=" + verifyUrl;
+        var QRUrl = "http://b.bshare.cn/barCode?site=weixin&url=" + verifyUrl;
         $("#QRcodePic").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
 

@@ -127,10 +127,10 @@
                                     <div id="QRcodeReport" style="margin: 0px;" class="col-lg-12"></div>
                                     <div id="QrReportTip" class="col-lg-12" style="display:none;">资产报告二维码</div>
                                 </div>
-                                <div class="col-lg-12" style="text-align: center">
+                                <!--<div class="col-lg-12" style="text-align: center">
                                     <div id="QRcodeVideo" style="margin: 0px;" class="col-lg-12"></div>
                                     <div class="col-lg-12">音频播放二维码</div>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
             showReportQRCode();
             $("#QrReportTip").show();
         }
-        showVideoQRCode();
+        // showVideoQRCode();
         videoLinks();
         fileHashTr();
     });
@@ -217,7 +217,7 @@
         var recordId = [[${record.id}]];
         if (!recordId) return;
         var verifyUrl = "http://localhost:8086/asset/degreeCertification/" + recordId;
-        var QRUrl = "http://pan.baidu.com/share/qrcode?w=120&h=120&url=" + verifyUrl;
+        var QRUrl = "http://b.bshare.cn/barCode?site=weixin&url=" + verifyUrl;
         $("#QRcodeReport").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
 

@@ -212,10 +212,14 @@
             var row = rows[i];
             var state=row.state;
             state = state == '0' ? "未审核" : state == '1' ? "已审核" : state == '2' ? "不通过" : state == '3' ? "注销" : "无状态";
+            var author = row.author;
+            if(author.charAt(author.length-1)==','){
+                author = author.substring(0, author.length - 1);
+            }
             var html = '<tr>'
                 + '<td>' + row.title + '</td>'
                 + '<td>' + row.ownerId + '</td>'
-                + '<td>' + row.author + '</td>'
+                + '<td>' + author + '</td>'
                 + '<td>' + row.transactionId + '</td>'
                 + '<td>' + state + '</td>'
                 + '<td><a target="_blank" href="/asset/audio/' + row.id + '">详情</a></td>'

@@ -143,11 +143,7 @@
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
-   /* $(document).keyup(function (event) {
-        if (event.keyCode == 13) {
-            search();
-        }
-    });*/
+
     $(document).ready(function () {
         search();
     });
@@ -179,7 +175,6 @@
                         numberOfPages: numberOfPages,		 //每页显示的页码
                         totalPages: totalPages,           //设置总页数
                         onPageClicked: function (event, originalEvent, type, page) { //异步换页
-                            //alert("呵呵：：" + page );
                             var subParams = getParams();
                             subParams.currentPage = page;
                             requestResult("/certficateAsset/certList", subParams);  //这里要写清楚请求的接口
@@ -223,7 +218,8 @@
                 + '<td>' + row.filesHash + '</td>'
                 + '<td>' + row.transactionId + '</td>'
                 + '<td>' + state + '</td>'
-                + '<td ><a target="_blank" href="/certDetail?recordId=' + row.id + '">详情</a></td>'
+                // + '<td ><a target="_blank" href="/certDetail?recordId=' + row.id + '">详情</a></td>'
+                + '<td ><a target="_blank" href="/asset/degreeCertification/' + row.id + '">详情</a></td>'
                 + '</tr>';
             items.append(html);
         }
