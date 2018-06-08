@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+   <!-- <style>
+        nav{
+            background: url("./image/navTop.png") no-repeat ;
+            background-size: cover;
+        }
+    </style>-->
 
-    <style>
-       /* .sidebar ul li a.active{
-            background-color: white;
-        }*/
-    </style>
 </head>
 <body>
 
 
-<nav th:fragment="navigation" class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+<nav th:fragment="navigation" class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;background-image: url('/image/navTop.png');background-size: cover;" >
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -22,7 +23,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/home2">可信资产存储平台</a>
+        <a class="navbar-brand" href="/home2" style="color:white;">可信资产存储平台</a>
     </div>
     <!-- /.navbar-header -->
     <ul class="nav navbar-top-links navbar-right">
@@ -37,7 +38,7 @@
                 <li><a href="/frontLogin"><i class="fa fa-sign-out fa-fw"></i> 退出系统</a>
                 </li>
             </ul>-->
-            <a href="/frontLogin"><i class="fa fa-sign-out fa-fw"></i> 退出系统</a>
+            <a href="/frontLogin" style="color:white;"><i class="fa fa-sign-out fa-fw" ></i> 退出系统</a>
             <!-- /.dropdown-user -->
         </li>
         <!-- /.dropdown -->
@@ -45,7 +46,7 @@
     <!-- /.navbar-top-links -->
 
     <div class="navbar-default sidebar" role="navigation">
-        <div class="sidebar-nav navbar-collapse">
+        <div class="sidebar-nav navbar-collapse" style="background-color: white;">
             <ul class="nav" id="side-menu">
                 <!--<li class="sidebar-search">
                     <div class="input-group custom-search-form">
@@ -59,54 +60,54 @@
                 </li>-->
 
                 <li>
-                    <a href="/home"><i class="glyphicon glyphicon-home"></i> 我的首页</span></a>
+                    <a href="/home" style="color:#0088cc"><i class="glyphicon glyphicon-home"></i> 我的首页</span></a>
                 </li>
 
                 <li>
-                    <a href="#"><i class="glyphicon glyphicon-th-list"></i> 我的资产<span class="fa arrow"></span></a>
+                    <a href="#" style="color:#0088cc"><i class="glyphicon glyphicon-th-list" ></i> 我的资产<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                        <!-- <li>
                             <a href="">学生证列表</a>
                         </li>-->
                         <li>
-                            <a href="/asset/degreeCertification/index">学位证书列表</a>
+                            <a href="/asset/degreeCertification/index" style="color:#0088cc">学位证书列表</a>
                         </li>
                         <li>
-                            <a href="/asset/video/index">视频资产列表</a>
+                            <a href="/asset/video/index" style="color:#0088cc">视频资产列表</a>
                         </li>
                         <li>
-                            <a href="/asset/audio/index">音频资产列表</a>
+                            <a href="/asset/audio/index" style="color:#0088cc">音频资产列表</a>
                         </li>
                         <li>
-                            <a href="/asset/image/index">图片资产列表</a>
+                            <a href="/asset/image/index" style="color:#0088cc">图片资产列表</a>
                         </li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="#"><i class="fa fa-edit fa-fw"></i> 资产申请<span class="fa arrow"></span></a>
+                    <a href="#" style="color:#0088cc"><i class="fa fa-edit fa-fw" style="color:#0088cc"></i> 资产申请<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
 
                         <li>
-                            <a href="#"> 文本资产<span class="fa arrow"></span></a>
+                            <a href="#" style="color:#0088cc"> 文本资产<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <!--<li>
                                     <a href="/asset/getAsset">&nbsp;&nbsp;&nbsp;&nbsp;学生证</a>
                                 </li>-->
                                 <li>
-                                    <a href="/asset/addDegreeCertification">&nbsp;&nbsp;&nbsp;&nbsp;学位证书</a>
+                                    <a style="color:#0088cc" href="/asset/addDegreeCertification">&nbsp;&nbsp;&nbsp;&nbsp;学位证书</a>
                                 </li>
                             </ul>
                         </li>
 
                         <li>
-                            <a href="/asset/addVideo">视频资产</a>
+                            <a href="/asset/addVideo" style="color:#0088cc">视频资产</a>
                         </li>
                         <li>
-                            <a href="/asset/addAudio">音频资产</a>
+                            <a href="/asset/addAudio" style="color:#0088cc">音频资产</a>
                         </li>
                         <li>
-                            <a href="/asset/addImage">图片资产</a>
+                            <a href="/asset/addImage" style="color:#0088cc">图片资产</a>
                         </li>
                     </ul>
                 </li>
