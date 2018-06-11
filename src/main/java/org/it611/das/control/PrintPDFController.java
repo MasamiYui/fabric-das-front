@@ -33,16 +33,19 @@ public class PrintPDFController {
         File pdf = null;
         FileInputStream fis = null;
         byte[] buffer = new byte[1024*1024];
-        pdf = new File(pdfFilePath);
+        //pdf = new File("/"+pdfFilePath);//windows
+        pdf = new File("/"+pdfFilePath);//linux
         response.setContentLength((int) pdf.length());
-        fis = new FileInputStream(pdf);
+        //fis = new FileInputStream("/"+pdf);//windows
+        fis = new FileInputStream("/"+pdf);//linux
         int readBytes = -1;
         while((readBytes = fis.read(buffer, 0, 1024*1024)) != -1){
             sos.write(buffer, 0, 1024*1024);
         }
         sos.close();
         fis.close();
-        FileUtil.deleteFile(pdfFilePath);//删除临时文件
+        //FileUtil.deleteFile(pdfFilePath);//删除临时文件 windows
+        FileUtil.deleteFile("/"+pdfFilePath);//删除临时文件 linux
     }
 
 

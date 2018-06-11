@@ -26,7 +26,8 @@ public class QRUtil {
             basePath = basePath.substring(1, basePath.length());//TODO 部署到linux下可能不需要这个操作
             String tmpFilePath =basePath + tmpFileName;
             System.out.println(tmpFilePath);
-            MatrixToImageWriter.writeToPath(bitMatrix, format, new File(tmpFilePath).toPath());
+            //MatrixToImageWriter.writeToPath(bitMatrix, format, new File(tmpFilePath).toPath());//windows
+            MatrixToImageWriter.writeToPath(bitMatrix, format, new File("/"+tmpFilePath).toPath());//linux
             //删除这个临时文件
             //FileUtil.deleteFile(tmpFilePath);
             //生成成功
