@@ -14,13 +14,13 @@ public final class Vo2PoUtil {
 
     public static User userVo2Po(UserVO userVo){
 
-        return new User(IdUtil.getId(), userVo.getPhone(), userVo.getEmail(), MD5Util.generate(userVo.getPassword()), userVo.getIdcard(), userVo.getName(),
+        return new User(IdUtil.getUserId(), userVo.getPhone(), userVo.getEmail(), MD5Util.generate(userVo.getPassword()), userVo.getIdcard(), userVo.getName(),
                 userVo.getSex(), userVo.getNation(), userVo.getDate(), userVo.getAddress(), userVo.getFiles(), 0, TimeUtil.getLocalTime());
 
     }
 
     public static Company ConpanyVo2Po(CompanyVO companyVO) {
-        return new Company(IdUtil.getId(), companyVO.getUsername(),MD5Util.generate(companyVO.getPassword()), companyVO.getCompanyName(), companyVO.getCompanyAddress(),
+        return new Company(IdUtil.getUserId(), companyVO.getUsername(),MD5Util.generate(companyVO.getPassword()), companyVO.getCompanyName(), companyVO.getCompanyAddress(),
                 companyVO.getCompanyEmail(), companyVO.getLandinePhone(), companyVO.getContact(), companyVO.getPhone(), companyVO.getCreditId(),
                 companyVO.getCompanyType(), companyVO.getRepresentative(), companyVO.getEstablishmentTime(), companyVO.getStartTime(), companyVO.getEndTime(),
                 companyVO.getBusinessScope(), companyVO.getRegistrationAuthority(), companyVO.getRegistrationTime(), companyVO.getFiles(), 0, TimeUtil.getLocalTime());
@@ -37,7 +37,7 @@ public final class Vo2PoUtil {
         HashMap obj=new ObjectMapper().readValue(jsonstr,HashMap.class);
         String userId = obj.get("id").toString();
         client.close();
-        return new DegreeCertificate(IdUtil.getId(), userId,vo.getName(), vo.getSex(), vo.getDate(), vo.getDegreeConferringUnit(), vo.getProfessional(),
+        return new DegreeCertificate(IdUtil.getDegreeCertId(), userId,vo.getName(), vo.getSex(), vo.getDate(), vo.getDegreeConferringUnit(), vo.getProfessional(),
                 vo.getDegreeName(), vo.getCertId(), vo.getTime(), vo.getFiles(), filesHash, "","0", TimeUtil.getLocalTime());
 
     }
@@ -53,13 +53,13 @@ public final class Vo2PoUtil {
         String filesHash = "";//方便进行拼接
         String[] filesArr = vo.getFiles().split(",");
         for(int i=0; i<filesArr.length; i++){
-            String temp = client.get(filesArr[0]);
+            String temp = client.get(filesArr[i]);
             filesHash = filesHash + temp+ ",";
         }
         //去掉,
         filesHash.substring(0, filesHash.length()-1);
         client.close();
-        return new Video(IdUtil.getId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
+        return new Video(IdUtil.getVideoId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
     }
 
     public static Music musicVo2Po(HttpServletRequest request, MusicVO vo) throws IOException {
@@ -73,13 +73,13 @@ public final class Vo2PoUtil {
         String filesHash = "";//方便进行拼接
         String[] filesArr = vo.getFiles().split(",");
         for(int i=0; i<filesArr.length; i++){
-            String temp = client.get(filesArr[0]);
+            String temp = client.get(filesArr[i]);
             filesHash = filesHash + temp+ ",";
         }
         //去掉,
         filesHash.substring(0, filesHash.length()-1);
         client.close();
-        return new Music(IdUtil.getId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
+        return new Music(IdUtil.getAudioId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
     }
 
 
@@ -93,13 +93,13 @@ public final class Vo2PoUtil {
         String filesHash = "";//方便进行拼接
         String[] filesArr = vo.getFiles().split(",");
         for(int i=0; i<filesArr.length; i++){
-            String temp = client.get(filesArr[0]);
+            String temp = client.get(filesArr[i]);
             filesHash = filesHash + temp+ ",";
         }
         //去掉,
         filesHash.substring(0, filesHash.length()-1);
         client.close();
-        return new Photo(IdUtil.getId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
+        return new Photo(IdUtil.getImageId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
     }
 
 }

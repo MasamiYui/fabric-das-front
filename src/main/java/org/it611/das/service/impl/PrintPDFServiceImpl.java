@@ -105,7 +105,7 @@ public class PrintPDFServiceImpl implements PrintPDFService {
         HashMap dataMap = MapUtil.convertToMap(resultData.get(0));
 
         //首次生成调用PDF生成工具生成
-        String url = PDFTemplate.generateMusic(dataMap, "www.baidu.com");
+        String url = PDFTemplate.generateImage(dataMap, "www.baidu.com");
 
         return url;
 

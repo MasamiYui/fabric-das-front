@@ -112,9 +112,9 @@ public class PDFTemplate {
 
 
         // 读取模板文件
-        InputStream input = new FileInputStream(new File(templatePath));
+        InputStream input = new FileInputStream(new File("/"+templatePath));
         PdfReader reader = new PdfReader(input);
-        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(targetPath));
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream("/"+targetPath));
 
         //权限控制
         stamper.setEncryption(null, null, PdfWriter.ALLOW_PRINTING, PdfWriter.STANDARD_ENCRYPTION_128);
@@ -146,7 +146,7 @@ public class PDFTemplate {
         String QRFilePath = QRUtil.GenerateQR(QRText);//生成QR，并且将temp文件保存到QRFilePath；
 
         // 读图片
-        Image image = Image.getInstance(QRFilePath);
+        Image image = Image.getInstance("/"+QRFilePath);
         // 获取操作的页面
         PdfContentByte under = stamper.getOverContent(pageNo);
         // 根据域的大小缩放图片
@@ -180,9 +180,9 @@ public class PDFTemplate {
 
 
         // 读取模板文件
-        InputStream input = new FileInputStream(new File(templatePath));
+        InputStream input = new FileInputStream(new File("/"+templatePath));//linux
         PdfReader reader = new PdfReader(input);
-        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(targetPath));
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream("/"+targetPath));
 
         //权限控制
         stamper.setEncryption(null, null, PdfWriter.ALLOW_PRINTING, PdfWriter.STANDARD_ENCRYPTION_128);
@@ -214,7 +214,7 @@ public class PDFTemplate {
         String QRFilePath = QRUtil.GenerateQR(QRText);//生成QR，并且将temp文件保存到QRFilePath；
 
         // 读图片
-        Image image = Image.getInstance(QRFilePath);
+        Image image = Image.getInstance("/"+QRFilePath);
         // 获取操作的页面
         PdfContentByte under = stamper.getOverContent(pageNo);
         // 根据域的大小缩放图片
@@ -248,9 +248,9 @@ public class PDFTemplate {
 
 
         // 读取模板文件
-        InputStream input = new FileInputStream(new File(templatePath));
+        InputStream input = new FileInputStream(new File("/"+templatePath));
         PdfReader reader = new PdfReader(input);
-        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(targetPath));
+        PdfStamper stamper = new PdfStamper(reader, new FileOutputStream("/"+targetPath));
 
         //权限控制
         stamper.setEncryption(null, null, PdfWriter.ALLOW_PRINTING, PdfWriter.STANDARD_ENCRYPTION_128);
@@ -282,7 +282,7 @@ public class PDFTemplate {
         String QRFilePath = QRUtil.GenerateQR(QRText);//生成QR，并且将temp文件保存到QRFilePath；
 
         // 读图片
-        Image image = Image.getInstance(QRFilePath);
+        Image image = Image.getInstance("/"+QRFilePath);
         // 获取操作的页面
         PdfContentByte under = stamper.getOverContent(pageNo);
         // 根据域的大小缩放图片

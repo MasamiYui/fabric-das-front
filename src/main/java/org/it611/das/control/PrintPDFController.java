@@ -49,6 +49,7 @@ public class PrintPDFController {
     }
 
 
+
     @RequestMapping("/pdfPrint/video")
     public void printVideoPDF(String id, HttpServletResponse response) throws Exception {
 
@@ -60,7 +61,7 @@ public class PrintPDFController {
         File pdf = null;
         FileInputStream fis = null;
         byte[] buffer = new byte[1024*1024];
-        pdf = new File(pdfFilePath);
+        pdf = new File("/"+pdfFilePath);
         response.setContentLength((int) pdf.length());
         fis = new FileInputStream(pdf);
         int readBytes = -1;
@@ -69,7 +70,7 @@ public class PrintPDFController {
         }
         sos.close();
         fis.close();
-        FileUtil.deleteFile(pdfFilePath);//删除临时文件
+        FileUtil.deleteFile("/"+pdfFilePath);//删除临时文件
     }
 
 
@@ -84,7 +85,7 @@ public class PrintPDFController {
         File pdf = null;
         FileInputStream fis = null;
         byte[] buffer = new byte[1024*1024];
-        pdf = new File(pdfFilePath);
+        pdf = new File("/"+pdfFilePath);
         response.setContentLength((int) pdf.length());
         fis = new FileInputStream(pdf);
         int readBytes = -1;
@@ -93,7 +94,7 @@ public class PrintPDFController {
         }
         sos.close();
         fis.close();
-        FileUtil.deleteFile(pdfFilePath);//删除临时文件
+        FileUtil.deleteFile("/"+pdfFilePath);//删除临时文件
     }
 
     //打印图片资产验证报告
@@ -101,14 +102,13 @@ public class PrintPDFController {
     public void printPhotoPDF(String id, HttpServletResponse response) throws Exception {
 
         String pdfFilePath = printPDFService.printPhoto(id);
-
         //设置响应内容类型为PDF类型
         response.setContentType("application/pdf");
         ServletOutputStream sos = response.getOutputStream();
         File pdf = null;
         FileInputStream fis = null;
         byte[] buffer = new byte[1024*1024];
-        pdf = new File(pdfFilePath);
+        pdf = new File("/"+pdfFilePath);
         response.setContentLength((int) pdf.length());
         fis = new FileInputStream(pdf);
         int readBytes = -1;
@@ -117,7 +117,7 @@ public class PrintPDFController {
         }
         sos.close();
         fis.close();
-        FileUtil.deleteFile(pdfFilePath);//删除临时文件
+        FileUtil.deleteFile("/"+pdfFilePath);//删除临时文件
     }
 
 }
