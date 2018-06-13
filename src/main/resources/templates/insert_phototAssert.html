@@ -211,6 +211,7 @@
                     success: function (result) {
                         if (result.code = 200) {
                             callbackMsg("图片资产申请已提交");
+                            window.location.href = "/asset/image/index";
                         } else {
                             callbackMsg("提交失败");
                         }
@@ -330,7 +331,7 @@
     }
 
     $("#btBack").click(function () {
-        window.location.href = "/asset/image/index";
+        window.location.href = "/asset/addImage";
     });
 
 </script>

@@ -207,6 +207,7 @@
                     success: function (result) {
                         if (result.code = 200) {
                             callbackMsg("视频资产申请已提交");
+                            window.location.href = "/asset/audio/index";
                         } else {
                             callbackMsg("提交失败");
                         }
@@ -312,7 +313,7 @@
     }
 
     $("#btBack").click(function () {
-        window.location.href = "/asset/audio/index";
+        window.location.href = "/asset/addAudio";
     });
 
 </script>
