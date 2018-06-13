@@ -102,4 +102,22 @@ public final class Vo2PoUtil {
         return new Photo(IdUtil.getImageId(), vo.getTitle(), vo.getDes(), userId, vo.getAuthor(), vo.getFiles(), filesHash, "", TimeUtil.getLocalTime(), "0");
     }
 
+    public static Syxxzl syxxzlVo2Po(HttpServletRequest request, SyxxzlVO vo) throws IOException {
+        Jedis client = RedisUtil.getJedis();
+
+        String path = vo.getFiles();
+        String filesHash = client.get(path);
+
+        String token = CookieUtil.getCookie(request,  CookieUtil.COOKIE_TOKEN_KEY);
+        String jsonstr = client.get(token);
+        HashMap obj=new ObjectMapper().readValue(jsonstr,HashMap.class);
+        String userId = obj.get("id").toString();
+        client.close();
+        return new Syxxzl(IdUtil.getSyxxzlId(), userId, vo.getZsh(), vo.getSyxxmc(), vo.getFmr(), vo.getZlh(), vo.getZlsqr(),vo.getZlqr(), vo.getSqggr(), vo.getFzsj() , vo.getFiles(), filesHash, "","0", TimeUtil.getLocalTime());
+
+    }
+
+
+
+
 }

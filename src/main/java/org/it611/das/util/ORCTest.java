@@ -56,7 +56,7 @@ public class ORCTest {
         System.out.println(result);
         System.out.println(result.replace(" ",""));*/
 
-        String str = "学士学位证书熊志,男，1985年6月6日生。在重庆邮电大学软件工程专业完成了本科学习计划，业已毕业，经审核符合《中华人民共和国学位条例》的规定，授予工学学士学位。校长张三重庆邮电大学学位评定委员会主席证书编号:123123123123123123了二0一三年二月二十日(成人高等教育本科毕业生)ssu62人u≤wk";
+/*        String str = "学士学位证书熊志,男，1985年6月6日生。在重庆邮电大学软件工程专业完成了本科学习计划，业已毕业，经审核符合《中华人民共和国学位条例》的规定，授予工学学士学位。校长张三重庆邮电大学学位评定委员会主席证书编号:123123123123123123了二0一三年二月二十日(成人高等教育本科毕业生)ssu62人u≤wk";
         System.out.println(str);
         //字段解析
         DegreeCertificate degreeCertificate = new DegreeCertificate();
@@ -140,7 +140,62 @@ public class ORCTest {
             certDay = "0"+certDay;
         }
         String certTime = certYear+"-"+certMonth+"-"+certDay;
-        System.out.println(certTime);
+        System.out.println(certTime);*/
+
+
+
+
+/*        GeneralOcrRequest request = new GeneralOcrRequest("yui-1252836514", new File("/home/yui/Desktop/zzzz.Jpeg"));
+        String ret = imageClient.generalOcr(request);
+        System.out.println("ocrGeneral:" + ret);
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonNode = mapper.readTree(ret);
+        List<JsonNode> nodes = jsonNode.findValues("itemstring");
+        String result = "";
+        System.out.println(nodes.get(1).asText());
+        for(int i =0; i<nodes.size(); i++){
+            result = result + nodes.get(i).asText();
+        }
+        result = result.replace(" ", "");
+        System.out.println(result.replace(" ",""));*/
+        String str = "区区塘il:书少第12312312}代和专用章实用新型专利证书实用新型名称:种检测板发呀，人:田卫;桑春专利宁:ZL.200920231234.6专利巾请日:2009年09月21日{;利权人:北京志云大有限公司授权公告A:2010年08月15日本实用新型经过本局依照中华人民共和国专利法进行初步审查，决定授予专利权，颁发本证书并在专利整记薄上予以登记。专利权自授权公告之日起生效。本专利的专利权期限为十年，自申请日起算。专利权人应当依照专利法及其实施细则规定缴纳年费。本专利的年费应当在每年01月01日前缴纳。未按照规定缴纳年費的，专利权自应当缴纳年费期满之日起终止。专利证书记载专利权登记时的法律状况。专利权的转移、质押、无效、终止、恢复和专利权人的姓名或名称、国籍、地址变更等事项记载在专利登记薄上。和国国第二治局长:田力普文010介08月15H治。第1页(共1页)";
+        String str2 = "淀区地证书号第12312312号仍5印花税邺弋扣专用章匆识产多iP实用新型专利证书实用新型名称:一种检测板明人:田卫;桑春专利号:ZL.200920231234.6专利申请日:2009年09月21日专利权人:北京志云大有限公司授权公告日:2010年08月15日本实用新型经过本局依照中华人民共和国专利法进行初步审查，决定授予专利权，颁发本证书并在专利登记薄上予以登记。专利权自授权公告之日起生效。本专利的专利权期限为十年，自申请日起算。专利权人应当依照专利法及其实施细则规定缴纳年费。本专利的年费应当在每年01月01日前缴纳。未按照规定缴纳年费的，专利权自应当缴纳年费期满之日起终止。专利证书记载专利权登记时的法律状况。专利权的转移、质押、无效、终止、恢复和专利权人的姓名或名称、国籍、地址变更等事项记载在专利登记薄上。知国国等，<局长:田力普文/2010年08月15日第1页(共1页";
+        System.out.println(str);
+        System.out.println(str2);
+        int pos1 = str2.indexOf("第");
+        int pos2 = str2.indexOf("号",pos1);
+        System.out.println(pos1);
+        System.out.println(pos2);
+        String zsh = str2.substring(pos1+1,pos2);
+        System.out.println("zsh:"+zsh);
+        int pos3 = str2.indexOf("新型名称");
+        int posTemp = str2.indexOf("明人");
+        String syxxmc = str2.substring(pos3+4, posTemp);
+        System.out.println("syxxmc:"+syxxmc);
+        int pos4 = str2.indexOf("专利号",pos2);
+        String fmr = str2.substring(posTemp+3, pos4);
+        System.out.println("fmr:"+fmr);
+        //String syxxmc = str2.substring(pos3+4, pos4);
+        int pos5 = str2.indexOf("专利号");
+        int pos6 = str2.indexOf("专利申请日");
+        String zlh = str2.substring(pos5+4, pos6);
+        System.out.println("zlh:"+zlh);
+
+        int pos7 =str2.indexOf("专利权人");
+        String slzqr = str2.substring(pos6+6, pos7);
+        slzqr = slzqr.replace("年","-");
+        slzqr = slzqr.replace("月","-");
+        System.out.println("slzqr:"+ slzqr);
+
+        int pos8 = str2.indexOf("授权公告日");
+        String zlqr = str2.substring(pos7+5, pos8);
+        System.out.println("zlqr:"+zlqr);
+        int pos9 = str2.indexOf("日",pos8+5);
+        String sqggr = str2.substring(pos8+6, pos9);
+        System.out.println("sqggr:"+sqggr);
+        int pos10 = str2.indexOf("第1页");
+        String fzsj = str2.substring(pos10-11, pos10);
+        System.out.println("fzsj:"+fzsj);
 
 
     }

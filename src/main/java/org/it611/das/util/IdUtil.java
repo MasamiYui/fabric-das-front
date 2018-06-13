@@ -55,6 +55,12 @@ public class IdUtil {
         return "xlzs"+getId();
     }
 
+
+    public static String getSyxxzlId(){
+
+        return "syxxzl"+getId();
+    }
+
     /**
      * 图片Id资产生成策略
      * @return

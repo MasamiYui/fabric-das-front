@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qcloud.image.ImageClient;
 import com.qcloud.image.request.GeneralOcrRequest;
+import com.qcloud.image.request.OcrDrivingLicenceRequest;
 import org.it611.das.domain.DegreeCertificate;
+import org.it611.das.domain.Syxxzl;
 import org.it611.das.fastdfs.FastDFSClient;
 import org.it611.das.util.GeneralOcrParseUtil;
 import org.it611.das.util.MD5Util;
@@ -106,6 +108,68 @@ public class FileController {
         file.transferTo(f);
         GeneralOcrRequest request = new GeneralOcrRequest("yui-1252836514", f);
         String ret = imageClient.generalOcr(request);
+        //解析数据
+        DegreeCertificate dc = GeneralOcrParseUtil.parseDegreeCertData(ret);
+
+        //f.deleteOnExit();
+        Map<String,Object> dataMap = new HashMap();
+        dataMap.put("path", path);
+        dataMap.put("ocrData",dc);
+        Jedis client = RedisUtil.getJedis();
+        client.set(path, fileHash);
+        client.close();
+        return ResultUtil.constructResponse(200,"ok",dataMap);
+    }
+
+    @RequestMapping(value = "/file/syxxzl/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject syfmzlUpload(MultipartFile file) throws Exception {
+
+        //Map<String, Object> orcMap = new HashMap();
+        if (file.isEmpty()) {
+            return ResultUtil.constructResponse(400,"empty file.",null);
+        }
+        String fileHash = MD5Util.md5HashCode(file.getInputStream());
+        String path=FastDFSClient.saveFile(file);//将文件上传到fastDFS，返回http url
+        //腾讯ocr识别
+        ImageClient imageClient = new ImageClient("1252836514", "AKID0tcB3ktk086uhNwGSTK1XtDQVP8gNGIR", "iMp7FE6qVzJYcVEm9f3IMFas33tcDgy5");
+        File f = File.createTempFile("tmp", null);
+        file.transferTo(f);
+        GeneralOcrRequest request = new GeneralOcrRequest("yui-1252836514", f);
+        String ret = imageClient.generalOcr(request);
+        //解析数据
+        Syxxzl syfmzl = GeneralOcrParseUtil.parseSYFMZLData(ret);
+
+        //f.deleteOnExit();
+        Map<String,Object> dataMap = new HashMap();
+        dataMap.put("path", path);
+        dataMap.put("ocrData",syfmzl);
+        Jedis client = RedisUtil.getJedis();
+        client.set(path, fileHash);
+        client.close();
+        return ResultUtil.constructResponse(200,"ok",dataMap);
+    }
+
+
+    /**
+     * 驾照上传识别
+     */
+    @RequestMapping(value = "/file/drivingLicense/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject drivingLicenseUpload(MultipartFile file) throws Exception {
+
+
+        if (file.isEmpty()) {
+            return ResultUtil.constructResponse(400,"empty file.",null);
+        }
+        String fileHash = MD5Util.md5HashCode(file.getInputStream());
+        String path=FastDFSClient.saveFile(file);//将文件上传到fastDFS，返回http url
+        //腾讯ocr识别
+        ImageClient imageClient = new ImageClient("1252836514", "AKID0tcB3ktk086uhNwGSTK1XtDQVP8gNGIR", "iMp7FE6qVzJYcVEm9f3IMFas33tcDgy5");
+        File f = File.createTempFile("tmp", null);
+        file.transferTo(f);
+        OcrDrivingLicenceRequest request = new OcrDrivingLicenceRequest("yui-1252836514", 1, f);//1.表示驾驶证
+        String ret = imageClient.ocrDrivingLicence(request);
         //解析数据
         DegreeCertificate dc = GeneralOcrParseUtil.parseDegreeCertData(ret);
 

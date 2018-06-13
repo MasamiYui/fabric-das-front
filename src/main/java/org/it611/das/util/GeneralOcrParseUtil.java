@@ -3,6 +3,7 @@ package org.it611.das.util;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.it611.das.domain.DegreeCertificate;
+import org.it611.das.domain.Syxxzl;
 
 import java.util.List;
 
@@ -125,5 +126,81 @@ public class GeneralOcrParseUtil {
         }
 
     }
+
+
+    public static Syxxzl parseSYFMZLData(String rawData){
+
+        System.out.println(rawData);
+        //字段解析
+        try{
+            DegreeCertificate degreeCertificate = new DegreeCertificate();
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(rawData);
+            List<JsonNode> nodes = jsonNode.findValues("itemstring");
+            String str2 = "";
+
+            System.out.println(nodes.get(1).asText());
+            for(int i =0; i<nodes.size(); i++){
+                str2 = str2 + nodes.get(i).asText();
+            }
+            str2 =str2.replace(" ", "");
+            System.out.println(str2);
+            int pos1 = str2.indexOf("第");
+            int pos2 = str2.indexOf("号",pos1);
+            System.out.println(pos1);
+            System.out.println(pos2);
+            String zsh = str2.substring(pos1+1,pos2);
+            System.out.println("zsh:"+zsh);
+            int pos3 = str2.indexOf("新型名称");
+            int posTemp = str2.indexOf("明人");
+            String syxxmc = str2.substring(pos3+5, posTemp);
+            System.out.println("syxxmc:"+syxxmc);
+            int pos4 = str2.indexOf("专利号",pos2);
+            String fmr = str2.substring(posTemp+3, pos4);
+            System.out.println("fmr:"+fmr);
+            //String syxxmc = str2.substring(pos3+4, pos4);
+            int pos5 = str2.indexOf("专利号");
+            int pos6 = str2.indexOf("专利申请日");
+            String zlh = str2.substring(pos5+4, pos6);
+            System.out.println("zlh:"+zlh);
+
+            int pos7 =str2.indexOf("专利权人");
+
+            String zlsqr = str2.substring(pos6+6, pos7-1);
+            zlsqr = zlsqr.replace("年","-");
+            zlsqr = zlsqr.replace("月","-");
+            System.out.println("slzqr:"+ zlsqr);
+
+            int pos8 = str2.indexOf("授权公告日");
+            String zlqr = str2.substring(pos7+5, pos8);
+            System.out.println("zlqr:"+zlqr);
+            int pos9 = str2.indexOf("日",pos8+5);
+            String sqggr = str2.substring(pos8+6, pos9);
+            sqggr = sqggr.replace("年","-");
+            sqggr = sqggr.replace("月","-");
+            System.out.println("sqggr:"+sqggr);
+            int pos10 = str2.indexOf("第1页");
+            String fzsj = str2.substring(pos10-11, pos10-1);
+            fzsj = fzsj.replace("年","-");
+            fzsj = fzsj.replace("月","-");
+            System.out.println("fzsj:"+fzsj);
+            Syxxzl syfmzl = new Syxxzl();
+            syfmzl.setFmr(fmr);
+            syfmzl.setFzsj(fzsj);
+            syfmzl.setSqggr(sqggr);
+            syfmzl.setZlh(zlh);
+            syfmzl.setSyxxmc(syxxmc);
+            syfmzl.setZsh(zsh);
+            syfmzl.setZlqr(zlqr);
+            syfmzl.setZlsqr(zlsqr);
+            return syfmzl;
+
+        }catch (Exception e){
+            return null;
+        }
+
+    }
+
+
 
 }

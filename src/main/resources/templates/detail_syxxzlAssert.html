@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" style="overflow-y: hidden">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>数字资产存证平台</title>
+
+    <link rel="icon" type="image/x-icon" th:href="@{/image/favicon.png}"/>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/jcstatic/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link th:href="@{/jcstatic/dist/css/sb-admin-2.css}" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/jcstatic/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+
+    <!--引入layui的css-->
+    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script th:src="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"></script>
+    <script th:src="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"></script>
+    <![endif]-->
+
+    <!--引入jquery-->
+    <script th:src="@{/jcstatic/vendor/jquery/jquery.js}"></script>
+
+    <style type="text/css">
+        .layui-upload-img {
+            width: 100px;
+            height: 110px;
+            margin-left: 5px;
+        }
+
+        .col-title {
+            font-weight: 700;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+    <div id="page-wrapper" style="margin: 10px;">
+        <!--基本信息-->
+        <div class="row">
+            <!--<div class="col-lg-3"></div>-->
+            <div class="col-lg-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <strong>资产验证报告</strong>
+                        <th:block th:if="${record.state}  eq 1 ">
+                            <span style="float: right;" id="reportPrint"><a  href="#"><i
+                                    class="glyphicon glyphicon-download-alt"></i> 下载</a></span>
+                        </th:block>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="control-group col-lg-6">
+                            <table width="100%" class="table table-striped table-bordered table-hover"
+                                   id="tableList">
+                                <tbody id="items">
+                                <tr>
+                                    <td>资产编号</td>
+                                    <td th:text="${record.id}"></td>
+                                </tr>
+                                <tr>
+                                    <td>申请人</td>
+                                    <td th:text="|${loginName}(${record.ownerId})|"></td><!--ownerId-->
+                                </tr>
+                                <tr>
+                                    <td>实用新型名称</td>
+                                    <td th:text="${record.syxxmc}"></td>
+                                </tr>
+                                <tr>
+                                    <td>发明人</td>
+                                    <td th:text="${record.fmr}"></td>
+                                </tr>
+                                <tr>
+                                    <td>专利号</td>
+                                    <td th:text="${record.zlh}"></td>
+                                </tr>
+                                <tr>
+                                    <td>专利申请日</td>
+                                    <td th:text="${record.zlsqr}"></td>
+                                </tr>
+                                <tr>
+                                    <td>授权公告日</td>
+                                    <td th:text="${record.sqggr}"></td>
+                                </tr>
+                                <tr>
+                                    <td>发证时间</td>
+                                    <td th:text="${record.fzsj}"></td>
+                                </tr>
+                                <tr>
+                                    <td>文件指纹</td>
+                                    <td th:text="${record.filesHash}"></td>
+                                </tr>
+                                <tr>
+                                    <td>交易单号</td>
+                                    <td th:text="${record.transactionId}"></td>
+                                </tr>
+                                <tr>
+                                    <td>审核状态</td>
+                                    <th:block th:switch="${record.state}">
+                                        <td th:case="0">未审核</td>
+                                        <td th:case="1">已审核</td>
+                                        <td th:case="2">不通过</td>
+                                        <td th:case="3">注销</td>
+                                    </th:block>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="control-group col-lg-6 layui-upload-list" id="layer-photos-demo">
+
+                            <div id="picShow" class="col-lg-12">
+                                <!--<img style="width: 100%;height: 100%;" th:if="${record.files}!=null and ${record.files}!=''" th:src="${record.files}"
+                                     class="layui-upload-img"/>
+                                <p th:unless="${record.files}!=null and ${record.files}!=''" th:text="无图片"
+                                   class="layui-upload-img"></p>-->
+                            </div>
+
+                            <div id="QRcodePic" style="margin: 0px;text-align: right;" class="col-lg-12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--图片-->
+        <!--<div class="row">
+            &lt;!&ndash; <div class="col-lg-3"></div>&ndash;&gt;
+
+            <div class="col-lg-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <strong>在线验证</strong>
+                    </div>
+                    <div class="panel-body">
+                        &lt;!&ndash; <div id="layer-photos-demo" class="layui-upload-list" style="margin:0px">
+                                 <img th:if="${record.files}!=null and ${record.files}!=''" th:src="${record.files}"
+                                      class="layui-upload-img"/>
+                                 <p th:unless="${record.files}!=null and ${record.files}!=''" th:text="无图片"
+                                    class="layui-upload-img"></p>
+                         </div>&ndash;&gt;
+                        <div id="QRcode" style="margin: 0px;text-align: right;" class="col-lg-12">
+                            &lt;!&ndash;<div class="controls">
+                                <span class="col-title col-lg-4">验证码</span>
+                                <span th:text="${record.QRcode}"></span>
+                            </div>&ndash;&gt;
+                        </div>
+                       &lt;!&ndash; <div id="QRcodePic" style="margin: 0px;" class="col-lg-6">
+                        </div>&ndash;&gt;
+
+                    </div>
+
+                </div>
+            </div>
+
+            &lt;!&ndash;<div class="col-lg-3"></div>&ndash;&gt;
+        </div>-->
+
+    </div>
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/jcstatic/vendor/jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/jcstatic/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/jcstatic/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/jcstatic/dist/js/sb-admin-2.js}"></script>
+
+<!--引入layui:日期插件-->
+<script th:src="@{/jcstatic/layui/layui.js}"></script>
+
+<script th:inline="javascript">
+    var recordId = [[${record.id}]];
+    var state = [[${record.state}]];  //判断审核状态
+
+
+    $(document).ready(function () {
+        picShow();
+
+        if (state == "1") {
+            showQRCode();
+        }
+    });
+
+    function picShow() {
+        var files = [[${record.files}]];
+        if (files) {
+            $("#picShow").append('<img style="width: 100%;height: 100%;" class="layui-upload-img" src="' + files + '"/>');
+        }
+
+    }
+
+    function showQRCode() {
+        if (!recordId) return;
+        var verifyUrl = "http://192.168.10.128:8086/asset/syxxzl/" + recordId;
+        // var QRUrl = "http://b.bshare.cn/barCode?site=weixin&url=" + verifyUrl;
+        var QRUrl = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + verifyUrl;
+        $("#QRcodePic").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
+    }
+
+    layui.use('layer', function () {
+        var layer = layui.layer;
+        layer.photos({
+            photos: '#layer-photos-demo'
+            , anim: 5 //0-6的选择
+        });
+    });
+
+    //reportPrint 打印页面
+    $("#reportPrint").click(function () {
+        var id = [[${record.id}]];
+        window.location.href = '/pdfPrint/syxxzl?id='+id;
+       /* $.post("/pdfPrint/degreeCertificate",{id:id},function(result){
+
+        });*/
+    });
+
+
+</script>
+
+</body>
+
+</html>
