@@ -236,7 +236,10 @@
         var author = '';
         var userNodes=$("#adduser>input");
         for(var i=0;i<userNodes.length;i++){
-            author= author+ userNodes.eq(i).val()+',';
+            var val = userNodes.eq(i).val();
+            if(val){
+                author= author+ userNodes.eq(i).val()+',';
+            }
         }
         author = author.substring(0,author.length-1);
         $("#author").val(author);
