@@ -97,7 +97,8 @@
 
                         <!--上传图片-->
                         <div class="col-lg-12 ">
-                            <button type="button" class="layui-btn" id="test2">学位证书扫描件上传</button>
+                            <button type="button" class="layui-btn" id="test2">文件上传</button>
+                            <span>（请上传学位证书正面照）<em style="color:red;">*</em></span>
                             <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                                 <!--已上传：-->
                                 <div class="layui-upload-list" id="demo2"></div>
@@ -255,14 +256,12 @@
     }
 
     function validateForm() {
-        var reg = /^\d{18}$/;
-
-        /*  data = $('input[name="timeOfIssume"]').val();
-          if (data == "") {
-              msg("请选择发证时间");
-              $('input[name="timeOfIssume"]').focus();
-              return false;
-          }*/
+        //上传学位证书扫描件
+        var nodes=$("#demo2").children().length;
+        if(!nodes){
+            msg("请上传学位证书扫描件");
+            return false;
+        }
         return true;
     }
 
@@ -318,7 +317,9 @@
                     $("#professional").val(res.data.ocrData.professional);
                     $("#time").val(res.data.ocrData.time);
                     $("#date").val(res.data.ocrData.date);
-                    $("#sex").val(res.data.ocrData.sex);
+                    // $("#sex").val(res.data.ocrData.sex);
+                    $("input[name='sex'][value='"+res.data.ocrData.sex+"']").prop("checked",true);  //根据Value值设置Radio为选中状态
+
 
 
 

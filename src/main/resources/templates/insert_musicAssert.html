@@ -99,11 +99,11 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label>作品名称</label>
+                                        <label>作品名称<em style="color:red;">*</em></label>
                                         <input name="title" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <label>创作者<a onclick="addUser()" style="margin-left: 30px;" href="#"><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-plus"></i> </a></label>
+                                        <label>创作者<em style="color:red;">*</em><a onclick="addUser()" style="margin-left: 30px;" href="#"><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-plus"></i> </a></label>
                                         <span id="adduser">
                                             <input type="text"   class="form-control"
                                                    th:placeholder="第一创作者"/>
@@ -134,7 +134,7 @@
                                 <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传音频
                                 </button>
                                 <div class="layui-inline layui-word-aux">
-                                    <strong style="color:red">只支持mp3格式，大小不能超过50Mb</strong>
+                                    <strong style="color:blue;">只支持mp3格式，大小不能超过50Mb<em style="color:red;">*</em></strong>
                                 </div>
                                 <div id="fileList" style="margin-top: 15px;"></div>
                             </div>
@@ -225,13 +225,15 @@
     }
 
     function validateForm() {
-        var reg = /^\d{18}$/;
-        /*  data = $('input[name="timeOfIssume"]').val();
-          if (data == "") {
-              msg("请选择发证时间");
-              $('input[name="timeOfIssume"]').focus();
-              return false;
-          }*/
+        //作品名称
+        var name = $('input[name="title"]').val();
+        if (!name) {
+            msg("请填写作品名称");
+            $('input[name="title"]').focus();
+            return false;
+        }
+
+        //作者
         var author = '';
         var userNodes=$("#adduser>input");
         for(var i=0;i<userNodes.length;i++){
@@ -241,7 +243,17 @@
             }
         }
         author = author.substring(0,author.length-1);
+        if(!author){
+            msg("请填写作者");
+            return false;
+        }
         $("#author").val(author);
+        //上传音频
+        var nodes=$("#fileList").children().length;
+        if(!nodes){
+            msg("请上传视频");
+            return false;
+        }
         return true;
     }
 
