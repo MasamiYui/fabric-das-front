@@ -81,8 +81,14 @@
 									进入我的数字资产
 								</span>-->
 						 <span >
-                            <a href="/asset/degreeCertification/index"><span >我的资产</span></a>
-                            <a href="/certificateInsert"><span>资产申请</span></a>
+							  <th:block th:if="${useType}  eq 1 ">
+                                 <a href="/asset/degreeCertification/index"><span style="margin-right: 10px;">我的资产</span></a>
+                                 <a href="/asset/addDegreeCertification"><span style="margin-right: 10px;">资产申请</span></a>
+							</th:block>
+                             <th:block th:if="${useType}  eq 2 ">
+                                 <a href="/asset/video/index"><span style="margin-right: 10px;">我的资产</span></a>
+                                 <a href="/asset/addVideo"><span style="margin-right: 10px;">资产申请</span></a>
+							</th:block>
                         </span>
 						<a href="/frontLogin"><strong>切换用户</strong></a>
 
