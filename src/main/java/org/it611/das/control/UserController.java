@@ -34,7 +34,7 @@ public class UserController {
 
         JSONObject result = userService.userLogin(loginStr, password);
 
-        if((int)result.get("code") == 400) {
+        if((int)result.get("code") == 400||(int)result.get("code") == 405) {
             return result;
         }
         String token = ((Map)result.get("data")).get("token").toString();

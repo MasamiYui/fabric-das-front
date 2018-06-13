@@ -4,17 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-   <!-- <style>
-        nav{
-            background: url("./image/navTop.png") no-repeat ;
-            background-size: cover;
-        }
-    </style>-->
-
 </head>
 <body>
 
-
+<!--企业用户导航栏-->
 <nav th:fragment="navigation" class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;background-image: url('/image/navTop.png');background-size: cover;" >
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -25,39 +18,16 @@
         </button>
         <a class="navbar-brand" href="/home2" style="color:white;">可信资产存储平台</a>
     </div>
-    <!-- /.navbar-header -->
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
-           <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-            </a>-->
-            <!--<ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> 用户信息</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="/frontLogin"><i class="fa fa-sign-out fa-fw"></i> 退出系统</a>
-                </li>
-            </ul>-->
+
             <a href="/frontLogin" style="color:white;"><i class="fa fa-sign-out fa-fw" ></i> 退出系统</a>
-            <!-- /.dropdown-user -->
         </li>
-        <!-- /.dropdown -->
     </ul>
-    <!-- /.navbar-top-links -->
 
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse" style="background-color: white;">
-            <ul class="nav" id="side-menu">
-                <!--<li class="sidebar-search">
-                    <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search"/>
-                        <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                    </div>
-                </li>-->
+            <ul class="nav" id="side-menu">   <!--side-menu-->
 
                 <li>
                     <a href="/home" style="color:#0088cc"><i class="glyphicon glyphicon-home"></i> 我的首页</span></a>
@@ -66,12 +36,7 @@
                 <li>
                     <a href="#" style="color:#0088cc"><i class="glyphicon glyphicon-th-list" ></i> 我的资产<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                       <!-- <li>
-                            <a href="">学生证列表</a>
-                        </li>-->
-                        <li>
-                            <a href="/asset/degreeCertification/index" style="color:#0088cc">学位证书列表</a>
-                        </li>
+
                         <li>
                             <a href="/asset/video/index" style="color:#0088cc">视频资产列表</a>
                         </li>
@@ -87,19 +52,6 @@
                 <li>
                     <a href="#" style="color:#0088cc"><i class="fa fa-edit fa-fw" style="color:#0088cc"></i> 资产申请<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-
-                        <li>
-                            <a href="#" style="color:#0088cc"> 文本资产<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <!--<li>
-                                    <a href="/asset/getAsset">&nbsp;&nbsp;&nbsp;&nbsp;学生证</a>
-                                </li>-->
-                                <li>
-                                    <a style="color:#0088cc" href="/asset/addDegreeCertification">&nbsp;&nbsp;&nbsp;&nbsp;学位证书</a>
-                                </li>
-                            </ul>
-                        </li>
-
                         <li>
                             <a href="/asset/addVideo" style="color:#0088cc">视频资产</a>
                         </li>

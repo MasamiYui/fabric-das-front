@@ -68,13 +68,19 @@
 
 <div id="wrapper">
 
-    <!-- Navigation -->
-    <div th:replace="/nav::navigation"></div>
+    <!-- 普通用户导航栏-->
+    <th:block th:if="${useType}  eq 1 ">
+        <div th:replace="/nav_commonUser::navigation"></div>
+    </th:block>
+    <!-- 企业用户导航栏 -->
+    <th:block th:if="${useType}  eq 2 ">
+        <div th:replace="/nav_company::navigation"></div>
+    </th:block>
 
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">资产申请</h3>
+                <h3 class="page-header">学位证书资产申请</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -113,15 +119,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label>学位授予单位</label>
-<!--                                        <select name="degreeConferringUnit" class="form-control" id="degreeConferringUnit">
-                                            <option>重庆邮电大学</option>
-                                        </select>-->
-                                        <input type="text" name="degreeConferringUnit" class="form-control" id='degreeConferringUnit'/>
+                                        <input name="degreeConferringUnit" class="form-control"/>
+
                                     </div>
                                     <div class="form-group">
                                         <label>性别</label>
-                                        <input type="text" name="sex" class="form-control" id='sex'/>
-<!--                                        <div class="form-group">
+                                        <div class="form-group">
                                             <label class="radio-inline">
                                                 <input type="radio" name="sex" id="maleoption"
                                                        value="男" checked="true"/>男
@@ -129,20 +132,19 @@
                                             <label class="radio-inline">
                                                 <input type="radio" name="sex" id="femaleoption"
                                                        value="女"/>女
-                                            </label>-->
+                                            </label>
                                         </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>专业</label>
-                                        <!--                                        <input name="professional" class="form-control"/>-->
-                                        <input type="text" name="professional" class="form-control" id='professional'/>
+                                        <input name="professional" class="form-control"/>
                                     </div>
                                     <div class="form-group">
                                         <label>学位类别</label>
-                                        <input type="text" name="degreeName" class="form-control" id='degreeName'/>
-                                        <!--                                        <select name="degreeName" class="form-control">
-                                                                                    <option>学士</option>
-                                                                                </select>-->
+                                        <input name="degreeName" id="degreeName" class="form-control"/>
                                     </div>
                                     <div class="form-group">
                                         <label>学位证书编号</label>

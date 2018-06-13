@@ -55,8 +55,8 @@ public class UserServiceImpl implements UserService {
         }
 
 
-        if(Integer.parseInt(loginMap.get("state").toString()) != 1) {
-            return ResultUtil.constructResponse(400,"the state not 1, can do anything", null);
+        if(Integer.parseInt(loginMap.get("state").toString()) != 1) {  //code:405 表示用户帐号未激活
+            return ResultUtil.constructResponse(405,"the state not 1, can not do anything", null);
         }
 
 

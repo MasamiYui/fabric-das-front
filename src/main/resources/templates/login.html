@@ -124,6 +124,8 @@
                     }*/
                     window.location.href = "/home";
 
+                }else if(result.code == "405"){
+                    $("#callbackInfo").text("该账号还未激活");
                 }
             }
         });

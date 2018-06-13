@@ -81,8 +81,8 @@
                                     <td th:text="${record.id}"></td>
                                 </tr>
                                 <tr>
-                                    <td>拥有者编号</td>
-                                    <td th:text="${record.ownerId}"></td><!--ownerId-->
+                                    <td>申请人</td>
+                                    <td th:text="|${loginName}(${record.ownerId})|"></td><!--ownerId-->
                                 </tr>
                                 <tr>
                                     <td>姓名</td>
@@ -145,7 +145,7 @@
                                    class="layui-upload-img"></p>-->
                             </div>
 
-                            <div id="QRcodePic" style="margin: 0px;text-align: right" class="col-lg-12">
+                            <div id="QRcodePic" style="margin: 0px;text-align: right;" class="col-lg-12">
                             </div>
                         </div>
                     </div>
@@ -228,8 +228,9 @@
 
     function showQRCode() {
         if (!recordId) return;
-        var verifyUrl = "http://localhost:8086/asset/degreeCertification/" + recordId;
-        var QRUrl = "http://b.bshare.cn/barCode?site=weixin&url=" + verifyUrl;
+        var verifyUrl = "http://192.168.10.128:8086/asset/degreeCertification/" + recordId;
+        // var QRUrl = "http://b.bshare.cn/barCode?site=weixin&url=" + verifyUrl;
+        var QRUrl = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + verifyUrl;
         $("#QRcodePic").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
 

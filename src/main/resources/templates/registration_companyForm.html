@@ -72,7 +72,7 @@
     <div id="page-wrapper" style="margin:0 250px;">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">企业注册</h3>
+                <h3 class="page-header">企业用户注册</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -92,19 +92,19 @@
 
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label>用户名</label>
+                                        <label>用户名<em style="color:red;">*</em></label>
                                         <input name="username" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label>密码</label>
+                                        <label>密码<em style="color:red;">*</em></label>
                                         <input name="password" type="password" class="form-control"/>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <label>确认密码</label>
+                                        <label>确认密码<em style="color:red;">*</em></label>
                                         <input id="rePassword" type="password" class="form-control"/>
                                     </div>
                                 </div>
@@ -112,6 +112,7 @@
                                 <!--上传图片-->
                                 <div class="col-lg-12">
                                     <button type="button" class="layui-btn" id="test2">文件上传</button>
+                                    <span>（请上传企业营业执照正面）<em style="color:red;">*</em></span>
                                     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                                         <!--已上传：-->
                                         <div class="layui-upload-list" id="demo2"></div>
@@ -266,7 +267,11 @@
     }
 
     function validateForm() {
-        var reg = /^\d{18}$/;
+        var  username=$('input[name="username"]').val();
+        if(!username){
+            msg("用户名不能为空");
+            return false;
+        }
 
         var data = $('input[name="password"]').val();
         var picData = $('#rePassword').val();
@@ -280,11 +285,11 @@
             return false;
         }
 
-        data=$('input[name="creditId"]').val();
-        if(!data){
+        var nodes=$("#demo2").children().length;
+        if(!nodes){
+            msg("请上传企业营业执照");
             return false;
         }
-
         return true;
     }
 
@@ -306,8 +311,8 @@
     }
 
     <!-- 文件上传-->
-    var paths = "";        //上传的文件，中间用逗号隔开
-    var filesHashs = "";   //上传的文件hashmap值，中间用逗号隔开
+    // var paths = "";        //上传的文件
+    // var filesHashs = "";   //上传的文件hashmap值，中间用逗号隔开
     layui.use('upload', function () {
         var upload = layui.upload;
         //多图片上传
@@ -318,23 +323,27 @@
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
-                    $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                    $('#demo2').html('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
                 });
                 photoView();
             }
             , done: function (res) {
                 if (res.code > 0) {
-                    var pathValue=res.data.path;
-                    paths = paths + pathValue + ",";
-                    $("#files").val(paths);
+                   /* var pathValue=res.data.path;
+                    paths = paths + pathValue + ",";*/
+                    $("#files").val(res.data.path);
 
-                    var hashValue=res.data.path;
+                   /* var hashValue=res.data.path;
                     filesHashs = filesHashs + hashValue + ",";
-                    $("#filesHash").val(filesHashs);
+                    $("#filesHash").val(filesHashs);*/
                 }
                 console.log(res);
             }
         });
+    });
+
+    $("#demo2").click(function () {
+        photoView();
     });
 
     function photoView() {

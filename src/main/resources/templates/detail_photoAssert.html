@@ -86,7 +86,7 @@
                                 </tr>
                                 <tr>
                                     <td>申请人</td>
-                                    <td th:text="${record.ownerId}"></td>
+                                    <td th:text="|${loginName}(${record.ownerId})|"></td>
                                 </tr>
                                 <tr>
                                     <td>创作者</td>
@@ -183,7 +183,7 @@
     function showReportQRCode() {
         var recordId = [[${record.id}]];
         if (!recordId) return;
-        var verifyUrl = "http://localhost:8086/image/" + recordId;
+        var verifyUrl = "http://192.168.10.128:8086/image/" + recordId;
         var QRUrl = "http://b.bshare.cn/barCode?site=weixin&url=" + verifyUrl;
         $("#QRcodeReport").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }

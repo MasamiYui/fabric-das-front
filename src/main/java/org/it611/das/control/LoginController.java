@@ -31,13 +31,16 @@ public class LoginController {
         String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
         HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
         String useType= String.valueOf(userMap.get("userType"));
-        if(useType.equals("1")){
+        if(useType.equals("1")){   //1:表示普通用户
             modelAndView.addObject("loginName",userMap.get("name"));
+            modelAndView.addObject("useType",useType);
             modelAndView.setViewName("home_userIndex");
-        }else if(useType.equals("2")){
+        }else if(useType.equals("2")){  //2:企业用户
             modelAndView.addObject("loginName",userMap.get("companyName"));
+            modelAndView.addObject("useType",useType);
             modelAndView.setViewName("home_companyIndex");
         }
+        jedis.close();
         return modelAndView;
 
     }
