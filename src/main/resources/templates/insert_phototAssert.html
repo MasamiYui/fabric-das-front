@@ -241,6 +241,7 @@
         for(var i=0;i<userNodes.length;i++){
             author= author+ userNodes.eq(i).val()+',';
         }
+        author = author.substring(0,author.length-1);
         $("#author").val(author);
         return true;
     }
