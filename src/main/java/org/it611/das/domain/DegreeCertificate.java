@@ -43,6 +43,8 @@ public class DegreeCertificate {
         this.submitTime = submitTime;
     }
 
+    public DegreeCertificate(){}
+
     public String getId() {
         return id;
     }

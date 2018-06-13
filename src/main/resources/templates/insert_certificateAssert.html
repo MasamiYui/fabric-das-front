@@ -105,21 +105,23 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>姓名</label>
-                                        <input name="name" class="form-control"/>
+                                        <input name="name" class="form-control" id="name"/>
                                     </div>
                                     <div class="form-group">
                                         <label>出生年月</label>
-                                        <input type="text" name="date" class="form-control" id='birth'/>
+                                        <input type="text" name="date" class="form-control" id='date'/>
                                     </div>
                                     <div class="form-group">
                                         <label>学位授予单位</label>
-                                        <select name="degreeConferringUnit" class="form-control">
+<!--                                        <select name="degreeConferringUnit" class="form-control" id="degreeConferringUnit">
                                             <option>重庆邮电大学</option>
-                                        </select>
+                                        </select>-->
+                                        <input type="text" name="degreeConferringUnit" class="form-control" id='degreeConferringUnit'/>
                                     </div>
                                     <div class="form-group">
                                         <label>性别</label>
-                                        <div class="form-group">
+                                        <input type="text" name="sex" class="form-control" id='sex'/>
+<!--                                        <div class="form-group">
                                             <label class="radio-inline">
                                                 <input type="radio" name="sex" id="maleoption"
                                                        value="男" checked="true"/>男
@@ -127,33 +129,41 @@
                                             <label class="radio-inline">
                                                 <input type="radio" name="sex" id="femaleoption"
                                                        value="女"/>女
-                                            </label>
+                                            </label>-->
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>专业</label>
-                                        <input name="professional" class="form-control"/>
+                                        <!--                                        <input name="professional" class="form-control"/>-->
+                                        <input type="text" name="professional" class="form-control" id='professional'/>
                                     </div>
                                     <div class="form-group">
                                         <label>学位类别</label>
-                                        <select name="degreeName" class="form-control">
-                                            <option>学士</option>
-                                        </select>
+                                        <input type="text" name="degreeName" class="form-control" id='degreeName'/>
+                                        <!--                                        <select name="degreeName" class="form-control">
+                                                                                    <option>学士</option>
+                                                                                </select>-->
                                     </div>
                                     <div class="form-group">
                                         <label>学位证书编号</label>
-                                        <input name="certId" class="form-control"/>
+                                        <input name="certId" class="form-control" id="certId"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label>证书发放时间</label>
-                                        <input name="time" type="text" class="form-control" id='admissiondate'/>
+                                        <input name="time" type="text" class="form-control" id='time'/>
                                     </div>
 
+
+
+
+                                    </div>
                                 </div>
+
+<!--                                <div class="col-lg-6">-->
+
+
+<!--                                </div>-->
 
                             </div>
 
@@ -278,7 +288,7 @@
         //多图片上传
         upload.render({
             elem: '#test2'
-            , url: '/file/upload'
+            , url: '/file/degreeCert/upload'//信息
             , multiple: false
             , number: 1
             , before: function (obj) {
@@ -296,6 +306,21 @@
                 if (res.code > 0) {
                     photoCount++;
                     $("#files").val(res.data.path);
+                    //将解析的数据进行填充
+
+                    $("#name").val(res.data.ocrData.name);
+                    $("#certId").val(res.data.ocrData.certId);
+                    $("#degreeConferringUnit").val(res.data.ocrData.degreeConferringUnit);
+                    $("#degreeName").val(res.data.ocrData.degreeName);
+                    $("#professional").val(res.data.ocrData.professional);
+                    $("#time").val(res.data.ocrData.time);
+                    $("#date").val(res.data.ocrData.date);
+                    $("#sex").val(res.data.ocrData.sex);
+
+
+
+
+                    //alert(res.data.ocrData);
                    // $("#filesHash").val(res.data.filesHash);
                 }
                 console.log(res);

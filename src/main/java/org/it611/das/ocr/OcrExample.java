@@ -89,6 +89,7 @@ public class OcrExample {
 
 
 
+
     //工具类
     public static void inputStreamToFile(InputStream ins, File file) throws IOException {
         OutputStream os = new FileOutputStream(file);
