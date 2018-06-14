@@ -24,4 +24,15 @@ public class MapUtil {
 
         return map;
     }
+
+
+
+    //设置HashMap的value为空
+    public static HashMap setMapValue(HashMap<String, Object> hashMap) {
+        HashMap<String, Object> hm = new HashMap<String,Object>();
+        for (String key : hashMap.keySet()) {
+            hm.put(key, "");
+        }
+        return hm;
+    }
 }

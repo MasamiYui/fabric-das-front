@@ -135,6 +135,7 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <button type="button" class="btn btn-success btn-lg btn-block" onclick="doAuth()">鉴权</button>
                         </div>
                         <div class="control-group col-lg-6 layui-upload-list" id="layer-photos-demo">
 
@@ -233,6 +234,28 @@
         var QRUrl = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + verifyUrl;
         $("#QRcodePic").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }
+
+    function doAuth() {
+        if (!recordId) return;
+        layui.use('layer', function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            index = layer.open({
+                title: ['鉴权详情', 'font-size:18px;'],
+                anim: 2,
+                type: 2,
+                move: false,
+                resize: false,
+                scrolling:'auto',
+                offset: '70px',
+                area: ['1000px', '550px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: '/auth/degreeCertificate/' + recordId
+
+            });
+        });
+    }
+
 
     layui.use('layer', function () {
         var layer = layui.layer;

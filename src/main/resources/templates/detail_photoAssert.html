@@ -117,6 +117,7 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <button type="button" class="btn btn-success btn-lg btn-block" onclick="doAuth()">鉴权</button>
                         </div>
                         <div class="control-group col-lg-4 layui-upload-list" >
                             <div class="col-lg-12">
@@ -169,7 +170,7 @@
 
 <script th:inline="javascript">
     var state = [[${record.state}]];  //判断审核状态
-
+    var recordId = [[${record.id}]];
     $(document).ready(function () {
 
         if (state == "1") {
@@ -222,7 +223,26 @@
     }
 
 
+    function doAuth() {
+        if (!recordId) return;
+        layui.use('layer', function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+            index = layer.open({
+                title: ['鉴权详情', 'font-size:18px;'],
+                anim: 2,
+                type: 2,
+                move: false,
+                resize: false,
+                scrolling:'auto',
+                offset: '70px',
+                area: ['1000px', '550px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: '/auth/image/' + recordId
 
+            });
+        });
+    }
 
     layui.use('layer', function () {
         var layer = layui.layer;
