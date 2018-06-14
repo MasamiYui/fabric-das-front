@@ -18,4 +18,9 @@ public interface CompanyMapper {
     HashMap<String, Object> findCompanyByPhone(@Param("phone") String phone);
 
     HashMap<String, Object> findCompanyByEmail(@Param("email") String email);
+
+    HashMap<String,Object> findUserById(@Param("id") String id);
+
+   int  updateUserById(@Param("id") String id,@Param("password")String password);
+
 }

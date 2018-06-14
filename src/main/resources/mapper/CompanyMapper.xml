@@ -45,5 +45,14 @@
         FROM tb_company
         WHERE company_email = #{email} and company_email!=''
     </select>
+    
+    <select id="findUserById" parameterType="string" resultType="hashmap">
+        select *
+        from tb_company
+        where id=#{id}
+    </select>
 
+    <update id="updateUserById" parameterType="string" >
+        update tb_company set password=#{password} where id=#{id}
+    </update>
 </mapper>

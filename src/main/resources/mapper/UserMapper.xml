@@ -42,4 +42,13 @@
         #{files}, #{state}, #{submitTime})
     </insert>
 
+    <select id="findUserById" parameterType="string" resultType="hashmap">
+        select *
+        from tb_user
+        where id=#{id}
+    </select>
+    <update id="updateUserById" parameterType="string" >
+        update tb_user set password=#{password} where id=#{id}
+    </update>
+
 </mapper>

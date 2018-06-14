@@ -16,4 +16,6 @@ public interface UserService {
 
     JSONObject companyRegister(CompanyVO companyVO);
 
+    JSONObject updatePass(String id,String useType,String oldPass,String newPass);
+
 }

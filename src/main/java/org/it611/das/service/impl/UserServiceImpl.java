@@ -165,4 +165,34 @@ public class UserServiceImpl implements UserService {
 
         return ResultUtil.constructResponse(200, "ok", null);
     }
+
+    @Override
+    public JSONObject updatePass(String id, String useType, String oldPass, String newPass) {
+        Map<String, Object> userMap = null;
+       int result=-1 ;
+        String dataBasePass = "";
+        if("1".equals(useType)){
+            userMap = userDao.findUserById(id);
+            dataBasePass = (String) userMap.get("password");
+        }else if("2".equals(useType)){
+            userMap = companyDao.findUserById(id);
+            dataBasePass = (String) userMap.get("password");
+        }else{
+            return ResultUtil.constructResponse(400, "无此用户类型", null);
+        }
+        if(!MD5Util.verify(oldPass,dataBasePass)) {
+            return  ResultUtil.constructResponse(400, "password error.", null);
+        }
+        if("1".equals(useType)){
+            result = userDao.updateUserById(id,MD5Util.generate(newPass));
+        }else if("2".equals(useType)){
+
+            result = companyDao.updateUserById(id,MD5Util.generate(newPass));
+        }
+        if(result>0){
+            return  ResultUtil.constructResponse(200, "ok", null);
+        }else{
+            return  ResultUtil.constructResponse(400, "failed", null);
+        }
+    }
 }
