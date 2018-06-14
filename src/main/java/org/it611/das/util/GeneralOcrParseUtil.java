@@ -7,6 +7,7 @@ import org.it611.das.domain.DrivingLicence;
 import org.it611.das.domain.Syxxzl;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public class GeneralOcrParseUtil {
@@ -206,22 +207,57 @@ public class GeneralOcrParseUtil {
 
     public static DrivingLicence parseDrivingLicenceData(String rawData) throws IOException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonNode = mapper.readTree(rawData);
-        List<JsonNode> itemNodes = jsonNode.findParents("item");
-        DrivingLicence drivingLicence = new DrivingLicence();
-        drivingLicence.setDrivingLicenceId(itemNodes.get(0).get("itemstring").asText());
-        drivingLicence.setName(itemNodes.get(1).get("itemstring").asText());
-        drivingLicence.setSex(itemNodes.get(2).get("itemstring").asText());
-        drivingLicence.setNation(itemNodes.get(3).get("itemstring").asText());
-        drivingLicence.setAddress(itemNodes.get(4).get("itemstring").asText());
-        drivingLicence.setDate(itemNodes.get(5).get("itemstring").asText());
-        drivingLicence.setLzDate(itemNodes.get(6).get("itemstring").asText());
-        drivingLicence.setZjcx(itemNodes.get(7).get("itemstring").asText());
-        drivingLicence.setStartDate(itemNodes.get(8).get("itemstring").asText());
-        drivingLicence.setValidTime(itemNodes.get(9).get("itemstring").asText());
-        drivingLicence.setHz(itemNodes.get(10).asText());
-        return drivingLicence;
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(rawData);
+            List<JsonNode> itemNodes = jsonNode.findParents("item");
+            if(itemNodes.size() <9){
+                return null;
+            }
+            DrivingLicence drivingLicence = new DrivingLicence();
+            drivingLicence.setDrivingLicenceId(itemNodes.get(0).get("itemstring").asText());
+            drivingLicence.setName(itemNodes.get(1).get("itemstring").asText());
+            drivingLicence.setSex(itemNodes.get(2).get("itemstring").asText());
+            drivingLicence.setNation(itemNodes.get(3).get("itemstring").asText());
+            drivingLicence.setAddress(itemNodes.get(4).get("itemstring").asText());
+            drivingLicence.setDate(itemNodes.get(5).get("itemstring").asText());
+            drivingLicence.setLzDate(itemNodes.get(6).get("itemstring").asText());
+            drivingLicence.setZjcx(itemNodes.get(7).get("itemstring").asText());
+            drivingLicence.setStartDate(itemNodes.get(8).get("itemstring").asText());
+            drivingLicence.setValidTime(itemNodes.get(9).get("itemstring").asText());
+            drivingLicence.setHz(itemNodes.get(10).asText());
+            return drivingLicence;
+        }catch (Exception e){
+            return null;
+        }
+
+    }
+
+    public static HashMap<String,String> parseBizLicence(String rawData) throws IOException {
+
+        try{
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jsonNode = mapper.readTree(rawData);
+            List<JsonNode> itemNodes = jsonNode.findParents("item");
+            if(itemNodes.size()< 5){
+                return null;
+            }
+            System.out.println(itemNodes.size());
+            HashMap<String, String> resultMap = new HashMap();
+            resultMap.put("creditId", itemNodes.get(0).get("itemstring").asText());
+            resultMap.put("representative",itemNodes.get(1).get("itemstring").asText());
+            resultMap.put("companyName", itemNodes.get(2).get("itemstring").asText());
+            resultMap.put("companyAddress", itemNodes.get(3).get("itemstring").asText());
+            String time = itemNodes.get(4).get("itemstring").asText();
+            String[] timeArr = time.split("至");
+            resultMap.put("startTime",timeArr[0]);
+            resultMap.put("endTime", timeArr[1]);
+            return resultMap;
+        }catch (Exception e){
+
+            return null;
+        }
+
     }
 
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qcloud.image.ImageClient;
 import com.qcloud.image.request.GeneralOcrRequest;
+import com.qcloud.image.request.OcrBizLicenseRequest;
 import com.qcloud.image.request.OcrDrivingLicenceRequest;
 import org.it611.das.domain.DegreeCertificate;
 import org.it611.das.domain.DrivingLicence;
@@ -50,6 +51,12 @@ public class FileController {
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
 
+    /**
+     * 身份证上传和识别
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/file/idcard/upload", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject idCardUpload(MultipartFile file) throws IOException {
@@ -93,6 +100,12 @@ public class FileController {
     }
 
 
+    /**
+     * 学历证书上传和识别
+     * @param file
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/file/degreeCert/upload", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject degreeCertUpload(MultipartFile file) throws Exception {
@@ -122,6 +135,12 @@ public class FileController {
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
 
+    /**
+     * 实用发明专利上传识别
+     * @param file
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/file/syxxzl/upload", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject syfmzlUpload(MultipartFile file) throws Exception {
@@ -183,6 +202,39 @@ public class FileController {
         client.close();
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
+
+
+    /**
+     * 营业执照识别
+     */
+    @RequestMapping(value = "/file/bizLicence/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONObject bizLicenceUpload(MultipartFile file) throws Exception {
+
+
+        if (file.isEmpty()) {
+            return ResultUtil.constructResponse(400,"empty file.",null);
+        }
+        String fileHash = MD5Util.md5HashCode(file.getInputStream());
+        String path=FastDFSClient.saveFile(file);//将文件上传到fastDFS，返回http url
+        //腾讯ocr识别
+        ImageClient imageClient = new ImageClient("1252836514", "AKID0tcB3ktk086uhNwGSTK1XtDQVP8gNGIR", "iMp7FE6qVzJYcVEm9f3IMFas33tcDgy5");
+        File f = File.createTempFile("tmp", null);
+        file.transferTo(f);
+        OcrBizLicenseRequest request = new OcrBizLicenseRequest("yui-1252836514",  f);//1.表示驾驶证
+        String ret = imageClient.ocrBizLicense(request);
+        //解析数据
+        HashMap bizLicenceMap = GeneralOcrParseUtil.parseBizLicence(ret);
+        //f.deleteOnExit();
+        Map<String,Object> dataMap = new HashMap();
+        dataMap.put("path", path);
+        dataMap.put("ocrData",bizLicenceMap);
+        Jedis client = RedisUtil.getJedis();
+        client.set(path, fileHash);
+        client.close();
+        return ResultUtil.constructResponse(200,"ok",dataMap);
+    }
+
 
 
 }

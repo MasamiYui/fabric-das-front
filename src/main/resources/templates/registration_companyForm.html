@@ -147,47 +147,47 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>公司信用代码</label>
-                                        <input name="creditId" class="form-control"/>
+                                        <input name="creditId" class="form-control" id="creditId"/>
                                     </div>
 
                                     <div class="form-group">
                                         <label>法人</label>
-                                        <input name="representative" class="form-control"/>
+                                        <input name="representative" class="form-control" id="representative"/>
                                     </div>
                                     <div class="form-group">
                                         <label>公司成立日期</label>
-                                        <input type="text" name="establishmentTime" class="form-control" id='establishment_time'/>
+                                        <input type="text" name="establishmentTime" class="form-control" id='establishmentTime'/>
                                     </div>
                                     <div class="form-group">
                                         <label>公司类型</label>
-                                        <input type="text" name="companyType" class="form-control"/>
+                                        <input type="text" name="companyType" class="form-control" id="companyType"/>
                                     </div>
                                     <div class="form-group">
                                         <label>公司开始营业日期</label>
-                                        <input type="text" name="startTime" class="form-control" id='start_time'/>
+                                        <input type="text" name="startTime" class="form-control" id='startTime'/>
                                     </div>
 
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label>公司结束营业日期</label>
-                                        <input type="text" name="endTime" class="form-control" id='end_time'/>
+                                        <input type="text" name="endTime" class="form-control" id='endTime'/>
                                     </div>
                                     <div class="form-group">
                                         <label>经营范围</label>
-                                        <input name="businessScope" class="form-control"/>
+                                        <input name="businessScope" class="form-control" id="businessScope"/>
                                     </div>
                                     <div class="form-group">
                                         <label>登记机关</label>
-                                        <input name="registrationAuthority" class="form-control"/>
+                                        <input name="registrationAuthority" class="form-control" id="registrationAuthority"/>
                                     </div>
                                     <div class="form-group">
                                         <label>公司登记日期</label>
-                                        <input type="text" name="registrationTime" class="form-control" id='registration_time'/>
+                                        <input type="text" name="registrationTime" class="form-control" id='registrationTime'/>
                                     </div>
                                     <div class="form-group">
                                         <label>公司地址</label>
-                                        <input type="text" name="companyAddress" class="form-control" />
+                                        <input type="text" name="companyAddress" class="form-control" id="companyAddress"/>
                                     </div>
                                 </div>
 
@@ -318,7 +318,7 @@
         //多图片上传
         upload.render({
             elem: '#test2'
-            , url: '/file/upload'
+            , url: '/file/bizLicence/upload'
             , multiple: true
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
@@ -332,9 +332,21 @@
                 if (res.code > 0) {
                    /* var pathValue=res.data.path;
                     paths = paths + pathValue + ",";*/
-                    $("#files").val(res.data.path);
 
+                    $("#files").val(res.data.path);
                     closeLoading();
+                    if(res.data.ocrData==null || res.data.ocrData==""){
+                        alert("文件无法识别，请手工填写信息");
+                    }else{
+                        $("#creditId").val(res.data.ocrData.creditId);
+                        $("#representative").val(res.data.ocrData.representative);
+                        $("#companyName").val(res.data.ocrData.companyName);
+                        $("#companyAddress").val(res.data.ocrData.companyAddress);
+                        $("#startTime").val(res.data.ocrData.startTime);
+                        $("#endTime").val(res.data.ocrData.endTime);
+                    }
+                    console.log(res.data.ocrData);
+
 
                    /* var hashValue=res.data.path;
                     filesHashs = filesHashs + hashValue + ",";
