@@ -324,6 +324,7 @@
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
                     $('#demo2').html('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                    loading();
                 });
                 photoView();
             }
@@ -333,6 +334,8 @@
                     paths = paths + pathValue + ",";*/
                     $("#files").val(res.data.path);
 
+                    closeLoading();
+
                    /* var hashValue=res.data.path;
                     filesHashs = filesHashs + hashValue + ",";
                     $("#filesHash").val(filesHashs);*/
@@ -341,6 +344,20 @@
             }
         });
     });
+
+    function loading() {
+        var index = layer.msg('内容识别中...', {
+            icon: 16
+            , shade: 0.01
+            , time: 0
+        });
+    }
+    function closeLoading(index) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.close(layer.index);
+        });
+    }
 
     $("#demo2").click(function () {
         photoView();

@@ -97,7 +97,8 @@
 
                         <!--上传图片-->
                         <div class="col-lg-12 ">
-                            <button type="button" class="layui-btn" id="test2">学位证书扫描件上传</button>
+                            <button type="button" class="layui-btn" id="test2">文件上传</button>
+                            <span>（请上传新型发明专利正面照）<em style="color:red;">*</em></span>
                             <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                                 <!--已上传：-->
                                 <div class="layui-upload-list" id="demo2"></div>
@@ -121,12 +122,13 @@
                                         <label>专利号</label>
                                         <input name="zlh" class="form-control" id="zlh"/>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>专利申请日</label>
                                         <input name="zlsqr" class="form-control" id="zlsqr"/>
                                     </div>
+                                </div>
+                                <div class="col-lg-6">
+
                                     <div class="form-group">
                                         <label>专利权人</label>
                                         <input name="zlqr" id="zlqr" class="form-control" />
@@ -144,11 +146,6 @@
                                     </div>
                                 </div>
 
-<!--                                <div class="col-lg-6">-->
-
-
-<!--                                </div>-->
-
                             </div>
 
                             <!--确认按钮-->
@@ -162,9 +159,6 @@
                                     重&nbsp;&nbsp;置
                                 </button>
                             </div>
-
-                            <!-- /.row (nested) -->
-                        </div>
                     </form>
                     <!-- /.panel-body -->
                 </div>
@@ -284,6 +278,7 @@
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
                     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                    loading();
                 });
                 photoView();
             }
@@ -300,7 +295,7 @@
                     $("#zlqr").val(res.data.ocrData.zlqr);
                     $("#sqggr").val(res.data.ocrData.sqggr);
                     $("#fzsj").val(res.data.ocrData.fzsj);
-
+                    closeLoading();
 
                     //alert(res.data.ocrData);
                    // $("#filesHash").val(res.data.filesHash);
@@ -309,6 +304,20 @@
             }
         });
     });
+
+    function loading() {
+        var index = layer.msg('内容识别中...', {
+            icon: 16
+            , shade: 0.01
+            , time: 0
+        });
+    }
+    function closeLoading(index) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.close(layer.index);
+        });
+    }
 
     function photoView() {
         <!--照片查看器-->

@@ -92,7 +92,7 @@
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
                         <!--图片的Hash-->
-                     <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
+                        <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
 
 
                         <!--上传图片-->
@@ -118,19 +118,7 @@
                                         <label>姓名</label>
                                         <input type="text" name="name" class="form-control" id='name'/>
                                     </div>
-                                    <div class="form-group">
-                                        <label>性别</label>
-                                        <div class="form-group">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="sex" id="maleoption"
-                                                       value="男" checked="true"/>男
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="sex" id="femaleoption"
-                                                       value="女"/>女
-                                            </label>
-                                        </div>
-                                    </div>
+
                                     <div class="form-group">
                                         <label>国籍</label>
                                         <input name="nation" id="nation" class="form-control"/>
@@ -138,6 +126,19 @@
                                     <div class="form-group">
                                         <label>住址</label>
                                         <input name="address" id="address" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>性别</label>
+                                        <div class="form-group">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="sex" id="maleoption"
+                                                       value="男" />男
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="sex" id="femaleoption"
+                                                       value="女"/>女
+                                            </label>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -166,33 +167,24 @@
                                         <input name="validTime" type="text" class="form-control" id='validTime'/>
                                     </div>
 
-
-
-
-                                    </div>
                                 </div>
-
-<!--                                <div class="col-lg-6">-->
-
-
-<!--                                </div>-->
-
                             </div>
-
-                            <!--确认按钮-->
-                            <div class="col-lg-12 text-right">
-                                <button type="button" id="btSubmit" class="btn btn-primary btn-info"
-                                        style="width: 100px;">
-                                    确&nbsp;&nbsp;定
-                                </button>
-                                <button type="button" id="btBack" class="btn btn-primary btn-info"
-                                        style="width: 100px;">
-                                    重&nbsp;&nbsp;置
-                                </button>
-                            </div>
-
-                            <!-- /.row (nested) -->
                         </div>
+
+                        <!--确认按钮-->
+                        <div class="col-lg-12 text-right">
+                            <button type="button" id="btSubmit" class="btn btn-primary btn-info"
+                                    style="width: 100px;">
+                                确&nbsp;&nbsp;定
+                            </button>
+                            <button type="button" id="btBack" class="btn btn-primary btn-info"
+                                    style="width: 100px;">
+                                重&nbsp;&nbsp;置
+                            </button>
+                        </div>
+
+                        <!-- /.row (nested) -->
+
                     </form>
                     <!-- /.panel-body -->
                 </div>
@@ -245,17 +237,17 @@
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
-                        if(result.code=200){
+                        if (result.code = 200) {
                             callbackMsg("学位证书资产申请已提交");
                             window.location.href = "/asset/drivingLicence/index";
-                        }else{
+                        } else {
                             callbackMsg("提交失败");
                         }
                     },
-                   /* complete: function (XMLHttpRequest, textStatus) {
-                        $this.prop("disabled", false);
-                        window.location.reload(true);
-                    }*/
+                    /* complete: function (XMLHttpRequest, textStatus) {
+                         $this.prop("disabled", false);
+                         window.location.reload(true);
+                     }*/
                 });
             } else {
                 $this.prop("disabled", false);
@@ -266,8 +258,8 @@
 
     function validateForm() {
         //上传学位证书扫描件
-        var nodes=$("#demo2").children().length;
-        if(!nodes){
+        var nodes = $("#demo2").children().length;
+        if (!nodes) {
             msg("请上传学位证书扫描件");
             return false;
         }
@@ -284,8 +276,8 @@
     function callbackMsg(data) {
         layer.open({
             title: '申请结果'
-            ,content: data
-            ,end:function(){
+            , content: data
+            , end: function () {
                 window.location.href = "/asset/drivingLicence/index";
             }
         });
@@ -293,7 +285,7 @@
 
 
     <!-- 文件上传-->
-    var photoCount=0;
+    var photoCount = 0;
     layui.use('upload', function () {
         var upload = layui.upload;
         //多图片上传
@@ -303,13 +295,14 @@
             , multiple: false
             , number: 1
             , before: function (obj) {
-                if(photoCount==1){
+                if (photoCount == 1) {
                     msg("只能上传一张图片");
                     return false;
                 }
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
                     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                    loading();
                 });
                 photoView();
             }
@@ -331,21 +324,32 @@
                     $("#validTime").val(res.data.ocrData.validTime);
                     $("#startDate").val(res.data.ocrData.startDate);
 
+                    $("input[name='sex'][value='" + res.data.ocrData.sex + "']").prop("checked", true);  //根据Value值设置Radio为选中状态
 
-
-                    $("input[name='sex'][value='"+res.data.ocrData.sex+"']").prop("checked",true);  //根据Value值设置Radio为选中状态
-
-
-
-
+                    closeLoading();
 
                     //alert(res.data.ocrData);
-                   // $("#filesHash").val(res.data.filesHash);
+                    // $("#filesHash").val(res.data.filesHash);
                 }
                 console.log(res);
             }
         });
     });
+
+    function loading() {
+        var index = layer.msg('内容识别中...', {
+            icon: 16
+            , shade: 0.01
+            , time: 0
+        });
+    }
+
+    function closeLoading(index) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.close(layer.index);
+        });
+    }
 
     function photoView() {
         <!--照片查看器-->
