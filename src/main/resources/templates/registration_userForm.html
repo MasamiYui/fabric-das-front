@@ -123,16 +123,18 @@
                                         <div class="layui-upload-list" id="demo2"></div>
                                     </blockquote>
                                 </div>
-                                <div class="col-lg-3" style="background-color: #cccccc;font-size: 20px;margin-bottom: 20px;margin-left:16px;height: 30px;" th:text="附件信息"></div>
+                                <div class="col-lg-3"
+                                     style="background-color: #cccccc;font-size: 20px;margin-bottom: 20px;margin-left:16px;height: 30px;"
+                                     th:text="附件信息"></div>
                                 <div class="col-lg-12"></div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>姓名<em style="color:red;">*</em></label>
-                                        <input name="name" id = "name" class="form-control"/>
+                                        <input name="name" id="name" class="form-control"/>
                                     </div>
                                     <div class="form-group">
                                         <label>身份证号码<em style="color:red;">*</em></label>
-                                        <input name="idcard" id = "idcard" class="form-control"/>
+                                        <input name="idcard" id="idcard" class="form-control"/>
                                     </div>
                                     <div class="form-group">
                                         <label>性别<em style="color:red;">*</em></label>
@@ -154,17 +156,17 @@
                                     <div class="form-group">
                                         <label>民族<em style="color:red;">*</em></label>
                                         <!--<select id="nation" name="nation" class="form-control">-->
-                                        <input name="nation" id = "nation" class="form-control"/>
+                                        <input name="nation" id="nation" class="form-control"/>
                                         </select>
                                     </div>
 
                                     <div class="form-group">
                                         <label>出生年月<em style="color:red;">*</em></label>
-                                        <input type="text" name="date" id = "date" class="form-control"/>
+                                        <input type="text" name="date" id="date" class="form-control"/>
                                     </div>
                                     <div class="form-group">
                                         <label>联系地址<em style="color:red;">*</em></label>
-                                        <input type="text" name="address" id = "address" class="form-control" />
+                                        <input type="text" name="address" id="address" class="form-control"/>
                                     </div>
                                 </div>
 
@@ -236,9 +238,9 @@
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
-                        if(result.code=200){
+                        if (result.code = 200) {
                             callbackMsg("用户注册帐号已提交");
-                        }else{
+                        } else {
                             callbackMsg("注册失败");
                         }
                     },
@@ -254,22 +256,22 @@
     }
 
     function validateForm() {
-       var  phoneReg=/^\d{11}$/;
-        var phone=$('input[name="phone"]').val();
-        if(!phoneReg.test(phone)){
+        var phoneReg = /^\d{11}$/;
+        var phone = $('input[name="phone"]').val();
+        if (!phoneReg.test(phone)) {
             msg("手机号码填写有误");
             return false;
         }
-        var mailReg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        var mail=$('input[name="email"]').val();
-        if(!mailReg.test(mail)){
+        var mailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        var mail = $('input[name="email"]').val();
+        if (!mailReg.test(mail)) {
             msg("邮箱填写有误");
             return false;
         }
 
-        var data=$('input[name="password"]').val();
-        var picData=$('#rePassword').val();
-        if((!data)||(!picData)) {
+        var data = $('input[name="password"]').val();
+        var picData = $('#rePassword').val();
+        if ((!data) || (!picData)) {
             msg("密码不能为空");
             return false;
         }
@@ -280,8 +282,8 @@
             return false;
         }
 
-        var nodes=$("#demo2").children().length;
-        if(!nodes){
+        var nodes = $("#demo2").children().length;
+        if (!nodes) {
             msg("请上传身份证件");
             return false;
         }
@@ -299,8 +301,8 @@
     function callbackMsg(data) {
         layer.open({
             title: '注册结果'
-            ,content: data
-            ,end:function(){
+            , content: data
+            , end: function () {
                 window.location.href = "/frontLogin";
             }
         });
@@ -314,12 +316,13 @@
         upload.render({
             elem: '#test2'
             , url: '/file/idcard/upload'//更改为上传身份证的接口
-          /*  , multiple: false
-            , number:1*/
+            /*  , multiple: false
+              , number:1*/
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
                     $('#demo2').html('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                    loading();
                 });
                 photoView();
             }
@@ -333,10 +336,12 @@
                     $("#name").val(ocrdata.name);
                     $("#idcard").val(ocrdata.idcard);
                     $("#nation").val(ocrdata.nation);
-                    $("input[name='sex'][value='"+ocrdata.sex+"']").prop("checked",true);  //根据Value值设置Radio为选中状态
+                    $("input[name='sex'][value='" + ocrdata.sex + "']").prop("checked", true);  //根据Value值设置Radio为选中状态
                     var birthDate = parseDate(ocrdata.date);
                     $("#date").val(birthDate);
                     $("#address").val(ocrdata.address);
+
+                    closeLoading();
 
                     /*   var hashValue=res.data.path;
                        filesHashs = filesHashs + hashValue + ",";
@@ -347,16 +352,31 @@
         });
     });
 
-    function parseDate(d){
-        var arr=d.split("/");
-        var year=arr[0];
-        var month=arr[1];
-        month=month>10?month:"0"+month;
-        var date=year+"-"+month+"-"+arr[2];
-       /* for(var index in arr){
-            date=date+arr[index]+"-";
-        }
-        date=date.substring(0,date.length-1);*/
+    function loading() {
+        var index = layer.msg('内容识别中...', {
+            icon: 16
+            , shade: 0.01
+            , time: 0
+        });
+    }
+
+    function closeLoading(index) {
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.close(layer.index);
+        });
+    }
+
+    function parseDate(d) {
+        var arr = d.split("/");
+        var year = arr[0];
+        var month = arr[1];
+        month = month > 10 ? month : "0" + month;
+        var date = year + "-" + month + "-" + arr[2];
+        /* for(var index in arr){
+             date=date+arr[index]+"-";
+         }
+         date=date.substring(0,date.length-1);*/
         return date;
     }
 
@@ -371,7 +391,7 @@
         });
     }
 
-    $("#demo2").click(function(){
+    $("#demo2").click(function () {
         photoView();
     });
 
@@ -387,10 +407,9 @@
         });
     });
 
-    $("#btBack").click(function(){
+    $("#btBack").click(function () {
         window.location.href = "/frontLogin";
     });
-
 
 
 </script>
