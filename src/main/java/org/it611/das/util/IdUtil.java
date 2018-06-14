@@ -56,9 +56,19 @@ public class IdUtil {
     }
 
 
+    /**
+     * 实用新型专利Id生成策略
+     * @return
+     */
     public static String getSyxxzlId(){
 
         return "syxxzl"+getId();
+    }
+
+
+    public static String getDrivingLicenceId(){
+
+        return "jsz"+getId();
     }
 
     /**

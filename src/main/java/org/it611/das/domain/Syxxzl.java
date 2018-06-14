@@ -1,8 +1,10 @@
 package org.it611.das.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 //实用发明专利
+@Document(collection = "syxxzl")
 public class Syxxzl {
 
     @Id

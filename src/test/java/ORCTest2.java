@@ -1,20 +1,6 @@
-package org.it611.das.util;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qcloud.image.ImageClient;
-import com.qcloud.image.request.GeneralOcrRequest;
-import com.qcloud.image.request.OcrBizLicenseRequest;
-import com.qcloud.image.request.OcrDrivingLicenceRequest;
-import org.it611.das.domain.DegreeCertificate;
-import org.it611.das.ocr.OcrExample;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-
-public class ORCTest {
+public class ORCTest2 {
 
 
     public static void main(String[] args) throws Exception {
@@ -106,7 +92,7 @@ public class ORCTest {
         System.out.println("schoolName:"+ schoolName);
 
         int mojorPos = str.indexOf("专业");
-        String major = str.substring(pos6,mojorPos);
+        String major = str.substring(pos6,mojorPoos);
         System.out.println("major:"+ major);
 
         int pos7 =str.indexOf("学士学位");

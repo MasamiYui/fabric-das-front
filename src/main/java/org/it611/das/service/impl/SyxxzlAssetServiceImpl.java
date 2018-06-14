@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-public class SyxxzlServiceImpl implements SyxxzlAssetService {
+public class SyxxzlAssetServiceImpl implements SyxxzlAssetService {
 
 
 

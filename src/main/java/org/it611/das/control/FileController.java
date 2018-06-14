@@ -7,6 +7,7 @@ import com.qcloud.image.ImageClient;
 import com.qcloud.image.request.GeneralOcrRequest;
 import com.qcloud.image.request.OcrDrivingLicenceRequest;
 import org.it611.das.domain.DegreeCertificate;
+import org.it611.das.domain.DrivingLicence;
 import org.it611.das.domain.Syxxzl;
 import org.it611.das.fastdfs.FastDFSClient;
 import org.it611.das.util.GeneralOcrParseUtil;
@@ -154,7 +155,7 @@ public class FileController {
     /**
      * 驾照上传识别
      */
-    @RequestMapping(value = "/file/drivingLicense/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/drivingLicence/upload", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject drivingLicenseUpload(MultipartFile file) throws Exception {
 
@@ -171,12 +172,12 @@ public class FileController {
         OcrDrivingLicenceRequest request = new OcrDrivingLicenceRequest("yui-1252836514", 1, f);//1.表示驾驶证
         String ret = imageClient.ocrDrivingLicence(request);
         //解析数据
-        DegreeCertificate dc = GeneralOcrParseUtil.parseDegreeCertData(ret);
+        DrivingLicence dl = GeneralOcrParseUtil.parseDrivingLicenceData(ret);
 
         //f.deleteOnExit();
         Map<String,Object> dataMap = new HashMap();
         dataMap.put("path", path);
-        dataMap.put("ocrData",dc);
+        dataMap.put("ocrData",dl);
         Jedis client = RedisUtil.getJedis();
         client.set(path, fileHash);
         client.close();

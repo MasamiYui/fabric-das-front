@@ -118,6 +118,23 @@ public final class Vo2PoUtil {
     }
 
 
+    public static DrivingLicence drivingLicenceVo2Po(HttpServletRequest request, DrivingLicenceVO vo) throws IOException {
+        Jedis client = RedisUtil.getJedis();
+
+        String path = vo.getFiles();
+        String filesHash = client.get(path);
+
+        String token = CookieUtil.getCookie(request,  CookieUtil.COOKIE_TOKEN_KEY);
+        String jsonstr = client.get(token);
+        HashMap obj=new ObjectMapper().readValue(jsonstr,HashMap.class);
+        String userId = obj.get("id").toString();
+        client.close();
+        return new DrivingLicence(IdUtil.getDrivingLicenceId(), userId, vo.getDrivingLicenceId(), vo.getName(), vo.getSex(), vo.getNation(), vo.getAddress(), vo.getDate(),vo.getLzDate(), vo.getZjcx(), vo.getStartDate(), vo.getValidTime(), vo.getHz() , vo.getFiles(), filesHash, "","0", TimeUtil.getLocalTime());
+
+    }
+
+
+
 
 
 }
