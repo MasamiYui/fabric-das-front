@@ -65,7 +65,10 @@ public class IdUtil {
         return "syxxzl"+getId();
     }
 
-
+    /**
+     * 驾驶证Id生成策略
+     * @return
+     */
     public static String getDrivingLicenceId(){
 
         return "jsz"+getId();
