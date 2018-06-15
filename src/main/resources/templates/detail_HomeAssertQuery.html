@@ -77,11 +77,11 @@
                                 </tr>
                                 <tr>
                                     <td>资产编号</td>
-                                    <td id="recordId" ></td>
+                                    <td th:text="${record.id}"></td>
                                 </tr>
                                 <tr>
                                     <td>申请人</td>
-                                    <td th:text="${record.ownerId}"></td><!--ownerId-->
+                                    <td  id="ownerId" ></td><!--ownerId-->
                                 </tr>
 
                                 <!--<tr>
@@ -141,9 +141,9 @@
     });
     
     function recordIdInit() {
-        var recordId = [[${record.id}]];
-        recordId=recordId.substring(0, 4) + "*******" + recordId.substring(recordId.length-4);
-        $("#recordId").text(recordId);
+        var recordId = [[${record.ownerId}]];
+        ownerId=recordId.substring(0, 4) + "*******" + recordId.substring(recordId.length-4);
+        $("#ownerId").text(ownerId);
     }
     function fileHashTr() {
         var filehash = [[${record.filesHash}]];
