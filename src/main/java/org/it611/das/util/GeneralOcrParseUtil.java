@@ -226,6 +226,8 @@ public class GeneralOcrParseUtil {
             drivingLicence.setStartDate(itemNodes.get(8).get("itemstring").asText());
             drivingLicence.setValidTime(itemNodes.get(9).get("itemstring").asText());
             drivingLicence.setHz(itemNodes.get(10).asText());
+
+
             return drivingLicence;
         }catch (Exception e){
             return null;
@@ -252,6 +254,10 @@ public class GeneralOcrParseUtil {
             String[] timeArr = time.split("至");
             resultMap.put("startTime",timeArr[0]);
             resultMap.put("endTime", timeArr[1]);
+            if(resultMap.size()<6){
+                return null;
+            }
+
             return resultMap;
         }catch (Exception e){
 
