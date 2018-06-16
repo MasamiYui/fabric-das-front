@@ -211,7 +211,7 @@
                     success: function (result) {
                         if (result.code = 200) {
                             callbackMsg("图片资产申请已提交");
-                            window.location.href = "/asset/image/index";
+                            // window.location.href = "/asset/image/index";
                         } else {
                             callbackMsg("提交失败");
                         }
@@ -270,7 +270,8 @@
     function callbackMsg(data) {
         layer.open({
             title: '申请结果'
-            , content: data
+            , content: '<p style="text-align: center;">' +data+'</p>'
+            ,offset: '190px'
             , end: function () {
                 window.location.href = "/asset/image/index";
             }

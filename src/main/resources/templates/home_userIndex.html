@@ -18,6 +18,8 @@
     <link rel="stylesheet" th:href="@{/assets_home/css/form-elements.css}">
     <link rel="stylesheet" th:href="@{/assets_home/css/style.css}">
     <link rel="stylesheet" th:href="@{/assets_home/css/media-queries.css}">
+    <!--引入layui的css-->
+    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -131,13 +133,13 @@
                         </div> -->
                     </div>
                     <div class="subscribe wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="3s">
-                        <form class="form-inline" role="form" action="assets_home/subscribe.php" method="post">
+                        <form class="form-inline" role="form" >
                             <div class="form-group">
-                                <label class="sr-only" for="subscribe-email">Email address</label>
-                                <input type="text" name="email" placeholder="资产Id/资产指纹/区块链指纹"
-                                       class="subscribe-email form-control" id="subscribe-email">
+                                <label class="sr-only" >Email address</label>
+                                <input type="text" name="email" placeholder="资产Id"
+                                       class="subscribe-email form-control" id="assertId">
                             </div>
-                            <button type="submit" class="btn">查询</button>
+                            <button type="button" class="btn" id="btSubmit">查询</button>
                         </form>
                         <div class="success-message"></div>
                         <div class="error-message"></div>
@@ -549,10 +551,41 @@
 <script src="assets_home/js/wow.min.js"></script>
 <script src="assets_home/js/retina-1.1.0.min.js"></script>
 <script src="assets_home/js/scripts.js"></script>
+<!--引入layui-->
+<script th:src="@{/jcstatic/layui/layui.js}"></script>
+<!--<script src="../static/jcstatic/layui/layui.js"></script>-->
+
 
 <!--[if lt IE 10]>
 <script src="assets_home/js/placeholder.js"></script>
 <![endif]-->
+
+<script type="text/javascript">
+
+    $("#btSubmit").click(function () {
+        var assertId = $.trim($("#assertId").val());
+        if(!assertId) return false;
+
+        layui.use('layer', function () {
+            var $ = layui.jquery, layer = layui.layer;
+            index = layer.open({
+                title: ['资产记录详情', 'font-size:18px;'],
+                anim: 2,
+                type: 2,
+                move: false,
+                resize: false,
+                scrolling:'auto',
+                offset: '70px',
+                area: ['700px', '470px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: '/asset/queryId?assertId=' + assertId
+
+            });
+        });
+    });
+
+</script>
 
 </body>
 

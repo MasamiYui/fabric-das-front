@@ -283,7 +283,8 @@
     function callbackMsg(data) {
         layer.open({
             title: '注册结果'
-            ,content: data
+            , content: '<p style="text-align: center;">' +data+'</p>'
+            ,offset: '190px'
             ,end:function(){
                 window.location.href = "/frontLogin";
             }

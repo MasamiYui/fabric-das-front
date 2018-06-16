@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >  <!--style="overflow: hidden;"-->
+<html xmlns:th="http://www.thymeleaf.org">  <!--style="overflow: hidden;"-->
 
 <head>
 
@@ -50,7 +50,7 @@
             font-weight: 700;
         }
 
-        table tbody>tr td:last-child{
+        table tbody > tr td:last-child {
             text-align: center;
         }
 
@@ -68,17 +68,17 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 style="text-align: center" >数据信息对比结果</h3>
+                        <h3 style="text-align: center">数据信息对比结果</h3>
                     </div>
                     <div class="panel-heading">
                         <div class="controls">
                             <div class="controls">
                                 <span class="col-title">资产类型：</span>
                                 <span>学位证书</span>
-                               <!-- <th:block th:switch="${result.mongoData.}">
-                                    <span th:case="1">学生证</span>
-                                    <span th:case="*">无类型</span> &lt;!&ndash;*表示默认类型&ndash;&gt;
-                                </th:block>-->
+                                <!-- <th:block th:switch="${result.mongoData.}">
+                                     <span th:case="1">学生证</span>
+                                     <span th:case="*">无类型</span> &lt;!&ndash;*表示默认类型&ndash;&gt;
+                                 </th:block>-->
                             </div>
                             <span class="col-title">资产编号：</span>
                             <span th:text="${result.data.mongoData.id}"></span>
@@ -102,87 +102,145 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>姓名</td>
-                                    <td th:text="${result.data.mongoData.name}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.name}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.name}==${result.data.fabricData.name}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.name}!=${result.data.fabricData.name}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>性别</td>
-                                    <td th:text="${result.data.mongoData.sex}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.sex}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.sex}==${result.data.fabricData.sex}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.sex}!=${result.data.fabricData.sex}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>出生日期</td>
-                                    <td th:text="${result.data.mongoData.date}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.date}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.date}==${result.data.fabricData.date}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.date}!=${result.data.fabricData.date}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>学位授予单位</td>
-                                    <td th:text="${result.data.mongoData.degreeConferringUnit}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.degreeConferringUnit}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.degreeConferringUnit}==${result.data.fabricData.degreeConferringUnit}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.degreeConferringUnit}!=${result.data.fabricData.degreeConferringUnit}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>专业</td>
-                                    <td th:text="${result.data.mongoData.professional}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.professional}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.professional}==${result.data.fabricData.professional}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.professional}!=${result.data.fabricData.professional}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>学位类别</td>
-                                    <td th:text="${result.data.mongoData.degreeName}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.degreeName}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.degreeName}==${result.data.fabricData.degreeName}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.degreeName}!=${result.data.fabricData.degreeName}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>学位证书编号</td>
-                                    <td th:text="${result.data.mongoData.certId}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.certId}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.fabricData.certId}==${result.data.fabricData.certId}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.fabricData.certId}!=${result.data.fabricData.certId}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>发证时间</td>
-                                    <td th:text="${result.data.mongoData.time}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.time}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.time}==${result.data.fabricData.time}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.time}!=${result.data.fabricData.time}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>文件哈希值</td>
-                                    <td th:text="${result.data.mongoData.filesHash}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.filesHash}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.filesHash}==${result.data.fabricData.filesHash}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.filesHash}!=${result.data.fabricData.filesHash}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>姓名</td>
+                                        <td th:text="${result.data.mongoData.name}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.name}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${result.data.mongoData.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.name}==${result.data.fabricData.name}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.name}!=${result.data.fabricData.name}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>性别</td>
+                                        <td th:text="${result.data.mongoData.sex}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.sex}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${result.data.mongoData.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.sex}==${result.data.fabricData.sex}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.sex}!=${result.data.fabricData.sex}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>出生日期</td>
+                                        <td th:text="${result.data.mongoData.date}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.date}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${result.data.mongoData.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.date}==${result.data.fabricData.date}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.date}!=${result.data.fabricData.date}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>学位授予单位</td>
+                                        <td th:text="${result.data.mongoData.degreeConferringUnit}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.degreeConferringUnit}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${result.data.mongoData.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.degreeConferringUnit}==${result.data.fabricData.degreeConferringUnit}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.degreeConferringUnit}!=${result.data.fabricData.degreeConferringUnit}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>专业</td>
+                                        <td th:text="${result.data.mongoData.professional}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.professional}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${result.data.mongoData.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.professional}==${result.data.fabricData.professional}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.professional}!=${result.data.fabricData.professional}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>学位类别</td>
+                                        <td th:text="${result.data.mongoData.degreeName}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.degreeName}:'无数据'"></td>
+                                        <td>
+                                            <i th:if="${result.data.mongoData.degreeName}==${result.data.fabricData.degreeName}"
+                                               class="glyphicon glyphicon-ok"></i>
+                                            <i th:if="${result.data.mongoData.degreeName}!=${result.data.fabricData.degreeName}"
+                                               class="glyphicon glyphicon-remove"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>学位证书编号</td>
+                                        <td th:text="${result.data.mongoData.certId}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.certId}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${result.data.mongoData.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.fabricData.certId}==${result.data.fabricData.certId}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.fabricData.certId}!=${result.data.fabricData.certId}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>发证时间</td>
+                                        <td th:text="${result.data.mongoData.time}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.time}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${result.data.mongoData.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.time}==${result.data.fabricData.time}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.time}!=${result.data.fabricData.time}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>文件指纹</td>
+                                        <td th:text="${result.data.mongoData.filesHash}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.filesHash}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${result.data.mongoData.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.filesHash}==${result.data.fabricData.filesHash}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.filesHash}!=${result.data.fabricData.filesHash}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
 
@@ -195,42 +253,42 @@
 
         </div>
         <!--图片-->
-       <!-- <div class="row">
-            &lt;!&ndash;<div class="col-lg-3"></div>&ndash;&gt;
+        <!-- <div class="row">
+             &lt;!&ndash;<div class="col-lg-3"></div>&ndash;&gt;
 
-            <div class="col-lg-12">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <strong>本地数据库附件</strong>
-                    </div>
-                    <div class="panel-body">
-                        <div id="layer-photos-demo" class="layui-upload-list" style="margin:0px">
-                             <th:block th:each="file:${result.data.mongoData.files}">
+             <div class="col-lg-12">
+                 <div class="panel panel-info">
+                     <div class="panel-heading">
+                         <strong>本地数据库附件</strong>
+                     </div>
+                     <div class="panel-body">
+                         <div id="layer-photos-demo" class="layui-upload-list" style="margin:0px">
+                              <th:block th:each="file:${result.data.mongoData.files}">
+                                  <img th:src="${file}" class="layui-upload-img"/>
+                              </th:block>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+             <div class="col-lg-12">
+                 <div class="panel panel-info">
+                     <div class="panel-heading">
+                         <strong>区块链附件</strong>
+                     </div>
+                     <div class="panel-body">
+                         <div id="layer-photos-demo2" class="layui-upload-list" style="margin:0px">
+                             <th:block th:each="file:${result.data.fabricData.files}">
                                  <img th:src="${file}" class="layui-upload-img"/>
                              </th:block>
-                        </div>
-                    </div>
+                         </div>
+                     </div>
 
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <strong>区块链附件</strong>
-                    </div>
-                    <div class="panel-body">
-                        <div id="layer-photos-demo2" class="layui-upload-list" style="margin:0px">
-                            <th:block th:each="file:${result.data.fabricData.files}">
-                                <img th:src="${file}" class="layui-upload-img"/>
-                            </th:block>
-                        </div>
-                    </div>
+                 </div>
+             </div>
 
-                </div>
-            </div>
-
-            &lt;!&ndash;<div class="col-lg-3"></div>&ndash;&gt;
-        </div>-->
+             &lt;!&ndash;<div class="col-lg-3"></div>&ndash;&gt;
+         </div>-->
 
     </div>
 </div>
@@ -256,19 +314,19 @@
         photoShow();
     });
 
-    function photoShow(){
-        var file =[[${result.data.mongoData.files}]];
-        if(!file) return;
-        $("#layer-photos-demo").append('<img src="'+file+'"  class="layui-upload-img"/>');
+    function photoShow() {
+        var file = [[${result.data.mongoData.files}]];
+        if (!file) return;
+        $("#layer-photos-demo").append('<img src="' + file + '"  class="layui-upload-img"/>');
     }
 
- layui.use('layer', function () {
-     var layer = layui.layer;
-     layer.photos({
-         photos: '#layer-photos-demo'
-         , anim: 5 //0-6的选择
-     });
- });
+    layui.use('layer', function () {
+        var layer = layui.layer;
+        layer.photos({
+            photos: '#layer-photos-demo'
+            , anim: 5 //0-6的选择
+        });
+    });
 
 
     var id = [[${result.data.mongoData.id}]];
@@ -297,7 +355,7 @@
         });
     });
 
-    $("#btBack").click(function(){
+    $("#btBack").click(function () {
         parent.close();
     });
 
@@ -313,8 +371,6 @@
             });
         });
     }
-
-
 
 
 </script>
