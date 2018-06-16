@@ -143,7 +143,9 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <button type="button" class="btn btn-success btn-lg btn-block" onclick="doAuth()">鉴权</button>
+                            <th:block th:if="${record.state}  eq 1 ">
+                                <button type="button" class="btn btn-success btn-lg btn-block" onclick="doAuth()">鉴权</button>
+                            </th:block>
                         </div>
                         <div class="control-group col-lg-6 layui-upload-list" id="layer-photos-demo">
 
