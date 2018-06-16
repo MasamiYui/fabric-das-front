@@ -102,78 +102,118 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>实用新型名称</td>
-                                    <td th:text="${result.data.mongoData.syxxmc}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.syxxmc}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.syxxmc}==${result.data.fabricData.syxxmc}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.syxxmc}!=${result.data.fabricData.syxxmc}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>发明人</td>
-                                    <td th:text="${result.data.mongoData.fmr}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.fmr}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.fmr}==${result.data.fabricData.fmr}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.fmr}!=${result.data.fabricData.fmr}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>专利号</td>
-                                    <td th:text="${result.data.mongoData.zlh}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.zlh}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.zlh}==${result.data.fabricData.zlh}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.zlh}!=${result.data.fabricData.zlh}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>专利申请日</td>
-                                    <td th:text="${result.data.mongoData.zlsqr}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.zlsqr}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.zlsqr}==${result.data.fabricData.zlsqr}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.zlsqr}!=${result.data.fabricData.zlsqr}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>专利权人</td>
-                                    <td th:text="${result.data.mongoData.zlqr}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.zlqr}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.zlqr}==${result.data.fabricData.zlqr}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.zlqr}!=${result.data.fabricData.zlqr}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>授权公告日</td>
-                                    <td th:text="${result.data.mongoData.sqggr}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.sqggr}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.sqggr}==${result.data.fabricData.sqggr}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.sqggr}!=${result.data.fabricData.sqggr}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>发证时间</td>
-                                    <td th:text="${result.data.mongoData.fzsj}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.fzsj}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.fabricData.fzsj}==${result.data.fabricData.fzsj}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.fabricData.fzsj}!=${result.data.fabricData.fzsj}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>文件哈希值</td>
-                                    <td th:text="${result.data.mongoData.filesHash}"></td>
-                                    <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.filesHash}:'无数据'"></td>
-                                    <td>
-                                        <i th:if="${result.data.mongoData.filesHash}==${result.data.fabricData.filesHash}" class="glyphicon glyphicon-ok"></i>
-                                        <i th:if="${result.data.mongoData.filesHash}!=${result.data.fabricData.filesHash}" class="glyphicon glyphicon-remove"></i>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>实用新型名称</td>
+                                        <td th:text="${result.data.mongoData.syxxmc}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.syxxmc}:'无数据'"></td>
+                                        <td>
+                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                                <i  class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.syxxmc}==${result.data.fabricData.syxxmc}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.syxxmc}!=${result.data.fabricData.syxxmc}" class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>发明人</td>
+                                        <td th:text="${result.data.mongoData.fmr}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.fmr}:'无数据'"></td>
+                                        <td>
+                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                                <i  class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.fmr}==${result.data.fabricData.fmr}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.fmr}!=${result.data.fabricData.fmr}" class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>专利号</td>
+                                        <td th:text="${result.data.mongoData.zlh}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.zlh}:'无数据'"></td>
+                                        <td>
+                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                                <i  class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.zlh}==${result.data.fabricData.zlh}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.zlh}!=${result.data.fabricData.zlh}" class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>专利申请日</td>
+                                        <td th:text="${result.data.mongoData.zlsqr}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.zlsqr}:'无数据'"></td>
+                                        <td>
+                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                                <i  class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.zlsqr}==${result.data.fabricData.zlsqr}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.zlsqr}!=${result.data.fabricData.zlsqr}" class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>专利权人</td>
+                                        <td th:text="${result.data.mongoData.zlqr}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.zlqr}:'无数据'"></td>
+                                        <td>
+                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                                <i  class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.zlqr}==${result.data.fabricData.zlqr}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.zlqr}!=${result.data.fabricData.zlqr}" class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>授权公告日</td>
+                                        <td th:text="${result.data.mongoData.sqggr}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.sqggr}:'无数据'"></td>
+                                        <td>
+                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                                <i  class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.sqggr}==${result.data.fabricData.sqggr}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.sqggr}!=${result.data.fabricData.sqggr}" class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>发证时间</td>
+                                        <td th:text="${result.data.mongoData.fzsj}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.fzsj}:'无数据'"></td>
+                                        <td>
+                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                                <i  class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.fabricData.fzsj}==${result.data.fabricData.fzsj}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.fabricData.fzsj}!=${result.data.fabricData.fzsj}" class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>文件哈希值</td>
+                                        <td th:text="${result.data.mongoData.filesHash}"></td>
+                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.filesHash}:'无数据'"></td>
+                                        <td>
+                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                                <i  class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                                <i th:if="${result.data.mongoData.filesHash}==${result.data.fabricData.filesHash}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${result.data.mongoData.filesHash}!=${result.data.fabricData.filesHash}" class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
 
