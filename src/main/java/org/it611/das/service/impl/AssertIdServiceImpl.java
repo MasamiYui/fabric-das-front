@@ -28,8 +28,13 @@ public class AssertIdServiceImpl implements AssertIdService {
     @Override
     public HashMap selectAssertDetailById(String assertId) throws Exception {
         HashMap dataResult = new HashMap();
-        Class assertClass=AssertType.queryAssertType(assertId);
         String type = AssertType.queryType(assertId);
+        if(type.equals("errorType")){
+            dataResult.put("data",null);
+            dataResult.put("type","errorType");
+            return dataResult;
+        }
+        Class assertClass=AssertType.queryAssertType(assertId);
 
         if(assertClass==null){
             dataResult.put("data",null);

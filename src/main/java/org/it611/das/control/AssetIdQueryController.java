@@ -28,12 +28,17 @@ public class AssetIdQueryController {
 
     @RequestMapping("/asset/queryId")
     public ModelAndView assertId( String assertId) throws Exception {
-
+        ModelAndView modelAndView = new ModelAndView();
         HashMap<String, Object> data = assertIdService.selectAssertDetailById(assertId);
         Object result = data.get("data");
         String assetType = (String)data.get("type");
 
-        ModelAndView modelAndView = new ModelAndView();
+        if(result==null){
+            modelAndView.addObject("errorInfo", "对不起，查找不到该资产");
+            modelAndView.setViewName("detail_HomeAssertQueryError");
+            return modelAndView;
+        }
+
         modelAndView.addObject("record", result);
         modelAndView.addObject("type", assetType);
         modelAndView.setViewName("detail_HomeAssertQuery");

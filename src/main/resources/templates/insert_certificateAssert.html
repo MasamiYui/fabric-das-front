@@ -302,6 +302,7 @@
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
                     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
+                    loading();
                 });
                 photoView();
             }
@@ -341,6 +342,14 @@
                 photos: '#demo2'
                 , anim: 5 //0-6的选择
             });
+        });
+    }
+
+    function loading() {
+        var index = layer.msg('内容识别中...', {
+            icon: 16
+            , shade: 0.01
+            , time: 0
         });
     }
 

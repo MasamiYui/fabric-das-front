@@ -36,7 +36,7 @@ public class AssertType {
         } else if (assertId.contains("yp")) {  //音频
             return "音频";
         } else {
-            return "";
+            return "errorType";
         }
 
     }
