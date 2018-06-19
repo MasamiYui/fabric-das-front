@@ -76,12 +76,21 @@
                                 <span class="col-title">资产类型：</span>
                                 <span>驾驶证</span>
                             </div>
-                            <span class="col-title">资产编号：</span>
-                            <span th:text="${resultMap.blockchainDataMap.}"></span>
+                            <span class="col-title">资产拥有者：</span>
+                            <span th:text="${resultMap.blockchainDataMap.ownerId}"></span>
                         </div>
                         <div class="controls">
                             <span class="col-title">交易哈希：</span>
-                            <span th:text="${result.data.mongoData.transactionId}"></span>
+                            <span th:text="${resultMap.transactionId}"></span>
+                        </div>
+                        <div class="controls">
+                            <span class="col-title">审核状态：</span>
+                            <th:block th:switch="${resultMap.state}">
+                                <span th:case="0">未审核</span>
+                                <span th:case="1">已审核</span>
+                                <span th:case="2">不通过</span>
+                                <span th:case="3">注销</span>
+                            </th:block>
                         </div>
 
                     </div>
@@ -101,154 +110,154 @@
                                     <tr>
                                         <td>驾驶证证号</td>
                                         <td th:text="${resultMap.inputDataMap.drivingLicenceId}"></td>
-                                        <td th:text="(${resultMap.state}!='0')?${result.data.fabricData.drivingLicenceId}:'无数据'"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.drivingLicenceId}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.drivingLicenceId}==${result.data.fabricData.drivingLicenceId}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.drivingLicenceId}!=${result.data.fabricData.drivingLicenceId}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.drivingLicenceId}==${resultMap.blockchainDataMap.drivingLicenceId}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.drivingLicenceId}!=${resultMap.blockchainDataMap.drivingLicenceId}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>姓名</td>
-                                        <td th:text="${result.data.mongoData.name}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.name}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.name}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.fabricData.name}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.name}==${result.data.fabricData.name}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.name}!=${result.data.fabricData.name}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.name}==${resultMap.blockchainDataMap.fabricData.name}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.name}!=${resultMap.blockchainDataMap.fabricData.name}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>性别</td>
-                                        <td th:text="${result.data.mongoData.sex}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.sex}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.sex}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.sex}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.sex}==${result.data.fabricData.sex}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.sex}!=${result.data.fabricData.sex}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.sex}==${resultMap.blockchainDataMap.sex}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.sex}!=${resultMap.blockchainDataMap.sex}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>国籍</td>
-                                        <td th:text="${result.data.mongoData.nation}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.nation}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.nation}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.nation}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.nation}==${result.data.fabricData.nation}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.nation}!=${result.data.fabricData.nation}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.nation}==${resultMap.blockchainDataMap.nation}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.nation}!=${resultMap.blockchainDataMap.nation}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>住址</td>
-                                        <td th:text="${result.data.mongoData.address}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.address}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.address}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.address}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.address}==${result.data.fabricData.address}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.address}!=${result.data.fabricData.address}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.address}==${resultMap.blockchainDataMap.address}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.address}!=${resultMap.blockchainDataMap.address}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>出生日期</td>
-                                        <td th:text="${result.data.mongoData.date}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.date}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.date}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.date}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.date}==${result.data.fabricData.date}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.date}!=${result.data.fabricData.date}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.date}==${resultMap.blockchainDataMap.date}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.date}!=${resultMap.blockchainDataMap.date}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>领证日期</td>
-                                        <td th:text="${result.data.mongoData.lzDate}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.lzDate}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.lzDate}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.lzDate}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.lzDate}==${result.data.fabricData.lzDate}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.lzDate}!=${result.data.fabricData.lzDate}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.lzDate}==${resultMap.blockchainDataMap.lzDate}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.lzDate}!=${resultMap.blockchainDataMap.lzDate}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>准驾车型</td>
-                                        <td th:text="${result.data.mongoData.zjcx}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.zjcx}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.zjcx}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.zjcx}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.fabricData.zjcx}==${result.data.fabricData.zjcx}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.fabricData.zjcx}!=${result.data.fabricData.zjcx}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.zjcx}==${resultMap.blockchainDataMap.zjcx}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.zjcx}!=${resultMap.blockchainDataMap.zjcx}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>起始时间</td>
-                                        <td th:text="${result.data.mongoData.startDate}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.startDate}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.startDate}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.startDate}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.startDate}==${result.data.fabricData.startDate}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.startDate}!=${result.data.fabricData.startDate}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.startDate}==${resultMap.blockchainDataMap.startDate}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.startDate}!=${resultMap.blockchainDataMap.startDate}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>有效日期</td>
-                                        <td th:text="${result.data.mongoData.validTime}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.validTime}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.validTime}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.validTime}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.validTime}==${result.data.fabricData.validTime}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.validTime}!=${result.data.fabricData.validTime}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.validTime}==${resultMap.blockchainDataMap.validTime}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.validTime}!=${resultMap.blockchainDataMap.validTime}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>文件指纹</td>
-                                        <td th:text="${result.data.mongoData.filesHash}"></td>
-                                        <td th:text="(${result.data.mongoData.state}!='0')?${result.data.fabricData.filesHash}:'无数据'"></td>
+                                        <td th:text="${resultMap.inputDataMap.filesHash}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.filesHash}:'无数据'"></td>
                                         <td>
-                                            <th:block  th:if="${result.data.mongoData.state} eq 0">
+                                            <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
-                                            <th:block  th:if="${result.data.mongoData.state} ne 0">
-                                                <i th:if="${result.data.mongoData.filesHash}==${result.data.fabricData.filesHash}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${result.data.mongoData.filesHash}!=${result.data.fabricData.filesHash}" class="glyphicon glyphicon-remove"></i>
+                                            <th:block  th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.filesHash}==${resultMap.blockchainDataMap.filesHash}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.filesHash}!=${resultMap.blockchainDataMap.filesHash}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
