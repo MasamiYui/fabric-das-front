@@ -6,6 +6,7 @@ import org.it611.das.domain.DrivingLicence;
 import org.it611.das.service.AuthenticationService;
 import org.it611.das.util.HttpClientUtil;
 import org.it611.das.util.MapUtil;
+import org.it611.das.util.RedisUtil;
 import org.it611.das.util.ResponseUtil;
 import org.it611.das.vo.DrivingLicenceVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +35,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         HashMap<String, Object> resultMap = new HashMap();
         String state = "-1";
 
+        //HashMap<String, Object> inputDataMap = objectMapper.readValue(vo.toString(),HashMap.class);
+        HashMap<String, Object> inputDataMap = MapUtil.convertToMap(vo);
+        //上传文件的文件Hash
+        Jedis client = RedisUtil.getJedis();
+        String path = vo.getFiles();
+        String filesHash = client.get(path);
+        client.close();
+        inputDataMap.put("filesHash", filesHash);
+
+
 
         //查看该资产的状态
         Criteria ownerCriteria = Criteria.where("drivingLicenceId").is(vo.getDrivingLicenceId());//查询条件为drivingLicence
@@ -43,7 +55,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if(drivingLicenceList == null || drivingLicenceList.size() == 0){
             //没有该资产
             resultMap.put("blockchainDataMap", "NoAssert");
-            resultMap.put("inputDataMap", vo);
+            resultMap.put("inputDataMap", inputDataMap);
             resultMap.put("state", state);
             return  resultMap;
         }
@@ -53,14 +65,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if(!state.equals("1")){
             //如果state不等于1,后面不需要进行，直接返回
             resultMap.put("blockchainDataMap", "NoAssert");
-            resultMap.put("inputDataMap", vo);
+            resultMap.put("inputDataMap", inputDataMap);
             resultMap.put("state", state);
             return  resultMap;
         }
 
+        //获取交易Hash
+        String transactionHash = drivingLicenceList.get(0).getState();
+
 
         //获取DrivingLicenceId
         String drivinglicenceId = vo.getDrivingLicenceId();
+
 
         //构造json参数
         HashMap<String, Object> map1 = new HashMap();
@@ -83,7 +99,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         if(dataNode == null){
             resultMap.put("blockchainDataMap", "NoAssert");
-            resultMap.put("inputDataMap", vo);
+            resultMap.put("inputDataMap", inputDataMap);
+            resultMap.put("transactionHash", transactionHash);
             resultMap.put("state", state);
             return  resultMap;
         }
@@ -94,8 +111,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         //HashMap inputDataMap = objectMapper.readValue(objectMapper.writeValueAsString(vo), HashMap.class);
 
         resultMap.put("blockchainDataMap", fabricDataMap);
-        resultMap.put("inputDataMap", vo);
+        resultMap.put("inputDataMap", inputDataMap);
+        resultMap.put("transactionHash", transactionHash);
         resultMap.put("state", state);
+
         return resultMap;
     }
 }

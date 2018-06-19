@@ -40,6 +40,9 @@ public class AuthenticationController {
             return modelAndView;
         }
 
+        //resultMap 添加文件Hash
+
+
         modelAndView.addObject("resultMap",resultMap);
         modelAndView.setViewName("authentication_comparedrivingLicenceAssert");
         return modelAndView;
