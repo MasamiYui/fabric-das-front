@@ -211,7 +211,10 @@ public class GeneralOcrParseUtil {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(rawData);
             List<JsonNode> itemNodes = jsonNode.findParents("item");
-            if(itemNodes.size() <9){
+
+            System.out.println("drivingLicence size:"+itemNodes.size());
+
+            if(itemNodes.size() <11){
                 return null;
             }
             DrivingLicence drivingLicence = new DrivingLicence();

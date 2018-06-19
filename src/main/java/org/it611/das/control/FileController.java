@@ -200,6 +200,10 @@ public class FileController {
         Jedis client = RedisUtil.getJedis();
         client.set(path, fileHash);
         client.close();
+        if(dl == null) {
+            return ResultUtil.constructResponse(400,"unrecognizable",dataMap);
+        }
+
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
 

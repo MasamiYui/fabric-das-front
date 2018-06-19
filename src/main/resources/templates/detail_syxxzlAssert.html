@@ -128,7 +128,7 @@
                                 </tbody>
                             </table>
                             <th:block th:if="${record.state}  eq 1 ">
-                                <button type="button" class="btn btn-success btn-lg btn-block" onclick="doAuth()">鉴权</button>
+                                <button type="button" class="btn btn-success btn-lg btn-block" onclick="doCheck()">鉴权</button>
                             </th:block>
                         </div>
                         <div class="control-group col-lg-6 layui-upload-list" id="layer-photos-demo">
@@ -222,7 +222,7 @@
 
     }
 
-    function doAuth() {
+    function doCheck() {
         if (!recordId) return;
         layui.use('layer', function () { //独立版的layer无需执行这一句
             var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
@@ -237,7 +237,7 @@
                 area: ['1000px', '550px'],
                 fixed: false, //不固定
                 maxmin: true,
-                content: '/auth/syxxzl/' + recordId
+                content: '/check/syxxzl/' + recordId
 
             });
         });
