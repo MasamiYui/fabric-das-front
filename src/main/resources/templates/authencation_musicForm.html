@@ -87,7 +87,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <form role="form" id="dataform">
+                    <form role="form" id="dataform"  action="" method="post" onsubmit="return validateForm()">
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
                         <input type="hidden" name="author" id="author"/>
@@ -170,41 +170,9 @@
 <script th:src="@{/dist/js/main.js}"></script>
 
 <script>
-    $(document).ready(function () {
-        initform();
+    $("#btSubmit").click(function(){
+        $("#dataform").submit();
     });
-
-    function initform() {
-        $("#btSubmit").click(function () {
-            var $this = $(this);
-            $this.prop("disabled", true);
-            if (validateForm()) {
-                var queryString = $("#dataform").serialize();
-                console.log("表单序列化的结果" + queryString);
-                $.ajax({
-                    type: "put",
-                    url: "/asset/audio",
-                    data: queryString,
-                    dataType: "json",
-                    success: function (result) {
-                        if (result.code = 200) {
-                            callbackMsg("视频资产申请已提交");
-                            // window.location.href = "/asset/audio/index";
-                        } else {
-                            callbackMsg("提交失败");
-                        }
-                    },
-                    /* complete: function (XMLHttpRequest, textStatus) {
-                         $this.prop("disabled", false);
-                         window.location.reload(true);
-                     }*/
-                });
-            } else {
-                $this.prop("disabled", false);
-            }
-
-        });
-    }
 
     function validateForm() {
         //作品名称
@@ -251,9 +219,9 @@
             title: '申请结果'
             , content: '<p style="text-align: center;">' +data+'</p>'
             ,offset: '190px'
-            , end: function () {
+            /*, end: function () {
                 window.location.href = "/asset/audio/index";
-            }
+            }*/
         });
     }
 
@@ -311,7 +279,7 @@
     }
 
     $("#btBack").click(function () {
-        window.location.href = "/asset/addAudio";
+        window.location.href = "/auth/audioForm";
     });
 
 </script>
