@@ -1,7 +1,7 @@
 package org.it611.das.control;
 
 import org.it611.das.service.AuthenticationService;
-import org.it611.das.vo.DrivingLicenceVO;
+import org.it611.das.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.it611.das.util.CookieUtil;
@@ -23,7 +23,7 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @RequestMapping(value = "/auth/drivingLicense")  //, method = RequestMethod.GET
-    public ModelAndView doAuth(DrivingLicenceVO vo,HttpServletRequest request) throws Exception {
+    public ModelAndView doDrivingLicenseAuth(DrivingLicenceVO vo,HttpServletRequest request) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
 
         Jedis jedis = RedisUtil.getJedis();
@@ -48,7 +48,7 @@ public class AuthenticationController {
 
 
     @RequestMapping("/auth/drivingLicenseForm")
-    public ModelAndView  authenticatinoDrivingLicense(HttpServletRequest request) throws IOException {
+    public ModelAndView  authDrivingLicenseIndex(HttpServletRequest request) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         Jedis jedis = RedisUtil.getJedis();
         String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
@@ -73,6 +73,220 @@ public class AuthenticationController {
         modelAndView.setViewName("authentication_certificateAssert");
         return modelAndView;
     }
+
+
+
+    @RequestMapping(value = "/auth/degreeCertificate")  //, method = RequestMethod.GET
+    public ModelAndView doDegreeCertificateAuth(DegreeCertificateVO vo, HttpServletRequest request) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+
+        HashMap<String, Object> resultMap = authenticationService.authDegreeCertificate(vo);
+        if(resultMap.get("blockchainDataMap").equals("NoAssert")){
+            modelAndView.addObject("resultMap","对不起，不存在该资产");
+            modelAndView.setViewName("authentication_noErrorAssert");
+            return modelAndView;
+        }
+
+        //resultMap 添加文件Hash
+
+
+        modelAndView.addObject("resultMap",resultMap);
+        modelAndView.setViewName("authentication_compareDegreeCertificateAssert");
+        return modelAndView;
+/*
+        return ResultUtil.constructResponse(200, "ok", resultMap);*/
+    }
+
+
+    @RequestMapping("/auth/degreeCertificateForm")
+    public ModelAndView  authDegreeCertificateIndex(HttpServletRequest request) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+        modelAndView.setViewName("authentication_degreeCertificateAssert");
+        return modelAndView;
+    }
+
+
+
+
+    @RequestMapping(value = "/auth/syxxzl")  //, method = RequestMethod.GET
+    public ModelAndView doSyxxzlAuth(SyxxzlVO vo, HttpServletRequest request) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+
+        HashMap<String, Object> resultMap = authenticationService.authSyxxzl(vo);
+        if(resultMap.get("blockchainDataMap").equals("NoAssert")){
+            modelAndView.addObject("resultMap","对不起，不存在该资产");
+            modelAndView.setViewName("authentication_noErrorAssert");
+            return modelAndView;
+        }
+
+        //resultMap 添加文件Hash
+
+
+        modelAndView.addObject("resultMap",resultMap);
+        modelAndView.setViewName("authentication_compareSyxxzlAssert");
+        return modelAndView;
+/*
+        return ResultUtil.constructResponse(200, "ok", resultMap);*/
+    }
+
+
+    @RequestMapping("/auth/syxxzlForm")
+    public ModelAndView  authSyxxzlIndex(HttpServletRequest request) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+        modelAndView.setViewName("authentication_syxxzlAssert");
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/auth/audio")  //, method = RequestMethod.GET
+    public ModelAndView doAudioAuth(MusicVO vo, HttpServletRequest request) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+
+        HashMap<String, Object> resultMap = authenticationService.authAudio(vo);
+        if(resultMap.get("blockchainDataMap").equals("NoAssert")){
+            modelAndView.addObject("resultMap","对不起，不存在该资产");
+            modelAndView.setViewName("authentication_noErrorAssert");
+            return modelAndView;
+        }
+
+
+        modelAndView.addObject("resultMap",resultMap);
+        modelAndView.setViewName("authentication_compareAudioAssert");
+        return modelAndView;
+
+    }
+
+
+    @RequestMapping("/auth/audioForm")
+    public ModelAndView  authAudioIndex(HttpServletRequest request) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+        modelAndView.setViewName("authentication_audioAssert");
+        return modelAndView;
+    }
+
+
+
+
+    @RequestMapping(value = "/auth/video")  //, method = RequestMethod.GET
+    public ModelAndView doVideoAuth(VedioVO vo, HttpServletRequest request) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+
+        HashMap<String, Object> resultMap = authenticationService.authVideo(vo);
+        if(resultMap.get("blockchainDataMap").equals("NoAssert")){
+            modelAndView.addObject("resultMap","对不起，不存在该资产");
+            modelAndView.setViewName("authentication_noErrorAssert");
+            return modelAndView;
+        }
+
+
+        modelAndView.addObject("resultMap",resultMap);
+        modelAndView.setViewName("authentication_compareVideoAssert");
+        return modelAndView;
+
+    }
+
+
+    @RequestMapping("/auth/videoForm")
+    public ModelAndView  authVideoIndex(HttpServletRequest request) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+        modelAndView.setViewName("authentication_videoAssert");
+        return modelAndView;
+    }
+
+
+
+
+    @RequestMapping(value = "/auth/image")  //, method = RequestMethod.GET
+    public ModelAndView doImageAuth(PhotoVO vo, HttpServletRequest request) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+
+        HashMap<String, Object> resultMap = authenticationService.authImage(vo);
+        if(resultMap.get("blockchainDataMap").equals("NoAssert")){
+            modelAndView.addObject("resultMap","对不起，不存在该资产");
+            modelAndView.setViewName("authentication_noErrorAssert");
+            return modelAndView;
+        }
+
+
+        modelAndView.addObject("resultMap",resultMap);
+        modelAndView.setViewName("authentication_compareImageAssert");
+        return modelAndView;
+
+    }
+
+
+    @RequestMapping("/auth/imageForm")
+    public ModelAndView  authImageIndex(HttpServletRequest request) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+        modelAndView.setViewName("authentication_imageAssert");
+        return modelAndView;
+    }
+
 
 
 
