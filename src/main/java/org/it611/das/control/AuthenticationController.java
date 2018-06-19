@@ -223,7 +223,7 @@ public class AuthenticationController {
         String useType= String.valueOf(userMap.get("userType"));
         jedis.close();
         modelAndView.addObject("useType",useType);
-        modelAndView.setViewName("authentication_videoAssert");
+        modelAndView.setViewName("authentication_videotForm");
         return modelAndView;
     }
 

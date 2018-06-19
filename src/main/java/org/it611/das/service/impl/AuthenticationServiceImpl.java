@@ -399,7 +399,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         HashMap<String, Object> inputDataMap = MapUtil.convertToMap(vo);
         //上传文件的文件Hash
         Jedis client = RedisUtil.getJedis();
-        String path = vo.getFiles();
+        //String path = vo.getFiles();
         String filesHash = "";//方便进行拼接
         String[] filesArr = vo.getFiles().split(",");
         for(int i=0; i<filesArr.length; i++){
