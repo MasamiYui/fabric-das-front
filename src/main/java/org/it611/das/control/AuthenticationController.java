@@ -41,7 +41,7 @@ public class AuthenticationController {
         }
         //resultMap 添加文件Hash
         modelAndView.addObject("resultMap",resultMap);
-        modelAndView.setViewName("authentication_comparedrivingLicenceAssert");
+        modelAndView.setViewName("authentication_compareDrivingLicenceAssert");
         return modelAndView;
 
     }
@@ -56,7 +56,7 @@ public class AuthenticationController {
         String useType= String.valueOf(userMap.get("userType"));
         jedis.close();
         modelAndView.addObject("useType",useType);
-        modelAndView.setViewName("authentication_drivingLicenseAssert");
+        modelAndView.setViewName("authentication_drivingLicenseForm");
         return modelAndView;
     }
 
@@ -70,7 +70,7 @@ public class AuthenticationController {
         String useType= String.valueOf(userMap.get("userType"));
         jedis.close();
         modelAndView.addObject("useType",useType);
-        modelAndView.setViewName("authentication_certificateAssert");
+        modelAndView.setViewName("authentication_certificateForm");
         return modelAndView;
     }
 
@@ -288,6 +288,19 @@ public class AuthenticationController {
     }
 
 
+    //实用新型专利
+    @RequestMapping("/auth/syxxzlForm")
+    public ModelAndView  authenticatinosyxxzl(HttpServletRequest request) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+        modelAndView.setViewName("authentication_syxxzlForm");
+        return modelAndView;
+    }
 
 
 }

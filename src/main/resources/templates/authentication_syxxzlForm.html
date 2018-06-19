@@ -88,11 +88,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <form role="form" id="dataform">
+                    <form role="form" id="dataform" action="" method="post">
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
                         <!--图片的Hash-->
-                     <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
+                        <input type="hidden" name="filesHash" id="filesHash"/>
 
 
                         <!--上传图片-->
@@ -148,17 +148,15 @@
 
                             </div>
 
-                            <!--确认按钮-->
-                            <div class="col-lg-12 text-right">
-                                <button type="button" id="btSubmit" class="btn btn-primary btn-info"
-                                        style="width: 100px;">
-                                    确&nbsp;&nbsp;定
-                                </button>
-                                <button type="button" id="btBack" class="btn btn-primary btn-info"
-                                        style="width: 100px;">
-                                    重&nbsp;&nbsp;置
-                                </button>
-                            </div>
+                        <!--确认按钮-->
+                        <div class="col-lg-12 text-right">
+                            <a  id="btSubmit" class="btn btn-primary btn-info" style="width: 100px;">
+                                确&nbsp;&nbsp;定
+                            </a>
+                            <a id="btBack" class="btn btn-primary btn-info"  style="width: 100px;">
+                                重&nbsp;&nbsp;置
+                            </a>
+                        </div>
                     </form>
                     <!-- /.panel-body -->
                 </div>
@@ -194,41 +192,10 @@
 <script th:src="@{/dist/js/main.js}"></script>
 
 <script>
-    $(document).ready(function () {
-        initform();
+
+    $("#btSubmit").click(function(){
+        $("#dataform").submit();
     });
-
-    function initform() {
-        $("#btSubmit").click(function () {
-            var $this = $(this);
-            $this.prop("disabled", true);
-            if (validateForm()) {
-                var queryString = $("#dataform").serialize();
-                console.log("表单序列化的结果" + queryString);
-                $.ajax({
-                    type: "put",
-                    url: "/asset/syxxzl",
-                    data: queryString,
-                    dataType: "json",
-                    success: function (result) {
-                        if(result.code=200){
-                            callbackMsg("学位证书资产申请已提交");
-                            // window.location.href = "/asset/syxxzl/index";
-                        }else{
-                            callbackMsg("提交失败");
-                        }
-                    },
-                   /* complete: function (XMLHttpRequest, textStatus) {
-                        $this.prop("disabled", false);
-                        window.location.reload(true);
-                    }*/
-                });
-            } else {
-                $this.prop("disabled", false);
-            }
-
-        });
-    }
 
     function validateForm() {
         var reg = /^\d{18}$/;
@@ -303,8 +270,7 @@
                     $("#fzsj").val(res.data.ocrData.fzsj);
                     closeLoading();
 
-                    //alert(res.data.ocrData);
-                   // $("#filesHash").val(res.data.filesHash);
+                   $("#filesHash").val(res.data.filesHash);
                 }
                 console.log(res);
             }
@@ -358,7 +324,7 @@
     });
 
     $("#btBack").click(function () {
-        window.location.href = "/asset/addSyxxzl";
+        window.location.href = "/auth/syxxzlForm";
     });
 </script>
 
