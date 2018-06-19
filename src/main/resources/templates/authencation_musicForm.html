@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>数字资产存证平台</title>
+
+    <link rel="icon" type="image/x-icon" th:href="@{/image/favicon.png}"/>
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/jcstatic/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link th:href="@{/jcstatic/dist/css/sb-admin-2.css}" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/jcstatic/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+
+    <!--引入layui的css-->
+    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+
+    <!--引入地区选择插件的css-->
+    <link href="@{/dist/css/main.css" rel="stylesheet}">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script th:src="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"></script>
+    <script th:src="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"></script>
+    <![endif]-->
+
+    <!--引入jquery-->
+    <script th:src="@{/jcstatic/vendor/jquery/jquery.js}"></script>
+
+    <style type="text/css">
+
+        #dataform .input-group .input-group-addon.aa {
+            padding: 9px 20px;
+            font-weight: 700;
+        }
+
+        #dataform .input-group .input-group-addon.aa.bb {
+            padding: 9px 27px;
+        }
+
+        .layui-upload-img {
+            width: 100px;
+            height: 100px;
+            margin: 0 10px 10px 0;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+
+    <!-- 普通用户导航栏-->
+    <th:block th:if="${useType}  eq 1 ">
+        <div th:replace="/nav_commonUser::navigation"></div>
+    </th:block>
+    <!-- 企业用户导航栏 -->
+    <th:block th:if="${useType}  eq 2 ">
+        <div th:replace="/nav_company::navigation"></div>
+    </th:block>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">音频资产申请</h3>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <form role="form" id="dataform">
+                        <!--图片的地址-->
+                        <input type="hidden" name="files" id="files"/>
+                        <input type="hidden" name="author" id="author"/>
+                        <!--图片的Hash-->
+                        <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
+
+                        <!--资产类型的具体表单-->
+                        <div id="fcontent" class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>作品名称<em style="color:red;">*</em></label>
+                                        <input name="title" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>创作者<em style="color:red;">*</em><a onclick="addUser()" style="margin-left: 30px;" href="#"><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-plus"></i> </a></label>
+                                        <span id="adduser">
+                                            <input type="text"   class="form-control"
+                                                   th:placeholder="第一创作者"/>
+                                            <input type="text"   class="form-control" placeholder="第二创作者"/>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>描述</label>
+                                        <textarea rows="3" name="des" class="form-control"
+                                                  placeholder="请填写资产描述"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--上传图片-->
+                            <!--<div class="col-lg-12 ">
+                                <button type="button" class="layui-btn" id="test2">视频文件上传</button>
+                                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                    &lt;!&ndash;已上传：&ndash;&gt;
+                                    <div class="layui-upload-list" id="demo2"></div>
+                                </blockquote>
+                            </div>-->
+                            <!--上传视频-->
+                            <div class="col-lg-12 ">
+                                <button type="button" class="layui-btn" id="test5"><i class="layui-icon"></i>上传音频
+                                </button>
+                                <div class="layui-inline layui-word-aux">
+                                    <strong style="color:blue;">只支持mp3格式，大小不能超过50Mb<em style="color:red;">*</em></strong>
+                                </div>
+                                <div id="fileList" style="margin-top: 15px;"></div>
+                            </div>
+
+                            <!--确认按钮-->
+                            <div class="col-lg-12 text-right">
+                                <button type="button" id="btSubmit" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    确&nbsp;&nbsp;定
+                                </button>
+                                <button type="button" id="btBack" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    重&nbsp;&nbsp;置
+                                </button>
+                            </div>
+
+                            <!-- /.row (nested) -->
+                        </div>
+                    </form>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/jcstatic/vendor/jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/jcstatic/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/jcstatic/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/jcstatic/dist/js/sb-admin-2.js}"></script>
+
+<!--引入layui:日期插件-->
+<script th:src="@{/jcstatic/layui/layui.js}"></script>
+
+<!--引入地区选择插件-->
+<script th:src="@{/dist/js/distpicker.data.js}"></script>
+<script th:src="@{/dist/js/distpicker.js}"></script>
+<script th:src="@{/dist/js/main.js}"></script>
+
+<script>
+    $(document).ready(function () {
+        initform();
+    });
+
+    function initform() {
+        $("#btSubmit").click(function () {
+            var $this = $(this);
+            $this.prop("disabled", true);
+            if (validateForm()) {
+                var queryString = $("#dataform").serialize();
+                console.log("表单序列化的结果" + queryString);
+                $.ajax({
+                    type: "put",
+                    url: "/asset/audio",
+                    data: queryString,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.code = 200) {
+                            callbackMsg("视频资产申请已提交");
+                            // window.location.href = "/asset/audio/index";
+                        } else {
+                            callbackMsg("提交失败");
+                        }
+                    },
+                    /* complete: function (XMLHttpRequest, textStatus) {
+                         $this.prop("disabled", false);
+                         window.location.reload(true);
+                     }*/
+                });
+            } else {
+                $this.prop("disabled", false);
+            }
+
+        });
+    }
+
+    function validateForm() {
+        //作品名称
+        var name = $('input[name="title"]').val();
+        if (!name) {
+            msg("请填写作品名称");
+            $('input[name="title"]').focus();
+            return false;
+        }
+
+        //作者
+        var author = '';
+        var userNodes=$("#adduser>input");
+        for(var i=0;i<userNodes.length;i++){
+            var val = userNodes.eq(i).val();
+            if(val){
+                author= author+ userNodes.eq(i).val()+',';
+            }
+        }
+        author = author.substring(0,author.length-1);
+        if(!author){
+            msg("请填写作者");
+            return false;
+        }
+        $("#author").val(author);
+        //上传音频
+        var nodes=$("#fileList").children().length;
+        if(!nodes){
+            msg("请上传视频");
+            return false;
+        }
+        return true;
+    }
+
+    function msg(data) {
+        layer.msg(data, {
+            time: 1000, //1s后自动关闭
+            icon: 5
+        });
+    }
+
+    function callbackMsg(data) {
+        layer.open({
+            title: '申请结果'
+            , content: '<p style="text-align: center;">' +data+'</p>'
+            ,offset: '190px'
+            , end: function () {
+                window.location.href = "/asset/audio/index";
+            }
+        });
+    }
+
+    <!-- 文件上传-->
+    var paths = "";        //上传的文件，中间用逗号隔开
+    layui.use('upload', function () {
+        var upload = layui.upload;
+        var videoName;
+        upload.render({
+            elem: '#test5'
+            , url: '/file/upload'
+            , accept: 'audio'
+            ,exts:'mp3'
+            ,size:51200  //50M
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    videoName = file.name;
+                    loading();
+                });
+            }
+            , done: function (res) {
+                if (res.code > 0) {
+                    // $("#filesHash").val(res.data.filesHash);
+                    $('#fileList').append('<span style="width: 200px;padding-top: 10px;color:blue;" href="#"' + 'class="layui-upload-img" >' + videoName + '</span>');
+                    closeLoading();
+
+                    var pathValue=res.data.path;
+                    paths = paths + pathValue + ",";
+                    $("#files").val(paths);
+                }
+            }
+        });
+    });
+    
+    function loading() {
+       var index= layer.msg('文件上传中...', {
+            icon: 16
+            ,shade: 0.01
+            ,time:0
+        });
+    }
+    function closeLoading(index){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.close(layer.index);
+        });
+    }
+    //添加作者
+    var arr=['','','','三','四','五','六','七','八','九'];
+    var userId=2;
+    function addUser(){
+        var html='<input type="text"   class="form-control" placeholder="第'+arr[++userId]+'创作者"/>';
+        $("#adduser").append(html);
+    }
+
+    $("#btBack").click(function () {
+        window.location.href = "/asset/addAudio";
+    });
+
+</script>
+
+</body>
+
+</html>

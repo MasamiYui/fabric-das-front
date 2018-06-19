@@ -11,7 +11,7 @@
 
     <title>数字资产存证平台</title>
 
-    <link rel="icon" type="image/x-icon" th:href="@{/image/favicon.png}"/>
+    <link  rel="icon" type="image/x-icon" th:href="@{/image/favicon.png}"/>
 
 
     <!-- Bootstrap Core CSS -->
@@ -80,7 +80,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">实用新型专利申请</h3>
+                <h3 class="page-header">图片资产鉴权</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -88,74 +88,65 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <form role="form" id="dataform" action="" method="post" onsubmit="return validateForm()">
+                    <form role="form" id="dataform" action="/auth/image" method="post" onsubmit="return validateForm()">
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
+                        <input type="hidden" name="author" id="author"/>
                         <!--图片的Hash-->
-                        <input type="hidden" name="filesHash" id="filesHash"/>
-
-
-                        <!--上传图片-->
-                        <div class="col-lg-12 ">
-                            <button type="button" class="layui-btn" id="test2">文件上传</button>
-                            <span>（请上传新型发明专利正面照）<em style="color:red;">*</em></span>
-                            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                                <!--已上传：-->
-                                <div class="layui-upload-list" id="demo2"></div>
-                            </blockquote>
-                        </div>
+                           <input type="hidden" name="filesHash" id="filesHash"/>
 
                         <!--资产类型的具体表单-->
                         <div id="fcontent" class="panel-body">
                             <div class="row">
-
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label>实用新型名称</label>
-                                        <input name="syxxmc" class="form-control" id="syxxmc"/>
+                                        <label>作品名称<em style="color:red;">*</em></label>
+                                        <input name="title" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <label>发明人</label>
-                                        <input type="text" name="fmr" class="form-control" id='fmr'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>专利号</label>
-                                        <input name="zlh" class="form-control" id="zlh"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>专利申请日</label>
-                                        <input name="zlsqr" class="form-control" id="zlsqr"/>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-
-                                    <div class="form-group">
-                                        <label>专利权人</label>
-                                        <input name="zlqr" id="zlqr" class="form-control" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label>授权公告日</label>
-                                        <input name="sqggr" class="form-control" id="sqggr"/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>发证日期</label>
-                                        <input name="fzsj" type="text" class="form-control" id='fzsj'/>
-                                    </div>
-
+                                        <label>创作者<em style="color:red;">*</em><a onclick="addUser()" style="margin-left: 30px;" href="#"><i class="glyphicon glyphicon-user"></i><i class="glyphicon glyphicon-plus"></i> </a></label>
+                                        <span id="adduser">
+                                            <input type="text"   class="form-control"
+                                                   th:placeholder="第一创作者"/>
+                                            <input type="text"   class="form-control" placeholder="第二创作者"/>
+                                        </span>
                                     </div>
                                 </div>
 
+                               <!-- <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>描述</label>
+                                        <textarea rows="3" name="des" class="form-control"
+                                                  placeholder="请填写资产描述"></textarea>
+                                    </div>
+                                </div>-->
                             </div>
 
-                        <!--确认按钮-->
-                        <div class="col-lg-12 text-right">
-                            <a  id="btSubmit" class="btn btn-primary btn-info" style="width: 100px;">
-                                确&nbsp;&nbsp;定
-                            </a>
-                            <a id="btBack" class="btn btn-primary btn-info"  style="width: 100px;">
-                                重&nbsp;&nbsp;置
-                            </a>
+                            <!--上传图片-->
+                            <div class="col-lg-12 ">
+                                <button type="button" class="layui-btn" id="test2">图片文件上传</button>
+                                <div class="layui-inline layui-word-aux">
+                                    <strong style="color:blue;">大小不能超过10Mb<em style="color:red;">*</em></strong>
+                                </div>
+                                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                    <!--已上传：-->
+                                    <div class="layui-upload-list" id="demo2"></div>
+                                </blockquote>
+                            </div>
+
+                            <!--确认按钮-->
+                            <div class="col-lg-12 text-right">
+                                <button type="button" id="btSubmit" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    确&nbsp;&nbsp;定
+                                </button>
+                                <button type="button" id="btBack" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    重&nbsp;&nbsp;置
+                                </button>
+                            </div>
+
+                            <!-- /.row (nested) -->
                         </div>
                     </form>
                     <!-- /.panel-body -->
@@ -198,17 +189,32 @@
     });
 
     function validateForm() {
-        var reg = /^\d{18}$/;
-
-        /*  data = $('input[name="timeOfIssume"]').val();
-          if (data == "") {
-              msg("请选择发证时间");
-              $('input[name="timeOfIssume"]').focus();
-              return false;
-          }*/
-        var nodes = $("#demo2").children().length;
-        if (!nodes) {
-            msg("请上传专利扫描件");
+        //作品名称
+        var name = $('input[name="title"]').val();
+        if (!name) {
+            msg("请填写作品名称");
+            $('input[name="title"]').focus();
+            return false;
+        }
+        //作者
+        var author = '';
+        var userNodes=$("#adduser>input");
+        for(var i=0;i<userNodes.length;i++){
+            var val = userNodes.eq(i).val();
+            if(val){
+                author= author+ userNodes.eq(i).val()+',';
+            }
+        }
+        author = author.substring(0,author.length-1);
+        if(!author){
+            msg("请填写作者");
+            return false;
+        }
+        $("#author").val(author);
+        //上传图片
+        var nodes=$("#demo2").children().length;
+        if(!nodes){
+            msg("请上传图片");
             return false;
         }
         return true;
@@ -226,70 +232,53 @@
             title: '申请结果'
             , content: '<p style="text-align: center;">' +data+'</p>'
             ,offset: '190px'
-           /* ,end:function(){
-                window.location.href = "/asset/syxlzs/index";
+           /* , end: function () {
+                window.location.href = "/asset/image/index";
             }*/
         });
     }
 
-
     <!-- 文件上传-->
-    var photoCount=0;
+    var paths = "";        //上传的文件，中间用逗号隔开
+    var filesHashs = "";   //上传的文件hashmap值，中间用逗号隔开
     layui.use('upload', function () {
         var upload = layui.upload;
-        //多图片上传
+        var photoName;
         upload.render({
             elem: '#test2'
-            , url: '/file/syxxzl/upload'//信息
-            , multiple: false
-            , number: 1
+            , url: '/file/upload'
+            ,size:10240    //10MB
             , before: function (obj) {
-                if(photoCount==1){
-                    msg("只能上传一张图片");
-                    return false;
-                }
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
+                    photoName = file.name;
                     $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" />')
                     loading();
                 });
-                photoView();
             }
             , done: function (res) {
                 if (res.code > 0) {
-                    photoCount++;
-                    $("#files").val(res.data.path);
-                    //将解析的数据进行填充
+                    // $("#filesHash").val(res.data.filesHash);
+                    // $('#fileList').append('<span style="width: 200px;padding-top: 10px;color:blue;" href="#"' + 'class="layui-upload-img" >' + videoName + '</span>');
 
-                    $("#syxxmc").val(res.data.ocrData.syxxmc);
-                    $("#fmr").val(res.data.ocrData.fmr);
-                    $("#zlh").val(res.data.ocrData.zlh);
-                    $("#zlsqr").val(res.data.ocrData.zlsqr);
-                    $("#zlqr").val(res.data.ocrData.zlqr);
-                    $("#sqggr").val(res.data.ocrData.sqggr);
-                    $("#fzsj").val(res.data.ocrData.fzsj);
                     closeLoading();
+                    var pathValue=res.data.path;
+                    paths = paths +pathValue+ ",";
+                    $("#files").val(paths);
 
-                   $("#filesHash").val(res.data.filesHash);
+                   /* var hashValue=res.data.filesHash;
+                    filesHashs = filesHashs +","+ hashValue;
+                    $("#filesHash").val(filesHashs.substring(1));*/
+
                 }
-                console.log(res);
             }
         });
     });
 
-    function loading() {
-        var index = layer.msg('内容识别中...', {
-            icon: 16
-            , shade: 0.01
-            , time: 0
-        });
-    }
-    function closeLoading(index) {
-        layui.use('layer', function () {
-            var layer = layui.layer;
-            layer.close(layer.index);
-        });
-    }
+
+    $("#demo2").click(function () {
+        photoView();
+    });
 
     function photoView() {
         <!--照片查看器-->
@@ -301,31 +290,33 @@
             });
         });
     }
-
-    $('#demo2').click(function () {
-        photoView();
-    });
-
-    <!--日期-->
-    layui.use('laydate', function () {
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#birth' //指定元素
-            , theme: 'molv'
-            , calendar: true
+    
+    function loading() {
+       var index= layer.msg('文件上传中...', {
+            icon: 16
+            ,shade: 0.01
+            ,time:0
         });
-        laydate.render({
-            elem: '#admissiondate' //指定元素
-            , theme: 'molv'
-            , calendar: true
+    }
+    function closeLoading(index){
+        layui.use('layer', function () {
+            var layer = layui.layer;
+            layer.close(layer.index);
         });
-    });
+
+    }
+    //添加作者
+    var arr=['','','','三','四','五','六','七','八','九'];
+    var userId=2;
+    function addUser(){
+        var html='<input type="text"   class="form-control" placeholder="第'+arr[++userId]+'创作者"/>';
+        $("#adduser").append(html);
+    }
 
     $("#btBack").click(function () {
-        window.location.href = "/auth/syxxzlForm";
+        window.location.href = "/auth/photoForm";
     });
+
 </script>
 
 </body>

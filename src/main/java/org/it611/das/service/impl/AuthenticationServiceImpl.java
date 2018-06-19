@@ -306,7 +306,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         //上传文件的文件Hash
         Jedis client = RedisUtil.getJedis();
         String path = vo.getFiles();
-        String filesHash = client.get(path);
+        String filesHash = "";//方便进行拼接
+        String[] filesArr = vo.getFiles().split(",");
+        for(int i=0; i<filesArr.length; i++){
+            String temp = client.get(filesArr[i]);
+            filesHash = filesHash + temp+ ",";
+        }
+
         client.close();
         inputDataMap.put("filesHash", filesHash);
 
@@ -394,7 +400,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         //上传文件的文件Hash
         Jedis client = RedisUtil.getJedis();
         String path = vo.getFiles();
-        String filesHash = client.get(path);
+        String filesHash = "";//方便进行拼接
+        String[] filesArr = vo.getFiles().split(",");
+        for(int i=0; i<filesArr.length; i++){
+            String temp = client.get(filesArr[i]);
+            filesHash = filesHash + temp+ ",";
+        }
+
         client.close();
         inputDataMap.put("filesHash", filesHash);
 
@@ -482,7 +494,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         //上传文件的文件Hash
         Jedis client = RedisUtil.getJedis();
         String path = vo.getFiles();
-        String filesHash = client.get(path);
+
+        String filesHash = "";//方便进行拼接
+        String[] filesArr = vo.getFiles().split(",");
+        for(int i=0; i<filesArr.length; i++){
+            String temp = client.get(filesArr[i]);
+            filesHash = filesHash + temp+ ",";
+        }
+
+
+
         client.close();
         inputDataMap.put("filesHash", filesHash);
 
