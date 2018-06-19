@@ -92,7 +92,7 @@
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
                         <!--图片的Hash-->
-                           <input type="hidden" name="filesHash" id="filesHash"/>
+                        <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
 
 
                         <!--上传图片-->
@@ -299,7 +299,7 @@
                         callbackMsg("信息识别不完整，剩余信息需要手动填写");
                     }
                     //alert(res.data.ocrData);
-                    $("#filesHash").val(res.data.filesHash);
+                    /*$("#filesHash").val(res.data.filesHash);*/
                 }
                 console.log(res);
             }
