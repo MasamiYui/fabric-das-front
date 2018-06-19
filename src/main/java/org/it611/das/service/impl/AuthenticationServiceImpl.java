@@ -39,16 +39,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         //调用CouchDB HTTP API，获取fabric的state数据库
         String retStr = HttpClientUtil.doPostJson(COUCHDB_QUERY_URL, jsonStr);
-
-        if(retStr == "" || retStr == null){//如果在区块链中查询不到
-            resultMap.put("blockchainDataMap", "");
-            resultMap.put("inputDataMap", vo);
-        }
-
+        System.out.println("retStr:"+retStr);
         //解析数据
         JsonNode jsonNode = objectMapper.readTree(retStr);
         JsonNode dataNode = jsonNode.findValue("data");
 
+        if(dataNode == null){
+            resultMap.put("blockchainDataMap", "NoAssert");
+            resultMap.put("inputDataMap", vo);
+            return  resultMap;
+        }
         //jsonNode转HashMap
         HashMap fabricDataMap = objectMapper.readValue(dataNode.toString(), HashMap.class);//couchDB数据
 

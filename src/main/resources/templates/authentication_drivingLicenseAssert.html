@@ -80,7 +80,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">驾驶证资产申请</h3>
+                <h3 class="page-header">驾驶证资产鉴权</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <form role="form" id="dataform">
+                    <form role="form" id="dataform" action="/auth/drivingLicense"  method="post" onsubmit="return validateForm()">
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
                         <!--图片的Hash-->
@@ -172,7 +172,7 @@
                         </div>
 
                         <!--确认按钮-->
-                        <div class="col-lg-12 text-right">
+                       <!-- <div class="col-lg-12 text-right">
                             <button type="button" id="btSubmit" class="btn btn-primary btn-info"
                                     style="width: 100px;">
                                 确&nbsp;&nbsp;定
@@ -181,6 +181,15 @@
                                     style="width: 100px;">
                                 重&nbsp;&nbsp;置
                             </button>
+                        </div>-->
+
+                        <div class="col-lg-12 text-right">
+                            <a  id="btSubmit" class="btn btn-primary btn-info" style="width: 100px;">
+                                确&nbsp;&nbsp;定
+                            </a>
+                            <a id="btBack" class="btn btn-primary btn-info"  style="width: 100px;">
+                                重&nbsp;&nbsp;置
+                            </a>
                         </div>
 
                         <!-- /.row (nested) -->
@@ -221,10 +230,15 @@
 
 <script>
     $(document).ready(function () {
-        initform();
+        // initform();
     });
 
-    function initform() {
+
+    $("#btSubmit").click(function(){
+        $("#dataform").submit();
+    });
+
+   /* function initform() {
         $("#btSubmit").click(function () {
             var $this = $(this);
             $this.prop("disabled", true);
@@ -232,8 +246,8 @@
                 var queryString = $("#dataform").serialize();
                 console.log("表单序列化的结果" + queryString);
                 $.ajax({
-                    type: "put",
-                    url: "/asset/drivingLicence",
+                    type: "post",
+                    url: "/auth/drivingLicense",
                     data: queryString,
                     dataType: "json",
                     success: function (result) {
@@ -244,23 +258,23 @@
                             callbackMsg("提交失败");
                         }
                     },
-                    /* complete: function (XMLHttpRequest, textStatus) {
+                    /!* complete: function (XMLHttpRequest, textStatus) {
                          $this.prop("disabled", false);
                          window.location.reload(true);
-                     }*/
+                     }*!/
                 });
             } else {
                 $this.prop("disabled", false);
             }
 
         });
-    }
+    }*/
 
     function validateForm() {
         //上传学位证书扫描件
         var nodes = $("#demo2").children().length;
         if (!nodes) {
-            msg("请上传学位证书扫描件");
+            msg("请上传驾驶证扫描件");
             return false;
         }
         return true;
@@ -275,11 +289,11 @@
 
     function callbackMsg(data) {
         layer.open({
-            title: '申请结果'
+            title: '信息'
             , content: '<p style="text-align: center;">' +data+'</p>'
             ,offset: '190px'
             , end: function () {
-                window.location.href = "/asset/drivingLicence/index";
+                window.location.href = "";
             }
         });
     }
@@ -329,6 +343,9 @@
 
                     closeLoading();
 
+                    if(res.code=='400'){
+                        callbackMsg("信息识别不完整，剩余信息需要手动填写");
+                    }
                     //alert(res.data.ocrData);
                     // $("#filesHash").val(res.data.filesHash);
                 }
@@ -385,8 +402,10 @@
     });
 
     $("#btBack").click(function () {
-        window.location.href = "/asset/addDrivingLicence";
+        window.location.href = "/auth/drivingLicenseForm";
     });
+
+
 </script>
 
 </body>

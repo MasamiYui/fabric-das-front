@@ -239,6 +239,11 @@
               $('input[name="timeOfIssume"]').focus();
               return false;
           }*/
+        var nodes = $("#demo2").children().length;
+        if (!nodes) {
+            msg("请上传专利扫描件");
+            return false;
+        }
         return true;
     }
 
