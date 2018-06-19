@@ -124,14 +124,14 @@
                                     <tr>
                                         <td>姓名</td>
                                         <td th:text="${resultMap.inputDataMap.name}"></td>
-                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.fabricData.name}:'无数据'"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.name}:'无数据'"></td>
                                         <td>
                                             <th:block  th:if="${resultMap.state} eq 0">
                                                 <i  class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                             <th:block  th:if="${resultMap.state} ne 0">
-                                                <i th:if="${resultMap.inputDataMap.name}==${resultMap.blockchainDataMap.fabricData.name}" class="glyphicon glyphicon-ok"></i>
-                                                <i th:if="${resultMap.inputDataMap.name}!=${resultMap.blockchainDataMap.fabricData.name}" class="glyphicon glyphicon-remove"></i>
+                                                <i th:if="${resultMap.inputDataMap.name}==${resultMap.blockchainDataMap.name}" class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.name}!=${resultMap.blockchainDataMap.name}" class="glyphicon glyphicon-remove"></i>
                                             </th:block>
                                         </td>
                                     </tr>
@@ -325,76 +325,6 @@
 <!-- Custom Theme JavaScript -->
 <script th:src="@{/jcstatic/dist/js/sb-admin-2.js}"></script>
 
-<!--引入layui:日期插件-->
-<script th:src="@{/jcstatic/layui/layui.js}"></script>
-
-<script th:inline="javascript">
-    $(document).ready(function () {
-        photoShow();
-    });
-
-    function photoShow(){
-        var file =[[${result.data.mongoData.files}]];
-        if(!file) return;
-        $("#layer-photos-demo").append('<img src="'+file+'"  class="layui-upload-img"/>');
-    }
-
- layui.use('layer', function () {
-     var layer = layui.layer;
-     layer.photos({
-         photos: '#layer-photos-demo'
-         , anim: 5 //0-6的选择
-     });
- });
-
-
-    var id = [[${result.data.mongoData.id}]];
-    $("#btSubmit").click(function () {
-        var $this = $(this);
-        $this.prop("disabled", true);
-        var state = $('input[name="state"]:checked').val();
-        var data = {id: id, state: state};
-        $.ajax({
-            type: "post",
-            url: "/asset/drivingLicence",
-            data: data,
-            dataType: "json",
-            success: function (result) {
-                if (result.code == "200") {
-                    callbackMsg("修改成功");
-                    parent.search();
-                } else if (result.code == "400") {
-                    callbackMsg("修改失败");
-                }
-            },
-            complete: function (XMLHttpRequest, textStatus) {
-                $this.prop("disabled", false);
-                /*parent.close();*/
-            }
-        });
-    });
-
-    $("#btBack").click(function(){
-        parent.close();
-    });
-
-    function callbackMsg(data) {
-        layui.use('layer', function () {
-            var layer = layui.layer;
-            layer.open({
-                title: '结果'
-                , content: data
-                , end: function () {
-                    parent.close();
-                }
-            });
-        });
-    }
-
-
-
-
-</script>
 
 </body>
 

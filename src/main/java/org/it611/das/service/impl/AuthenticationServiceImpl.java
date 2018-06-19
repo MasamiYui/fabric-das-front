@@ -71,7 +71,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         //获取交易Hash
-        String transactionHash = drivingLicenceList.get(0).getState();
+        String transactionHash = drivingLicenceList.get(0).getTransactionId();
 
 
         //获取DrivingLicenceId
@@ -112,7 +112,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         resultMap.put("blockchainDataMap", fabricDataMap);
         resultMap.put("inputDataMap", inputDataMap);
-        resultMap.put("transactionHash", transactionHash);
+        resultMap.put("transactionId", transactionHash);
         resultMap.put("state", state);
 
         return resultMap;
