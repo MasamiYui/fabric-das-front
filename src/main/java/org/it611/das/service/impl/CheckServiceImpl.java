@@ -9,7 +9,7 @@ import org.hyperledger.fabric.sdk.exception.TransactionException;
 import org.it611.das.domain.*;
 import org.it611.das.fabric.ChaincodeManager;
 import org.it611.das.fabric.util.FabricManager;
-import org.it611.das.service.AuthenticationService;
+import org.it611.das.service.CheckService;
 import org.it611.das.util.MapUtil;
 import org.it611.das.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AuthenticationServiceImpl implements AuthenticationService {
+public class CheckServiceImpl implements CheckService {
 
     @Autowired
     private MongoTemplate mongoTemplate;

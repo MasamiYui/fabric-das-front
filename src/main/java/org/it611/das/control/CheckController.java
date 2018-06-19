@@ -5,7 +5,7 @@ import org.hyperledger.fabric.sdk.exception.CryptoException;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.hyperledger.fabric.sdk.exception.TransactionException;
-import org.it611.das.service.AuthenticationService;
+import org.it611.das.service.CheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +23,7 @@ import java.security.spec.InvalidKeySpecException;
 public class CheckController {
 
     @Autowired
-    private AuthenticationService authenticationService;
+    private CheckService authenticationService;
 
     @RequestMapping(value = "/check/degreeCertificate/{id}", method = RequestMethod.GET)
     public ModelAndView degreeCertificateAuth(@PathVariable String id) throws IOException, NoSuchAlgorithmException, ProposalException, NoSuchMethodException, InstantiationException, InvalidKeySpecException, InvalidArgumentException, InvocationTargetException, IllegalAccessException, CryptoException, NoSuchProviderException, TransactionException, ClassNotFoundException {

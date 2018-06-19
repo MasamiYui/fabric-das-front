@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.spec.InvalidKeySpecException;
 
-public interface AuthenticationService {
+public interface CheckService {
 
     JSONObject selectDegreeCertificationDetailById(String id) throws InvalidArgumentException, NoSuchAlgorithmException, IOException, NoSuchProviderException, TransactionException, ProposalException, CryptoException, InvalidKeySpecException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
     JSONObject selectDrivingLicenceDetailById(String id) throws IOException, InvalidArgumentException, NoSuchAlgorithmException, NoSuchProviderException, TransactionException, ProposalException, CryptoException, InvalidKeySpecException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException;
