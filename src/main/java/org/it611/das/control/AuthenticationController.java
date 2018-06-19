@@ -297,4 +297,19 @@ public class AuthenticationController {
         return modelAndView;
     }
 
+
+    //音频资产
+    @RequestMapping("/auth/audioForm")
+    public ModelAndView  authenticationAudio(HttpServletRequest request) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+        modelAndView.setViewName("authencation_musicForm");
+        return modelAndView;
+    }
+
 }
