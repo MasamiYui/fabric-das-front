@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">  <!--style="overflow: hidden;"-->
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>可信数字资产存证系统</title>
+
+    <link rel="icon" type="image/x-icon" href="/ico/favicon.png">
+
+    <!-- Bootstrap Core CSS -->
+    <link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <!-- MetisMenu CSS -->
+    <link th:href="@{/jcstatic/vendor/metisMenu/metisMenu.min.css}" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link th:href="@{/jcstatic/dist/css/sb-admin-2.css}" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link th:href="@{/jcstatic/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+
+    <!--引入layui的css-->
+    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script th:src="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"></script>
+    <script th:src="@{https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js}"></script>
+    <![endif]-->
+
+    <!--引入jquery-->
+    <script th:src="@{/jcstatic/vendor/jquery/jquery.js}"></script>
+
+    <style type="text/css">
+        .layui-upload-img {
+            width: 100px;
+            height: 110px;
+            margin-left: 5px;
+        }
+
+        .col-title {
+            font-weight: 700;
+        }
+
+        table tbody > tr td:last-child {
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div id="wrapper">
+    <div id="page-wrapper" >
+        <!--基本信息对比-->
+        <div class="row">
+            <div class="col-lg-12" style="margin-top: 15px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: white;">
+                        <h3 style="text-align: center">数据信息对比结果</h3>
+                    </div>
+                    <div class="panel-heading">
+                        <div class="controls">
+                            <div class="controls">
+                                <span class="col-title">资产类型：</span>
+                                <span>学位证书</span>
+                            </div>
+                            <span class="col-title">资产拥有者：</span>
+                            <span th:text="${resultMap.blockchainDataMap.ownerId}"></span>
+                        </div>
+                        <div class="controls">
+                            <span class="col-title">交易哈希：</span>
+                            <span th:text="${resultMap.transactionId}"></span>
+                        </div>
+
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive" style="overflow-x: hidden">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>图片内容</th>
+                                    <th>区块链数据库</th>
+                                    <th>对比结果</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>姓名</td>
+                                        <td th:text="${resultMap.inputDataMap.name}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.name}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.name}==${resultMap.blockchainDataMap.name}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.name}!=${resultMap.blockchainDataMap.name}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>性别</td>
+                                        <td th:text="${resultMap.inputDataMap.sex}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.sex}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.sex}==${resultMap.blockchainDataMap.sex}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.sex}!=${resultMap.blockchainDataMap.sex}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>出生日期</td>
+                                        <td th:text="${resultMap.inputDataMap.date}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.date}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.date}==${resultMap.blockchainDataMap.date}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.date}!=${resultMap.blockchainDataMap.date}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>学位授予单位</td>
+                                        <td th:text="${resultMap.inputDataMap.degreeConferringUnit}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.degreeConferringUnit}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.degreeConferringUnit}==${resultMap.blockchainDataMap.degreeConferringUnit}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.degreeConferringUnit}!=${resultMap.blockchainDataMap.degreeConferringUnit}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>专业</td>
+                                        <td th:text="${resultMap.inputDataMap.professional}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.professional}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.professional}==${resultMap.blockchainDataMap.professional}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.professional}!=${resultMap.blockchainDataMap.professional}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>学位类别</td>
+                                        <td th:text="${resultMap.inputDataMap.degreeName}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.degreeName}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                            <i th:if="${resultMap.inputDataMap.degreeName}==${resultMap.blockchainDataMap.degreeName}"
+                                               class="glyphicon glyphicon-ok"></i>
+                                            <i th:if="${resultMap.inputDataMap.degreeName}!=${resultMap.blockchainDataMap.degreeName}"
+                                               class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>学位证书编号</td>
+                                        <td th:text="${resultMap.inputDataMap.certId}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.certId}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.certId}==${resultMap.blockchainDataMap.certId}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.certId}!=${resultMap.blockchainDataMap.certId}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>发证时间</td>
+                                        <td th:text="${resultMap.inputDataMap.time}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.time}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.time}==${resultMap.blockchainDataMap.time}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.time}!=${resultMap.blockchainDataMap.time}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>文件指纹</td>
+                                        <td th:text="${resultMap.inputDataMap.filesHash}"></td>
+                                        <td th:text="(${resultMap.state}!='0')?${resultMap.blockchainDataMap.filesHash}:'无数据'"></td>
+                                        <td>
+                                            <th:block th:if="${resultMap.state} eq 0">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                            <th:block th:if="${resultMap.state} ne 0">
+                                                <i th:if="${resultMap.inputDataMap.filesHash}==${resultMap.blockchainDataMap.filesHash}"
+                                                   class="glyphicon glyphicon-ok"></i>
+                                                <i th:if="${resultMap.inputDataMap.filesHash}!=${resultMap.blockchainDataMap.filesHash}"
+                                                   class="glyphicon glyphicon-remove"></i>
+                                            </th:block>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/jcstatic/vendor/jquery/jquery.min.js}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script th:src="@{/jcstatic/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script th:src="@{/jcstatic/vendor/metisMenu/metisMenu.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script th:src="@{/jcstatic/dist/js/sb-admin-2.js}"></script>
+
+
+</body>
+
+</html>

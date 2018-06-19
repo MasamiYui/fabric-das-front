@@ -80,7 +80,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">驾驶证资产鉴权</h3>
+                <h3 class="page-header">实用新型专利申请</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -88,17 +88,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <form role="form" id="dataform" action="/auth/drivingLicense"  method="post" onsubmit="return validateForm()">
+                    <form role="form" id="dataform">
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
                         <!--图片的Hash-->
-                           <input type="hidden" name="filesHash" id="filesHash"/>
+                     <!--   <input type="hidden" name="filesHash" id="filesHash"/>-->
 
 
                         <!--上传图片-->
                         <div class="col-lg-12 ">
                             <button type="button" class="layui-btn" id="test2">文件上传</button>
-                            <span>（请上传驾驶证证书正面照）<em style="color:red;">*</em></span>
+                            <span>（请上传新型发明专利正面照）<em style="color:red;">*</em></span>
                             <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                                 <!--已上传：-->
                                 <div class="layui-upload-list" id="demo2"></div>
@@ -111,78 +111,54 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>证号</label>
-                                        <input name="drivingLicenceId" class="form-control" id="drivingLicenceId"/>
+                                        <label>实用新型名称</label>
+                                        <input name="syxxmc" class="form-control" id="syxxmc"/>
                                     </div>
                                     <div class="form-group">
-                                        <label>姓名</label>
-                                        <input type="text" name="name" class="form-control" id='name'/>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>国籍</label>
-                                        <input name="nation" id="nation" class="form-control"/>
+                                        <label>发明人</label>
+                                        <input type="text" name="fmr" class="form-control" id='fmr'/>
                                     </div>
                                     <div class="form-group">
-                                        <label>住址</label>
-                                        <input name="address" id="address" class="form-control"/>
+                                        <label>专利号</label>
+                                        <input name="zlh" class="form-control" id="zlh"/>
                                     </div>
                                     <div class="form-group">
-                                        <label>性别</label>
-                                        <div class="form-group">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="sex" id="maleoption"
-                                                       value="男" />男
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="sex" id="femaleoption"
-                                                       value="女"/>女
-                                            </label>
-                                        </div>
+                                        <label>专利申请日</label>
+                                        <input name="zlsqr" class="form-control" id="zlsqr"/>
                                     </div>
-
                                 </div>
-
                                 <div class="col-lg-6">
 
                                     <div class="form-group">
-                                        <label>出生日期</label>
-                                        <input name="date" class="form-control" id="date"/>
+                                        <label>专利权人</label>
+                                        <input name="zlqr" id="zlqr" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>授权公告日</label>
+                                        <input name="sqggr" class="form-control" id="sqggr"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>领证日期</label>
-                                        <input name="lzDate" type="text" class="form-control" id='lzDate'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>准驾车型</label>
-                                        <input name="zjcx" type="text" class="form-control" id='zjcx'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>起始日期</label>
-                                        <input name="startDate" type="text" class="form-control" id='startDate'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>有效日期</label>
-                                        <input name="validTime" type="text" class="form-control" id='validTime'/>
+                                        <label>发证日期</label>
+                                        <input name="fzsj" type="text" class="form-control" id='fzsj'/>
                                     </div>
 
+                                    </div>
                                 </div>
+
                             </div>
-                        </div>
 
-                        <!--确认按钮-->
-                        <div class="col-lg-12 text-right">
-                            <a  id="btSubmit" class="btn btn-primary btn-info" style="width: 100px;">
-                                确&nbsp;&nbsp;定
-                            </a>
-                            <a id="btBack" class="btn btn-primary btn-info"  style="width: 100px;">
-                                重&nbsp;&nbsp;置
-                            </a>
-                        </div>
-
-                        <!-- /.row (nested) -->
-
+                            <!--确认按钮-->
+                            <div class="col-lg-12 text-right">
+                                <button type="button" id="btSubmit" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    确&nbsp;&nbsp;定
+                                </button>
+                                <button type="button" id="btBack" class="btn btn-primary btn-info"
+                                        style="width: 100px;">
+                                    重&nbsp;&nbsp;置
+                                </button>
+                            </div>
                     </form>
                     <!-- /.panel-body -->
                 </div>
@@ -218,15 +194,54 @@
 <script th:src="@{/dist/js/main.js}"></script>
 
 <script>
-    $("#btSubmit").click(function(){
-        $("#dataform").submit();
+    $(document).ready(function () {
+        initform();
     });
 
+    function initform() {
+        $("#btSubmit").click(function () {
+            var $this = $(this);
+            $this.prop("disabled", true);
+            if (validateForm()) {
+                var queryString = $("#dataform").serialize();
+                console.log("表单序列化的结果" + queryString);
+                $.ajax({
+                    type: "put",
+                    url: "/asset/syxxzl",
+                    data: queryString,
+                    dataType: "json",
+                    success: function (result) {
+                        if(result.code=200){
+                            callbackMsg("学位证书资产申请已提交");
+                            // window.location.href = "/asset/syxxzl/index";
+                        }else{
+                            callbackMsg("提交失败");
+                        }
+                    },
+                   /* complete: function (XMLHttpRequest, textStatus) {
+                        $this.prop("disabled", false);
+                        window.location.reload(true);
+                    }*/
+                });
+            } else {
+                $this.prop("disabled", false);
+            }
+
+        });
+    }
+
     function validateForm() {
-        //上传学位证书扫描件
+        var reg = /^\d{18}$/;
+
+        /*  data = $('input[name="timeOfIssume"]').val();
+          if (data == "") {
+              msg("请选择发证时间");
+              $('input[name="timeOfIssume"]').focus();
+              return false;
+          }*/
         var nodes = $("#demo2").children().length;
         if (!nodes) {
-            msg("请上传驾驶证扫描件");
+            msg("请上传专利扫描件");
             return false;
         }
         return true;
@@ -241,28 +256,28 @@
 
     function callbackMsg(data) {
         layer.open({
-            title: '信息'
+            title: '申请结果'
             , content: '<p style="text-align: center;">' +data+'</p>'
             ,offset: '190px'
-           /* , end: function () {
-                window.location.href = "";
-            }*/
+            ,end:function(){
+                window.location.href = "/asset/syxlzs/index";
+            }
         });
     }
 
 
     <!-- 文件上传-->
-    var photoCount = 0;
+    var photoCount=0;
     layui.use('upload', function () {
         var upload = layui.upload;
         //多图片上传
         upload.render({
             elem: '#test2'
-            , url: '/file/drivingLicence/upload'//信息
+            , url: '/file/syxxzl/upload'//信息
             , multiple: false
             , number: 1
             , before: function (obj) {
-                if (photoCount == 1) {
+                if(photoCount==1){
                     msg("只能上传一张图片");
                     return false;
                 }
@@ -279,27 +294,17 @@
                     $("#files").val(res.data.path);
                     //将解析的数据进行填充
 
-                    $("#name").val(res.data.ocrData.name);
-                    $("#drivingLicenceId").val(res.data.ocrData.drivingLicenceId);
-                    // $("#sex").val(res.data.ocrData.sex);
-                    $("#nation").val(res.data.ocrData.nation);
-                    $("#address").val(res.data.ocrData.address);
-                    $("#date").val(res.data.ocrData.date);
-                    $("#lzDate").val(res.data.ocrData.lzDate);
-
-                    $("#zjcx").val(res.data.ocrData.zjcx);
-                    $("#validTime").val(res.data.ocrData.validTime);
-                    $("#startDate").val(res.data.ocrData.startDate);
-
-                    $("input[name='sex'][value='" + res.data.ocrData.sex + "']").prop("checked", true);  //根据Value值设置Radio为选中状态
-
+                    $("#syxxmc").val(res.data.ocrData.syxxmc);
+                    $("#fmr").val(res.data.ocrData.fmr);
+                    $("#zlh").val(res.data.ocrData.zlh);
+                    $("#zlsqr").val(res.data.ocrData.zlsqr);
+                    $("#zlqr").val(res.data.ocrData.zlqr);
+                    $("#sqggr").val(res.data.ocrData.sqggr);
+                    $("#fzsj").val(res.data.ocrData.fzsj);
                     closeLoading();
 
-                    if(res.code=='400'){
-                        callbackMsg("信息识别不完整，剩余信息需要手动填写");
-                    }
                     //alert(res.data.ocrData);
-                    $("#filesHash").val(res.data.filesHash);
+                   // $("#filesHash").val(res.data.filesHash);
                 }
                 console.log(res);
             }
@@ -313,7 +318,6 @@
             , time: 0
         });
     }
-
     function closeLoading(index) {
         layui.use('layer', function () {
             var layer = layui.layer;
@@ -354,10 +358,8 @@
     });
 
     $("#btBack").click(function () {
-        window.location.href = "/auth/drivingLicenseForm";
+        window.location.href = "/asset/addSyxxzl";
     });
-
-
 </script>
 
 </body>

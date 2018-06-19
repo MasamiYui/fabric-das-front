@@ -80,7 +80,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">驾驶证资产鉴权</h3>
+                <h3 class="page-header">学位证书资产鉴权</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -88,17 +88,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <form role="form" id="dataform" action="/auth/drivingLicense"  method="post" onsubmit="return validateForm()">
+                    <form role="form" id="dataform" method="post" action=""  onsubmit="return validateForm()">
                         <!--图片的地址-->
                         <input type="hidden" name="files" id="files"/>
                         <!--图片的Hash-->
-                           <input type="hidden" name="filesHash" id="filesHash"/>
+                        <input type="hidden" name="filesHash" id="filesHash"/>
 
 
                         <!--上传图片-->
                         <div class="col-lg-12 ">
                             <button type="button" class="layui-btn" id="test2">文件上传</button>
-                            <span>（请上传驾驶证证书正面照）<em style="color:red;">*</em></span>
+                            <span>（请上传学位证书正面照）<em style="color:red;">*</em></span>
                             <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                                 <!--已上传：-->
                                 <div class="layui-upload-list" id="demo2"></div>
@@ -111,21 +111,17 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>证号</label>
-                                        <input name="drivingLicenceId" class="form-control" id="drivingLicenceId"/>
-                                    </div>
-                                    <div class="form-group">
                                         <label>姓名</label>
-                                        <input type="text" name="name" class="form-control" id='name'/>
+                                        <input name="name" class="form-control" id="name"/>
                                     </div>
+                                    <div class="form-group">
+                                        <label>出生年月</label>
+                                        <input type="text" name="date" class="form-control" id='date'/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>学位授予单位</label>
+                                        <input name="degreeConferringUnit" class="form-control" id="degreeConferringUnit"/>
 
-                                    <div class="form-group">
-                                        <label>国籍</label>
-                                        <input name="nation" id="nation" class="form-control"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>住址</label>
-                                        <input name="address" id="address" class="form-control"/>
                                     </div>
                                     <div class="form-group">
                                         <label>性别</label>
@@ -140,36 +136,31 @@
                                             </label>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="col-lg-6">
-
                                     <div class="form-group">
-                                        <label>出生日期</label>
-                                        <input name="date" class="form-control" id="date"/>
+                                        <label>专业</label>
+                                        <input name="professional" class="form-control" id="professional"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>学位类别</label>
+                                        <input name="degreeName" id="degreeName" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>学位证书编号</label>
+                                        <input name="certId" class="form-control" id="certId"/>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>领证日期</label>
-                                        <input name="lzDate" type="text" class="form-control" id='lzDate'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>准驾车型</label>
-                                        <input name="zjcx" type="text" class="form-control" id='zjcx'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>起始日期</label>
-                                        <input name="startDate" type="text" class="form-control" id='startDate'/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>有效日期</label>
-                                        <input name="validTime" type="text" class="form-control" id='validTime'/>
+                                        <label>证书发放时间</label>
+                                        <input name="time" type="text" class="form-control" id='time'/>
                                     </div>
 
+                                    </div>
                                 </div>
+
                             </div>
-                        </div>
 
                         <!--确认按钮-->
                         <div class="col-lg-12 text-right">
@@ -180,9 +171,6 @@
                                 重&nbsp;&nbsp;置
                             </a>
                         </div>
-
-                        <!-- /.row (nested) -->
-
                     </form>
                     <!-- /.panel-body -->
                 </div>
@@ -218,15 +206,16 @@
 <script th:src="@{/dist/js/main.js}"></script>
 
 <script>
+
     $("#btSubmit").click(function(){
         $("#dataform").submit();
     });
 
     function validateForm() {
         //上传学位证书扫描件
-        var nodes = $("#demo2").children().length;
-        if (!nodes) {
-            msg("请上传驾驶证扫描件");
+        var nodes=$("#demo2").children().length;
+        if(!nodes){
+            msg("请上传学位证书扫描件");
             return false;
         }
         return true;
@@ -244,7 +233,7 @@
             title: '信息'
             , content: '<p style="text-align: center;">' +data+'</p>'
             ,offset: '190px'
-           /* , end: function () {
+            /*,end:function(){
                 window.location.href = "";
             }*/
         });
@@ -252,17 +241,17 @@
 
 
     <!-- 文件上传-->
-    var photoCount = 0;
+    var photoCount=0;
     layui.use('upload', function () {
         var upload = layui.upload;
         //多图片上传
         upload.render({
             elem: '#test2'
-            , url: '/file/drivingLicence/upload'//信息
+            , url: '/file/degreeCert/upload'
             , multiple: false
             , number: 1
             , before: function (obj) {
-                if (photoCount == 1) {
+                if(photoCount==1){
                     msg("只能上传一张图片");
                     return false;
                 }
@@ -280,47 +269,32 @@
                     //将解析的数据进行填充
 
                     $("#name").val(res.data.ocrData.name);
-                    $("#drivingLicenceId").val(res.data.ocrData.drivingLicenceId);
-                    // $("#sex").val(res.data.ocrData.sex);
-                    $("#nation").val(res.data.ocrData.nation);
-                    $("#address").val(res.data.ocrData.address);
+                    $("#certId").val(res.data.ocrData.certId);
+                    $("#degreeConferringUnit").val(res.data.ocrData.degreeConferringUnit);
+                    $("#degreeName").val(res.data.ocrData.degreeName);
+                    $("#professional").val(res.data.ocrData.professional);
+                    $("#time").val(res.data.ocrData.time);
                     $("#date").val(res.data.ocrData.date);
-                    $("#lzDate").val(res.data.ocrData.lzDate);
-
-                    $("#zjcx").val(res.data.ocrData.zjcx);
-                    $("#validTime").val(res.data.ocrData.validTime);
-                    $("#startDate").val(res.data.ocrData.startDate);
-
-                    $("input[name='sex'][value='" + res.data.ocrData.sex + "']").prop("checked", true);  //根据Value值设置Radio为选中状态
+                    $("input[name='sex'][value='"+res.data.ocrData.sex+"']").prop("checked",true);  //根据Value值设置Radio为选中状态
 
                     closeLoading();
-
                     if(res.code=='400'){
                         callbackMsg("信息识别不完整，剩余信息需要手动填写");
                     }
-                    //alert(res.data.ocrData);
-                    $("#filesHash").val(res.data.filesHash);
+
+                   $("#filesHash").val(res.data.filesHash);
                 }
                 console.log(res);
             }
         });
     });
 
-    function loading() {
-        var index = layer.msg('内容识别中...', {
-            icon: 16
-            , shade: 0.01
-            , time: 0
-        });
-    }
-
-    function closeLoading(index) {
+    function closeLoading() {
         layui.use('layer', function () {
             var layer = layui.layer;
             layer.close(layer.index);
         });
     }
-
     function photoView() {
         <!--照片查看器-->
         layui.use('layer', function () {
@@ -329,6 +303,14 @@
                 photos: '#demo2'
                 , anim: 5 //0-6的选择
             });
+        });
+    }
+
+    function loading() {
+        var index = layer.msg('内容识别中...', {
+            icon: 16
+            , shade: 0.01
+            , time: 0
         });
     }
 
@@ -354,10 +336,8 @@
     });
 
     $("#btBack").click(function () {
-        window.location.href = "/auth/drivingLicenseForm";
+        window.location.href = "";
     });
-
-
 </script>
 
 </body>

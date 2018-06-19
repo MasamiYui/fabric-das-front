@@ -39,15 +39,11 @@ public class AuthenticationController {
             modelAndView.setViewName("authentication_noErrorAssert");
             return modelAndView;
         }
-
         //resultMap 添加文件Hash
-
-
         modelAndView.addObject("resultMap",resultMap);
         modelAndView.setViewName("authentication_comparedrivingLicenceAssert");
         return modelAndView;
-/*
-        return ResultUtil.constructResponse(200, "ok", resultMap);*/
+
     }
 
 
@@ -61,6 +57,20 @@ public class AuthenticationController {
         jedis.close();
         modelAndView.addObject("useType",useType);
         modelAndView.setViewName("authentication_drivingLicenseAssert");
+        return modelAndView;
+    }
+
+    //学位证书
+    @RequestMapping("/auth/certificateForm")
+    public ModelAndView  authenticatinoCertificate(HttpServletRequest request) throws IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        Jedis jedis = RedisUtil.getJedis();
+        String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+        String useType= String.valueOf(userMap.get("userType"));
+        jedis.close();
+        modelAndView.addObject("useType",useType);
+        modelAndView.setViewName("authentication_certificateAssert");
         return modelAndView;
     }
 
