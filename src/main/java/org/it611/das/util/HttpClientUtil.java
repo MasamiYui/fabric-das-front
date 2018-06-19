@@ -118,7 +118,7 @@ public class HttpClientUtil {
      * @param params
      * @return
      */
-    public static String doPost(String url, String params) throws Exception {
+    public static String doPostJson(String url, String params) throws Exception {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);// 创建httpPost
@@ -127,6 +127,11 @@ public class HttpClientUtil {
         String charSet = "UTF-8";
         StringEntity entity = new StringEntity(params, charSet);
         httpPost.setEntity(entity);
+
+
+
+
+
         CloseableHttpResponse response = null;
 
         try {
@@ -135,9 +140,11 @@ public class HttpClientUtil {
             StatusLine status = response.getStatusLine();
             int state = status.getStatusCode();
             if (state == HttpStatus.SC_OK) {
+/*                HttpEntity responseEntity = response.getEntity();
+                String jsonString = EntityUtils.toString(responseEntity);*/
                 HttpEntity responseEntity = response.getEntity();
-                String jsonString = EntityUtils.toString(responseEntity);
-                return jsonString;
+                String result = EntityUtils.toString(responseEntity, "UTF-8");
+                return result;
             }
             else{
                 logger.error("请求返回:"+state+"("+url+")");
