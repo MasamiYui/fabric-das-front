@@ -243,7 +243,7 @@ public class AuthenticationController {
             return modelAndView;
         }
         modelAndView.addObject("resultMap", resultMap);
-        modelAndView.setViewName("authentication_compareAudioAssert");
+        modelAndView.setViewName("authentication_compareMusicAsset");
         return modelAndView;
 
     }
