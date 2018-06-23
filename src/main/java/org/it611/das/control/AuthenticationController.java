@@ -1,7 +1,6 @@
 package org.it611.das.control;
 
 import org.it611.das.service.AuthenticationService;
-import org.it611.das.util.ResultUtil;
 import org.it611.das.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.databind.ObjectMapper;

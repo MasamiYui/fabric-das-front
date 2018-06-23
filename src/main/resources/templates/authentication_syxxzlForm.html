@@ -260,7 +260,7 @@
                     photoCount++;
                     $("#files").val(res.data.path);
                     //将解析的数据进行填充
-
+                    closeLoading();//先关闭弹框以防锁死
                     $("#syxxmc").val(res.data.ocrData.syxxmc);
                     $("#fmr").val(res.data.ocrData.fmr);
                     $("#zlh").val(res.data.ocrData.zlh);
@@ -268,7 +268,7 @@
                     $("#zlqr").val(res.data.ocrData.zlqr);
                     $("#sqggr").val(res.data.ocrData.sqggr);
                     $("#fzsj").val(res.data.ocrData.fzsj);
-                    closeLoading();
+                    //closeLoading();
 
                 /*   $("#filesHash").val(res.data.filesHash);*/
                 }

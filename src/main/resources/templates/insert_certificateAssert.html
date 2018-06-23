@@ -310,6 +310,9 @@
                 if (res.code > 0) {
                     photoCount++;
                     $("#files").val(res.data.path);
+
+
+                    closeLoading();//先关闭弹框以防锁死
                     //将解析的数据进行填充
 
                     $("#name").val(res.data.ocrData.name);
@@ -322,7 +325,7 @@
                     // $("#sex").val(res.data.ocrData.sex);
                     $("input[name='sex'][value='"+res.data.ocrData.sex+"']").prop("checked",true);  //根据Value值设置Radio为选中状态
 
-                    closeLoading();
+
 
                     //alert(res.data.ocrData);
                    // $("#filesHash").val(res.data.filesHash);

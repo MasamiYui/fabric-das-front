@@ -202,68 +202,7 @@
         fabricFile();
     });
 
-    function videoLinks() {
-        var files = [[${resultMap.inputDataMap.files}]];
-        if(!files) return;
-        if(files.charAt(files.length-1)==','){
-            files = files.substring(0, files.length - 1);
-        }
-        var patt = /^(http|ftp|https):\/\/(.)+(\.mp3)(.)*/i;
-        var urls = new Array();
-        var urlArr = files.split(",");
-        for (var index in urlArr) {
-            if (patt.test(urlArr[index])) {
-                urls.push(urlArr[index]);
-            }
-        }
-        var i = 0;
-        for (var link in urls) {
-            $("#videoLink").append('<a  style="margin-right:40px;" class="btn btn-info" href="/musicPalyLink?linkAddress=' + urls[link] + '">播放音频' + (++i) + '</a>');
-        }
-    }
 
-    var id = [[${resultMap.inputDataMap.id}]];
-    $("#btSubmit").click(function () {
-        var $this = $(this);
-        $this.prop("disabled", true);
-        var state = $('input[name="state"]:checked').val();
-        var data = {id: id, state: state};
-        $.ajax({
-            type: "get",
-            url: "/asset/music",
-            data: data,
-            dataType: "json",
-            success: function (result) {
-                if (result.code == "200") {
-                    callbackMsg("修改成功");
-                    parent.search();
-                } else if (result.code == "400") {
-                    callbackMsg("修改失败");
-                }
-            },
-            complete: function (XMLHttpRequest, textStatus) {
-                $this.prop("disabled", false);
-                /*parent.close();*/
-            }
-        });
-    });
-
-    $("#btBack").click(function () {
-        parent.close();
-    });
-
-    function callbackMsg(data) {
-        layui.use('layer', function () {
-            var layer = layui.layer;
-            layer.open({
-                title: '结果'
-                , content: data
-                , end: function () {
-                    parent.close();
-                }
-            });
-        });
-    }
     function mongoFile() {
         var filehash = [[${resultMap.inputDataMap.filesHash}]];
         if(!filehash) {

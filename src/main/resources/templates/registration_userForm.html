@@ -332,6 +332,9 @@
                     // var pathValue=res.data.path;
                     $("#files").val(res.data.path);
                     //填充其他数据
+
+                    closeLoading();//先关闭弹框以防锁死
+
                     console.log(res.data.ocrData)
                     var ocrdata = res.data.ocrData;
                     $("#name").val(ocrdata.name);
@@ -342,7 +345,7 @@
                     $("#date").val(birthDate);
                     $("#address").val(ocrdata.address);
 
-                    closeLoading();
+                    //closeLoading();
 
                     /*   var hashValue=res.data.path;
                        filesHashs = filesHashs + hashValue + ",";

@@ -103,7 +103,7 @@
                                 </tr>
                                 <tr>
                                     <td>交易单号</td>
-                                    <!--<td th:text="${record.transaction_id}"></td>-->
+                                    <td th:text="${record.transactionId}"></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -118,7 +118,7 @@
                                 </tbody>
                             </table>
                             <th:block th:if="${record.state}  eq 1 ">
-                                <button type="button" class="btn btn-success btn-lg btn-block" onclick="doCheck()">鉴权</button>
+                                <button type="button" class="btn btn-success btn-lg btn-block" onclick="doCheck()">检查</button>
                             </th:block>
                         </div>
                         <div class="control-group col-lg-4 layui-upload-list" >
@@ -230,7 +230,7 @@
         layui.use('layer', function () { //独立版的layer无需执行这一句
             var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
             index = layer.open({
-                title: ['鉴权详情', 'font-size:18px;'],
+                title: ['对比详情', 'font-size:18px;'],
                 anim: 2,
                 type: 2,
                 move: false,

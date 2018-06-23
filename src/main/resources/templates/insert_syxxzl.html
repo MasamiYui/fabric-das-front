@@ -260,7 +260,7 @@
             , content: '<p style="text-align: center;">' +data+'</p>'
             ,offset: '190px'
             ,end:function(){
-                window.location.href = "/asset/syxlzs/index";
+                window.location.href = "/asset/syxxzl/index";
             }
         });
     }
@@ -292,6 +292,8 @@
                 if (res.code > 0) {
                     photoCount++;
                     $("#files").val(res.data.path);
+                    closeLoading();//先关闭弹框以防锁死
+
                     //将解析的数据进行填充
 
                     $("#syxxmc").val(res.data.ocrData.syxxmc);
@@ -301,7 +303,7 @@
                     $("#zlqr").val(res.data.ocrData.zlqr);
                     $("#sqggr").val(res.data.ocrData.sqggr);
                     $("#fzsj").val(res.data.ocrData.fzsj);
-                    closeLoading();
+                    //closeLoading();
 
                     //alert(res.data.ocrData);
                    // $("#filesHash").val(res.data.filesHash);

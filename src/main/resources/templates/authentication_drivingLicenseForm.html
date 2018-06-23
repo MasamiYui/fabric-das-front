@@ -279,6 +279,7 @@
                     $("#files").val(res.data.path);
                     //将解析的数据进行填充
 
+                    closeLoading();//先关闭弹框以防锁死
                     $("#name").val(res.data.ocrData.name);
                     $("#drivingLicenceId").val(res.data.ocrData.drivingLicenceId);
                     // $("#sex").val(res.data.ocrData.sex);
@@ -293,7 +294,7 @@
 
                     $("input[name='sex'][value='" + res.data.ocrData.sex + "']").prop("checked", true);  //根据Value值设置Radio为选中状态
 
-                    closeLoading();
+                    //closeLoading();
 
                     if(res.code=='400'){
                         callbackMsg("信息识别不完整，剩余信息需要手动填写");

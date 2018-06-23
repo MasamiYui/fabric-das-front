@@ -313,6 +313,7 @@
                     $("#files").val(res.data.path);
                     //将解析的数据进行填充
 
+                    closeLoading();//先将弹框关闭，以防卡死
                     $("#name").val(res.data.ocrData.name);
                     $("#drivingLicenceId").val(res.data.ocrData.drivingLicenceId);
                     $("#nation").val(res.data.ocrData.nation);
@@ -326,7 +327,7 @@
 
                     $("input[name='sex'][value='" + res.data.ocrData.sex + "']").prop("checked", true);  //根据Value值设置Radio为选中状态
 
-                    closeLoading();
+
 
                     //alert(res.data.ocrData);
                     // $("#filesHash").val(res.data.filesHash);
