@@ -57,7 +57,7 @@ public class IdUtil {
 
 
     /**
-     * 实用新型专利Id生成策略
+     * 专利Id生成策略
      * @return
      */
     public static String getSyxxzlId(){

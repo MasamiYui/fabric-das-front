@@ -463,7 +463,7 @@ public class PDFTemplate {
         form.addSubstitutionFont(baseFont);
 
         //表单处理
-        form.setField("assetType", "实用新型专利");
+        form.setField("assetType", "专利");
         form.setField("assetId", syxxzlMap.get("id").toString());
         form.setField("owner", syxxzlMap.get("ownerName")+"("+syxxzlMap.get("ownerId").toString()+")");
         form.setField("certId",syxxzlMap.get("zlh").toString());

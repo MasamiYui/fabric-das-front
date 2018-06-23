@@ -7,7 +7,7 @@ public class AssertType {
 
         if (assertId.indexOf("xlzs") > -1) {   //学位证书
             return DegreeCertificate.class;
-        } else if (assertId.indexOf("syxxzl") > -1) {//实用新型专利
+        } else if (assertId.indexOf("syxxzl") > -1) {//专利
             return Syxxzl.class;
         } else if (assertId.indexOf("jsz") > -1) { //驾驶证
             return DrivingLicence.class;
@@ -25,8 +25,8 @@ public class AssertType {
     public static String queryType(String assertId) {
         if (assertId.contains("xlzs")) {   //学位证书
             return "学位证书";
-        } else if (assertId.contains("syxxzl")) {//实用新型专利
-            return "实用新型专利";
+        } else if (assertId.contains("syxxzl")) {//专利
+            return "专利";
         } else if (assertId.contains("jsz")) { //驾驶证
             return "驾驶证";
         } else if (assertId.contains("tp")) {  //图片

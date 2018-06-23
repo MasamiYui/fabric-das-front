@@ -134,7 +134,7 @@ public class AuthenticationController {
 
     }
 
-    //实用新型专利
+    //专利
     @RequestMapping("/auth/syxxzlForm")
     public ModelAndView authenticatinosyxxzl(HttpServletRequest request) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
