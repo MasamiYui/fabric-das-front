@@ -46,7 +46,7 @@ public class FileController {
         Jedis client = RedisUtil.getJedis();
         client.set(path, fileHash,"NX", "EX",RedisUtil.ONE_DAY);
         client.close();
-        System.out.println("path:"+path+",filesHash:"+file);
+        System.out.println("path:"+path+",filesHash:"+fileHash);
         System.out.println("url:"+path);
 
         return ResultUtil.constructResponse(200,"ok",dataMap);
