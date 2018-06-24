@@ -38,6 +38,29 @@ public class CookieUtil {
         response.addCookie(uid);
     }
 
+
+    //删除cookie方法2
+    public static void removeCookie(HttpServletRequest request,HttpServletResponse response,String name) {
+        try {
+
+            Cookie[] cookies = request.getCookies();
+
+            for (int i = 0; i < (cookies == null ? 0 : cookies.length); i++) {
+                if ((name).equalsIgnoreCase(cookies[i].getName())) {
+
+                    Cookie cookie = new Cookie(name, "");
+                    cookie.setPath("/");
+                    cookie.setMaxAge(0);// 设置保存cookie最大时长为0，即使其失效
+                    response.addCookie(cookie);
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(" -------删除cookie失败！--------" + e.getMessage());
+        }
+    }
+
+
     /**
      * 获取cookie值
      *
