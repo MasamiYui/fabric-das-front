@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-/*
+
 @Configuration
 @EnableWebMvc
 @ComponentScan
@@ -38,9 +38,9 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         //拦截规则：除了login，其他都拦截判断
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login/index")
+                .excludePathPatterns("/frontLogin")
                 .excludePathPatterns("/user/login");
         super.addInterceptors(registry);
     }
 
-}*/
+}

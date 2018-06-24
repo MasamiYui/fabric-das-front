@@ -12,6 +12,8 @@ public class CookieUtil {
 
     public static final int COOKIE_MAX_AGE = 7 * 24 * 3600;
     public static final int COOKIE_HALF_HOUR = 30 * 60;
+    public static final int COOKIE_ONE_HOUR= 60*60;
+    public static final int COOKIE_ONE_DAY= 60*60*24;
     public static final String COOKIE_TOKEN_KEY = "loginToken";
 
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
@@ -44,6 +46,10 @@ public class CookieUtil {
      */
     public static String getCookie(HttpServletRequest request,String cookieName) {
         Cookie cookies[] = request.getCookies();
+
+        if(cookies == null){
+            return null;
+        }
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(cookieName)) {
                 return cookie.getValue();

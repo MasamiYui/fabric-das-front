@@ -38,7 +38,7 @@ public class UserController {
             return result;
         }
         String token = ((Map)result.get("data")).get("token").toString();
-        CookieUtil.addCookie(response,CookieUtil.COOKIE_TOKEN_KEY, token, CookieUtil.COOKIE_MAX_AGE);
+        CookieUtil.addCookie(response,CookieUtil.COOKIE_TOKEN_KEY, token, CookieUtil.COOKIE_ONE_DAY);
 
         return result;
     }
@@ -52,7 +52,7 @@ public class UserController {
             return result;
         }
         String token = result.get("data").toString();
-        CookieUtil.addCookie(response,CookieUtil.COOKIE_TOKEN_KEY, token, CookieUtil.COOKIE_MAX_AGE);
+        CookieUtil.addCookie(response,CookieUtil.COOKIE_TOKEN_KEY, token, CookieUtil.COOKIE_ONE_DAY);
         return result;
     }
 

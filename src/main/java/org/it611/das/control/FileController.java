@@ -44,7 +44,7 @@ public class FileController {
         Map<String,String> dataMap = new HashMap<String,String>();
         dataMap.put("path", path);
         Jedis client = RedisUtil.getJedis();
-        client.set(path, fileHash);
+        client.set(path, fileHash,"NX", "EX",RedisUtil.ONE_DAY);
         client.close();
         System.out.println("path:"+path+",filesHash:"+file);
         System.out.println("url:"+path);
@@ -95,7 +95,7 @@ public class FileController {
         dataMap.put("path", path);
         dataMap.put("ocrData",orcMap);
         Jedis client = RedisUtil.getJedis();
-        client.set(path, fileHash);
+        client.set(path, fileHash,"NX", "EX",RedisUtil.ONE_DAY);
         client.close();
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
@@ -131,7 +131,7 @@ public class FileController {
         dataMap.put("path", path);
         dataMap.put("ocrData",dc);
         Jedis client = RedisUtil.getJedis();
-        client.set(path, fileHash);
+        client.set(path, fileHash,"NX", "EX",RedisUtil.ONE_DAY);
         client.close();
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
@@ -166,7 +166,7 @@ public class FileController {
         dataMap.put("path", path);
         dataMap.put("ocrData",syfmzl);
         Jedis client = RedisUtil.getJedis();
-        client.set(path, fileHash);
+        client.set(path, fileHash,"NX", "EX",RedisUtil.ONE_DAY);
         client.close();
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
@@ -199,7 +199,7 @@ public class FileController {
         dataMap.put("path", path);
         dataMap.put("ocrData",dl);
         Jedis client = RedisUtil.getJedis();
-        client.set(path, fileHash);
+        client.set(path, fileHash,"NX", "EX",RedisUtil.ONE_DAY);
         client.close();
         if(dl == null) {
             return ResultUtil.constructResponse(400,"unrecognizable",dataMap);
@@ -235,7 +235,7 @@ public class FileController {
         dataMap.put("path", path);
         dataMap.put("ocrData",bizLicenceMap);
         Jedis client = RedisUtil.getJedis();
-        client.set(path, fileHash);
+        client.set(path, fileHash,"NX", "EX",RedisUtil.ONE_DAY);
         client.close();
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }

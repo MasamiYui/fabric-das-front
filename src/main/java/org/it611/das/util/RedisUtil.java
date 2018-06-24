@@ -24,6 +24,12 @@ public final class RedisUtil {
 
     private static JedisPool jedisPool = null;
 
+    public final static long ONE_DAY = 60*60*24;
+
+    public final static long HALF_DAY = 60*60*12;
+
+    public final static long SEVEN_DAY = 60*60*24*7;
+
     /**
      * 初始化Redis连接池
      */

@@ -17,13 +17,13 @@ public class LoginInterceptor implements HandlerInterceptor {
         //获取token
         String token = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
         if (token == null || token.equals("")){
-            response.sendRedirect(request.getContextPath()+"/login/index");//跳转到登陆页
+            response.sendRedirect(request.getContextPath()+"/frontLogin");//跳转到登陆页
             return false;
         }
         //与redis中的数据进行比较
         Jedis redisClient = RedisUtil.getJedis();
         if(redisClient.get(token) == null || redisClient.get(token).equals("")) {
-            response.sendRedirect(request.getContextPath()+"/login/index");//跳转到登陆页
+            response.sendRedirect(request.getContextPath()+"/frontLogin");//跳转到登陆页
             return false;
         }
         redisClient.close();

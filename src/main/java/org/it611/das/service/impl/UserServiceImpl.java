@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
         loginMap.put("userType", loginMap.get("userType"));
 
         Jedis client = RedisUtil.getJedis();
-        client.set(token, new ObjectMapper().writeValueAsString(loginMap));
+        client.set(token, new ObjectMapper().writeValueAsString(loginMap),"NX", "EX",RedisUtil.ONE_DAY);
         client.close();
 
         resultMap.put("token", token);
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
         String token = UUID.randomUUID().toString();
         companyMap.remove("password");
         Jedis client = RedisUtil.getJedis();
-        client.set(token, new ObjectMapper().writeValueAsString(companyMap));
+        client.set(token, new ObjectMapper().writeValueAsString(companyMap),"NX", "EX",RedisUtil.ONE_DAY);//设置过期时间为1天
         client.close();
 
         return ResultUtil.constructResponse(200, "ok", token);
