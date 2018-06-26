@@ -29,7 +29,7 @@ public class PhotoAssetController {
 
     @RequestMapping(value = "/asset/image", method = RequestMethod.PUT)
     @ResponseBody
-    public JSONObject addVideo(HttpServletRequest request, PhotoVO photoVO) throws Exception {
+    public JSONObject addPhoto(HttpServletRequest request, PhotoVO photoVO) throws Exception {
 
         JSONObject resultData = photoAssetService.addPhoto(photoVO, request);
         return resultData;
@@ -37,7 +37,7 @@ public class PhotoAssetController {
 
 
     @RequestMapping(value = "/asset/image/index", method = RequestMethod.GET)
-    public ModelAndView videoIndex(HttpServletRequest request) throws IOException {
+    public ModelAndView photoIndex(HttpServletRequest request) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         Jedis jedis = RedisUtil.getJedis();
         String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
@@ -51,7 +51,7 @@ public class PhotoAssetController {
 
     @RequestMapping(value = "/asset/images", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject videoList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
+    public JSONObject photoList(HttpServletRequest request, int currentPage, int numberOfPages) throws IOException {
 
         HashMap<String, Object> data = photoAssetService.selectPhotoList(request, currentPage, numberOfPages);
         return ResponseUtil.constructResponse(200, "ok", data);
@@ -59,7 +59,7 @@ public class PhotoAssetController {
 
 
     @RequestMapping(value = "/asset/image/{id}", method = RequestMethod.GET)
-    public String videoDetail(Model model, @PathVariable String id,HttpServletRequest request) throws Exception {
+    public String photoDetail(Model model, @PathVariable String id,HttpServletRequest request) throws Exception {
 
 
         Jedis jedis = RedisUtil.getJedis();
@@ -75,7 +75,7 @@ public class PhotoAssetController {
     }
 
     @RequestMapping(value = "/asset/addImage", method = RequestMethod.GET)
-    public ModelAndView videoForm(HttpServletRequest request) throws IOException {
+    public ModelAndView photoForm(HttpServletRequest request) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
         Jedis jedis = RedisUtil.getJedis();
         String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,7 +33,7 @@ public class FileController {
 
     @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject singleFileUpload(MultipartFile file, HttpServletRequest httpServletRequest) throws IOException {
+    public JSONObject singleFileUpload(MultipartFile file) throws IOException {
 
         if (file.isEmpty()) {
             return ResultUtil.constructResponse(400,"empty file.",null);
@@ -51,6 +50,8 @@ public class FileController {
 
         return ResultUtil.constructResponse(200,"ok",dataMap);
     }
+
+
 
     /**
      * 身份证上传和识别

@@ -23,7 +23,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private final String COUCHDB_QUERY_URL = "http://192.168.10.128:5984/mychannel/_find";
+    private final String COUCHDB_QUERY_URL = "http://192.168.10.128:5984/mychannel_das/_find";
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -83,7 +83,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         HashMap<String, Object> map3 = new HashMap();
 
         map1.put("$eq", drivinglicenceId);
-        map2.put("data.drivingLicenceId", map1);
+        map2.put("drivingLicenceId", map1);
         map3.put("selector", map2);
 
 
@@ -94,7 +94,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         System.out.println("retStr:"+retStr);
         //解析数据
         JsonNode jsonNode = objectMapper.readTree(retStr);
-        JsonNode dataNode = jsonNode.findValue("data");
+        JsonNode dataNode = jsonNode.findValue("docs");
+        if(dataNode != null){
+            dataNode = dataNode.get(0);
+        }
 
         if(dataNode == null){
             resultMap.put("blockchainDataMap", "NoAssert");
@@ -172,7 +175,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         HashMap<String, Object> map3 = new HashMap();
 
         map1.put("$eq", certIdId);
-        map2.put("data.certId", map1);
+        map2.put("certId", map1);
         map3.put("selector", map2);
 
 
@@ -183,7 +186,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         System.out.println("retStr:"+retStr);
         //解析数据
         JsonNode jsonNode = objectMapper.readTree(retStr);
-        JsonNode dataNode = jsonNode.findValue("data");
+        JsonNode dataNode = jsonNode.findValue("docs");
+        if(dataNode != null){
+            dataNode = dataNode.get(0);
+        }
 
         if(dataNode == null){
             resultMap.put("blockchainDataMap", "NoAssert");
@@ -261,7 +267,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         HashMap<String, Object> map3 = new HashMap();
 
         map1.put("$eq", certIdId);
-        map2.put("data.zlh", map1);
+        map2.put("zlh", map1);
         map3.put("selector", map2);
 
 
@@ -272,7 +278,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         System.out.println("retStr:"+retStr);
         //解析数据
         JsonNode jsonNode = objectMapper.readTree(retStr);
-        JsonNode dataNode = jsonNode.findValue("data");
+        JsonNode dataNode = jsonNode.findValue("docs");
+        if(dataNode != null){
+            dataNode = dataNode.get(0);
+        }
 
         if(dataNode == null){
             resultMap.put("blockchainDataMap", "NoAssert");
@@ -355,7 +364,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         HashMap<String, Object> map3 = new HashMap();
 
         map1.put("$eq", filesHash);
-        map2.put("data.filesHash", map1);
+        map2.put("filesHash", map1);
         map3.put("selector", map2);
 
 
@@ -366,7 +375,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         System.out.println("retStr:"+retStr);
         //解析数据
         JsonNode jsonNode = objectMapper.readTree(retStr);
-        JsonNode dataNode = jsonNode.findValue("data");
+        JsonNode dataNode = jsonNode.findValue("docs");
+        if(dataNode != null){
+            dataNode = dataNode.get(0);
+        }
 
         if(dataNode == null){
             resultMap.put("blockchainDataMap", "NoAssert");
@@ -449,7 +461,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         HashMap<String, Object> map3 = new HashMap();
 
         map1.put("$eq", filesHash);
-        map2.put("data.filesHash", map1);
+        map2.put("filesHash", map1);
         map3.put("selector", map2);
 
 
@@ -460,7 +472,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         System.out.println("retStr:"+retStr);
         //解析数据
         JsonNode jsonNode = objectMapper.readTree(retStr);
-        JsonNode dataNode = jsonNode.findValue("data");
+        JsonNode dataNode = jsonNode.findValue("docs");
+        if(dataNode != null){
+            dataNode = dataNode.get(0);
+        }
 
         if(dataNode == null){
             resultMap.put("blockchainDataMap", "NoAssert");
@@ -546,7 +561,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         HashMap<String, Object> map3 = new HashMap();
 
         map1.put("$eq", filesHash);
-        map2.put("data.filesHash", map1);
+        map2.put("filesHash", map1);
         map3.put("selector", map2);
 
 
@@ -554,10 +569,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         //调用CouchDB HTTP API，获取fabric的state数据库
         String retStr = HttpClientUtil.doPostJson(COUCHDB_QUERY_URL, jsonStr);
+
+        System.out.println(jsonStr);
         System.out.println("retStr:"+retStr);
         //解析数据
         JsonNode jsonNode = objectMapper.readTree(retStr);
-        JsonNode dataNode = jsonNode.findValue("data");
+        JsonNode dataNode = jsonNode.findValue("docs");
+        if(dataNode != null){
+            dataNode = dataNode.get(0);
+        }
 
         if(dataNode == null){
             resultMap.put("blockchainDataMap", "NoAssert");
