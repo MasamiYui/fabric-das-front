@@ -2,13 +2,11 @@ package org.it611.das.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qcloud.image.ImageClient;
-import com.qcloud.image.request.GeneralOcrRequest;
 import org.it611.das.domain.DegreeCertificate;
 import org.it611.das.domain.DrivingLicence;
 import org.it611.das.domain.Syxxzl;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +23,7 @@ public class GeneralOcrParseUtil {
         JsonNode jsonNode = mapper.readTree(rawData);
         List<JsonNode> nodes = jsonNode.findValues("itemstring");
         String str = "";
-        System.out.println(nodes.get(1).asText());
+        //System.out.println(nodes.get(1).asText());
         for(int i =0; i<nodes.size(); i++){
             str = str + nodes.get(i).asText();
         }

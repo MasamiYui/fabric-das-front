@@ -47,7 +47,7 @@
           th:href="@{/assets_home/ico/apple-touch-icon-72-precomposed.png}">
     <link rel="apple-touch-icon-precomposed" th:href="@{/assets_home/ico/apple-touch-icon-57-precomposed.png}">
     <!--引入layui的css-->
-    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
 
     <style>
 
@@ -153,10 +153,10 @@
                     </div>
                     <div class="timer wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="2.5s">
                         <div class="days-wrapper">
-                            <span class="days">1000+</span> <span class="t-text">数字资产完成申请 /</span>
+                            <span class="days" th:text="${blockHigh}"></span> <span class="t-text">区块高度 /</span>
                         </div>
                         <div class="hours-wrapper">
-                            <span class="hours">1000+</span> <span class="t-text">区块链高度 </span>
+                            <span class="hours" th:text="${runTime}"></span> <span class="t-text">区块链服务时间(天) </span>
                         </div>
                         <!-- <div class="minutes-wrapper">
                             <span class="minutes">1000+</span> <span class="t-text">区块链高度</span>
@@ -585,8 +585,8 @@
 <script src="assets_home/js/retina-1.1.0.min.js"></script>
 <script src="assets_home/js/scripts.js"></script>
 <!--引入layui-->
-<!--<script th:src="@{/jcstatic/layui/layui.js}"></script>-->
-<script src="../static/jcstatic/layui/layui.js"></script>
+<script th:src="@{/jcstatic/layui/layui.js}"></script>
+<!--<script src="../static/jcstatic/layui/layui.js"></script>-->
 
 
 <!--[if lt IE 10]>

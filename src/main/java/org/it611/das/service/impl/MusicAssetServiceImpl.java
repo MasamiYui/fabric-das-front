@@ -1,10 +1,7 @@
 package org.it611.das.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
 import org.it611.das.domain.Music;
-import org.it611.das.domain.Photo;
-import org.it611.das.mapper.MusicMapper;
 import org.it611.das.service.MusicAssetService;
 import org.it611.das.util.MapUtil;
 import org.it611.das.util.ResultUtil;
@@ -26,8 +23,7 @@ import java.util.List;
 @Service
 public class MusicAssetServiceImpl implements MusicAssetService {
 
-    @Autowired
-    private MusicMapper musicMapper;
+
 
     @Autowired
     private MongoTemplate mongoTemplate;

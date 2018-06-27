@@ -18,6 +18,7 @@ public class LoginFilter implements Filter {
     //不需要登录就可以访问的路径(比如:注册登录等)
     String[] includeUrls = new String[]{"/","/frontLogin","/userReg","/companyReg","/user/login","/comapny/login","/user/register","/comapny/register","/file/idcard/upload",
     "/file/bizLicence/upload"};
+    String[] staticResource = new String[]{"assets_home","dist","image","jcstatic","videoplay"};
 
 
     @Override
@@ -31,11 +32,14 @@ public class LoginFilter implements Filter {
         //是否需要过滤
         boolean needFilter = isNeedFilter(uri);
 
+        boolean isResouceURL = isStaticResource(uri);
 
         if (!needFilter) { //不需要过滤直接传给下一个过滤器
             filterChain.doFilter(servletRequest, servletResponse);
-        } else { //需要过滤器
+        } else if(!isResouceURL) { //需要过滤器
             //获取token
+            filterChain.doFilter(servletRequest, servletResponse);
+        }else{
             String token = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
             if (token == null || token.equals("")){
                 response.sendRedirect(request.getContextPath()+"/frontLogin");//跳转到登陆页
@@ -65,6 +69,18 @@ public class LoginFilter implements Filter {
 
         return true;
     }
+
+    public boolean isStaticResource(String uri) {
+
+        for (String resouce : staticResource) {
+            if(uri.contains(resouce)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

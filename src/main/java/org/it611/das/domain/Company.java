@@ -1,5 +1,6 @@
 package org.it611.das.domain;
 
+
 public class Company {
     private String id;
 

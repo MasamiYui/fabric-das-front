@@ -1,22 +1,15 @@
 package org.it611.das.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.it611.das.domain.*;
-import org.it611.das.mapper.DegreeCertificateMapper;
-import org.it611.das.mapper.MusicMapper;
-import org.it611.das.mapper.PhotoMapper;
-import org.it611.das.mapper.VideoMapper;
 import org.it611.das.service.PrintPDFService;
 import org.it611.das.template.PDFTemplate;
-import org.it611.das.util.CookieUtil;
 import org.it611.das.util.MapUtil;
-import org.it611.das.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,17 +17,6 @@ import java.util.List;
 @Service
 public class PrintPDFServiceImpl implements PrintPDFService {
 
-    @Autowired
-    private DegreeCertificateMapper degreeCertificateMapper;
-
-    @Autowired
-    private MusicMapper musicMapper;
-
-    @Autowired
-    private VideoMapper videoMapper;
-
-    @Autowired
-    private PhotoMapper photoMapper;
 
     @Autowired
     private MongoTemplate mongoTemplate;

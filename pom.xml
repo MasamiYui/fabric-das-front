@@ -7,6 +7,7 @@
     <groupId>org.it611</groupId>
     <artifactId>das-web-front</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -316,6 +317,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <mainClass>org.it611.das.Start</mainClass>
                     <fork>true</fork>
                 </configuration>
             </plugin>

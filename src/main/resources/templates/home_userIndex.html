@@ -18,8 +18,9 @@
     <link rel="stylesheet" th:href="@{/assets_home/css/form-elements.css}">
     <link rel="stylesheet" th:href="@{/assets_home/css/style.css}">
     <link rel="stylesheet" th:href="@{/assets_home/css/media-queries.css}">
-    <!--引入layui的css-->
-    <link th:href="@{/jcstatic/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+
+    <!-- Bootstrap Core CSS -->
+    <!--<link th:href="@{/jcstatic/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,6 +46,29 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72"
           th:href="@{/assets_home/ico/apple-touch-icon-72-precomposed.png}">
     <link rel="apple-touch-icon-precomposed" th:href="@{/assets_home/ico/apple-touch-icon-57-precomposed.png}">
+    <!--引入layui的css-->
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+
+    <style>
+
+        #top-navbar-1>ul>li>ul>li{
+            text-align: center;
+            width: 100px;
+        }
+        #top-navbar-1>ul>li>ul>li>a{
+            color:black;
+        }
+
+        .navbar-inverse ul.navbar-nav li{
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+        .dropdown-menu{
+            min-width: 120px;
+            font-size:15px;
+        }
+
+    </style>
 
 </head>
 
@@ -120,10 +144,10 @@
                     </div>
                     <div class="timer wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="2.5s">
                         <div class="days-wrapper">
-                            <span class="days">1000+</span> <span class="t-text">数字资产完成申请 /</span>
+                            <span class="days" th:text="${blockHigh}"></span> <span class="t-text">区块高度 /</span>
                         </div>
                         <div class="hours-wrapper">
-                            <span class="hours">1000+</span> <span class="t-text">区块链高度 </span>
+                            <span class="hours" th:text="${runTime}"></span> <span class="t-text">区块链服务时间(天) </span>
                         </div>
                         <!-- <div class="minutes-wrapper">
                             <span class="minutes">1000+</span> <span class="t-text">区块链高度</span>
