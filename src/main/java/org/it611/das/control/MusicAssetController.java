@@ -40,14 +40,24 @@ public class MusicAssetController {
     @RequestMapping(value = "/asset/audio/{id}", method = RequestMethod.GET)
     public String musicAssetDetail(Model model, @PathVariable String id,HttpServletRequest request) throws Exception {
 
+        HashMap record = musicAssetService.selectMusicDetailById(id);
         Jedis jedis = RedisUtil.getJedis();
         String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        if(userToken == null || userToken.equals("")){
+            jedis.close();
+            //modelAndView.addObject("loginName",loginName);
+            model.addAttribute("loginName","***");
+            model.addAttribute("record",record);
+            //modelAndView.setViewName("detail_drivingLicenceAssert");
+            return "detail_audioAssert";
+        }
         HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
+
         String loginName= String.valueOf(userMap.get("name"));
         jedis.close();
         model.addAttribute("loginName", loginName);
 
-        HashMap record = musicAssetService.selectMusicDetailById(id);
+
         model.addAttribute("record",record );
         return "detail_audioAssert";
     }
@@ -81,6 +91,7 @@ public class MusicAssetController {
         ModelAndView modelAndView = new ModelAndView();
         Jedis jedis = RedisUtil.getJedis();
         String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+
         HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
         String useType= String.valueOf(userMap.get("userType"));
         jedis.close();

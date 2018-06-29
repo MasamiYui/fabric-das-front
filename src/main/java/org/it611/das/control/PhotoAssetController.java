@@ -61,15 +61,21 @@ public class PhotoAssetController {
     @RequestMapping(value = "/asset/image/{id}", method = RequestMethod.GET)
     public String photoDetail(Model model, @PathVariable String id,HttpServletRequest request) throws Exception {
 
-
+        HashMap record = photoAssetService.selectPhotoDetailById(id);
         Jedis jedis = RedisUtil.getJedis();
         String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        if(userToken == null || userToken.equals("")){
+            jedis.close();
+            model.addAttribute("loginName","***");
+            model.addAttribute("record",record);
+            //modelAndView.setViewName("detail_drivingLicenceAssert");
+            return "detail_photoAssert";
+        }
         HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
         String loginName= String.valueOf(userMap.get("name"));
         jedis.close();
         model.addAttribute("loginName",loginName);
 
-        HashMap record = photoAssetService.selectPhotoDetailById(id);
         model.addAttribute("record", record);
         return "detail_photoAssert";
     }

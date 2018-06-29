@@ -239,7 +239,7 @@
 
     function showQRCode() {
         if (!recordId) return;
-        var verifyUrl = "http://192.168.10.128:8086/asset/drivingLicence/" + recordId;
+        var verifyUrl = "http://113.251.166.1:8086/asset/drivingLicence/" + recordId;
         // var QRUrl = "http://b.bshare.cn/barCode?site=weixin&url=" + verifyUrl;
         var QRUrl = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + verifyUrl;
         $("#QRcodePic").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");

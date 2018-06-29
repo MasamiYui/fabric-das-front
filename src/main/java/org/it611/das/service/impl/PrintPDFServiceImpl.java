@@ -35,7 +35,7 @@ public class PrintPDFServiceImpl implements PrintPDFService {
         dataMap.put("ownerName", ownerName);
 
         //首次生成调用PDF生成工具生成
-        String url = PDFTemplate.generateDegreeCertification(dataMap, "www.baidu.com");
+        String url = PDFTemplate.generateDegreeCertification(dataMap, "http://113.251.166.1:8086/asset/degreeCertification/"+dataMap.get("id"));
 
         //TODO 二次申请应该不需要重新生成
 
@@ -54,7 +54,7 @@ public class PrintPDFServiceImpl implements PrintPDFService {
         dataMap.put("ownerName", ownerName);
 
         //首次生成调用PDF生成工具生成
-        String url = PDFTemplate.generateVideo(dataMap, "www.baidu.com");
+        String url = PDFTemplate.generateVideo(dataMap, "http://113.251.166.1:8086/asset/video/"+dataMap.get("id"));
 
         //TODO 二次申请应该不需要重新生成
 
@@ -73,7 +73,7 @@ public class PrintPDFServiceImpl implements PrintPDFService {
         dataMap.put("ownerName", ownerName);
 
         //首次生成调用PDF生成工具生成
-        String url = PDFTemplate.generateMusic(dataMap, "www.baidu.com");
+        String url = PDFTemplate.generateMusic(dataMap, "http://113.251.166.1:8086/asset/audio/"+dataMap.get("id"));
 
         //TODO 二次申请应该不需要重新生成
 
@@ -91,7 +91,7 @@ public class PrintPDFServiceImpl implements PrintPDFService {
         dataMap.put("ownerName", ownerName);
 
         //首次生成调用PDF生成工具生成
-        String url = PDFTemplate.generateImage(dataMap, "www.baidu.com");
+        String url = PDFTemplate.generateImage(dataMap, "http://113.251.166.1:8086/asset/image/"+dataMap.get("id"));
 
         return url;
 
@@ -108,7 +108,7 @@ public class PrintPDFServiceImpl implements PrintPDFService {
         dataMap.put("ownerName", ownerName);
 
         //首次生成调用PDF生成工具生成
-        String url = PDFTemplate.generateDrivingLicence(dataMap, "www.baidu.com");
+        String url = PDFTemplate.generateDrivingLicence(dataMap, "http://113.251.166.1:8086/asset/drivingLicence/"+dataMap.get("id"));
 
         return url;
     }
@@ -124,7 +124,7 @@ public class PrintPDFServiceImpl implements PrintPDFService {
         dataMap.put("ownerName", ownerName);
 
         //首次生成调用PDF生成工具生成
-        String url = PDFTemplate.generateSyxxzl(dataMap, "www.baidu.com");
+        String url = PDFTemplate.generateSyxxzl(dataMap, "http://113.251.166.1:8086/asset/syxxzl/"+dataMap.get("id"));
 
         return url;
     }

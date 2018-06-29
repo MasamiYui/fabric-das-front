@@ -18,7 +18,8 @@ public class LoginFilter implements Filter {
     //不需要登录就可以访问的路径(比如:注册登录等)
     String[] includeUrls = new String[]{"/","/frontLogin","/userReg","/companyReg","/user/login","/comapny/login","/user/register","/comapny/register","/file/idcard/upload",
     "/file/bizLicence/upload"};
-    String[] staticResource = new String[]{"assets_home","dist","image","jcstatic","videoplay"};
+    String[] staticResource = new String[]{"assets_home","dist","image","jcstatic","videoplay","/asset/queryId","/asset/degreeCertification/","/asset/syxxzl/",
+            "/asset/drivingLicence/","/asset/audio/","/asset/image/","/asset/video/"};
 
 
     @Override

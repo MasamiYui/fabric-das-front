@@ -47,11 +47,11 @@
 
     <!-- 普通用户导航栏-->
     <th:block th:if="${useType}  eq 1 ">
-        <div th:replace="/nav_commonUser::navigation"></div>
+        <div th:replace="nav_commonUser::navigation"></div>
     </th:block>
     <!-- 企业用户导航栏 -->
     <th:block th:if="${useType}  eq 2 ">
-        <div th:replace="/nav_company::navigation"></div>
+        <div th:replace="nav_company::navigation"></div>
     </th:block>
 
     <!--列表页的展示-->

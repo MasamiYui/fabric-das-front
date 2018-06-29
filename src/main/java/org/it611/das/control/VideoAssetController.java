@@ -64,6 +64,14 @@ public class VideoAssetController {
 
         Jedis jedis = RedisUtil.getJedis();
         String userToken = CookieUtil.getCookie(request,CookieUtil.COOKIE_TOKEN_KEY);
+        if(userToken == null || userToken.equals("")){
+            jedis.close();
+            modelAndView.addObject("loginName","***");
+            modelAndView.addObject("record",record);
+            modelAndView.setViewName("detail_videoAssert");
+            return modelAndView;
+        }
+
         HashMap userMap = new ObjectMapper().readValue(jedis.get(userToken), HashMap.class);
         String loginName= String.valueOf(userMap.get("name"));
         jedis.close();

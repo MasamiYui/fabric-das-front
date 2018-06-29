@@ -33,7 +33,7 @@ public class GeneralOcrParseUtil {
         //为了更好的处理，可以去除空格
         str = str.replace(" ", "");//去除空格
         //将所有的字母，标点符号都去除
-        str=str.replaceAll("[`qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM~!@#$%^&*()+=|{}';',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】《》‘；”“’。，、？|-]", "");
+        str=str.replaceAll("[`:：qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM~!@#$%^&*()+=|{}';',\\[\\].<>/?~！@#￥%……& amp;*（）——+|{}【】《》‘；”“’。，、？|-]", "");
         System.out.println(str);
 
         //为了更好的解决中英文逗号，也可以将所有的逗号切换成中文逗号
@@ -573,7 +573,8 @@ public class GeneralOcrParseUtil {
         if(pos8>0&&str2.indexOf("权人",pos7)>0){
             zlqr = str2.substring(str2.indexOf("权人",pos7)+3, pos8);}
         System.out.println("zlqr:"+zlqr);
-        syxxzl.setSqggr(zlqr);
+        //syxxzl.setSqggr(zlqr);
+        syxxzl.setZlqr(zlqr);
         int pos9 = str2.indexOf("日",pos8+5);
         String sqggr="";
         //只有这个存在，才取出来
@@ -581,6 +582,7 @@ public class GeneralOcrParseUtil {
             sqggr = str2.substring(pos8+6, pos9);}
         sqggr = sqggr.replace("年","-");
         sqggr = sqggr.replace("月","-");
+        syxxzl.setSqggr(sqggr);
         System.out.println("sqggr:"+sqggr);
         int pos10 = str2.indexOf("第1页");
         String fzsj="";
@@ -589,10 +591,13 @@ public class GeneralOcrParseUtil {
             fzsj = str2.substring(str2.lastIndexOf("20",pos10), pos10-1);}
         if(fzsj.length()>10|fzsj.length()<9){
             fzsj="";
-        }else{
-            fzsj = fzsj.replace("年","-");
-            fzsj = fzsj.replace("月","-");}
+    }else{
+        fzsj = fzsj.replace("年","-");
+        fzsj = fzsj.replace("月","-");}
         System.out.println("fzsj:"+fzsj);
+        if(fzsj == null || fzsj.equals("")){
+        fzsj = sqggr;
+    }
         syxxzl.setFzsj(fzsj);
         return syxxzl;
 
