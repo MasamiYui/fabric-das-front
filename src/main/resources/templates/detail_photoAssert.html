@@ -186,7 +186,7 @@
     function showReportQRCode() {
         var recordId = [[${record.id}]];
         if (!recordId) return;
-        var verifyUrl = "http://113.251.166.1:8086/asset/image/" + recordId;
+        var verifyUrl = "http://192.168.10.128:8086/asset/image/" + recordId;
         var QRUrl = "http://b.bshare.cn/barCode?site=weixin&url=" + verifyUrl;
         $("#QRcodeReport").html("<img title='" + verifyUrl + "' src='" + QRUrl + "'/>");
     }

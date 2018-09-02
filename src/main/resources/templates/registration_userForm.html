@@ -374,8 +374,10 @@
         var arr = d.split("/");
         var year = arr[0];
         var month = arr[1];
-        month = month > 10 ? month : "0" + month;
-        var date = year + "-" + month + "-" + arr[2];
+        var day=arr[2];
+        month = month >= 10 ? month : "0" + month;
+        day = day >= 10 ? day : "0" + day;
+        var date = year + "-" + month + "-" + day;
         /* for(var index in arr){
              date=date+arr[index]+"-";
          }

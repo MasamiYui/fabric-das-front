@@ -87,6 +87,7 @@ public class FastDFSClient {
             logger.error("upload file failed,please upload again!");
         }
         String path=FastDFSClient.getTrackerUrl()+fileAbsolutePath[0]+ "/"+fileAbsolutePath[1];
+        //String path = "http://192.168.10.128:8082/"+fileAbsolutePath[0]+ "/"+fileAbsolutePath[1];
         return path;
     }
 

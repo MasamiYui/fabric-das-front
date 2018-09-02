@@ -38,7 +38,7 @@ spring:
         maxOpenPreparedStatements: 20
     data:
       mongodb:
-        uri: mongodb://192.168.10.128:32772/das
+        uri: mongodb://192.168.10.128:32798/das
     thymeleaf:
       cache: false
       mode: LEGACYHTML5

@@ -584,7 +584,7 @@ public class GeneralOcrParseUtil {
         sqggr = sqggr.replace("月","-");
         syxxzl.setSqggr(sqggr);
         System.out.println("sqggr:"+sqggr);
-        int pos10 = str2.indexOf("第1页");
+       /* int pos10 = str2.indexOf("第1页");
         String fzsj="";
         //只有这个存在，才取出来
         if(pos10>0&&str2.lastIndexOf("20",pos10)>0){
@@ -595,9 +595,9 @@ public class GeneralOcrParseUtil {
         fzsj = fzsj.replace("年","-");
         fzsj = fzsj.replace("月","-");}
         System.out.println("fzsj:"+fzsj);
-        if(fzsj == null || fzsj.equals("")){
-        fzsj = sqggr;
-    }
+        if(fzsj == null || fzsj.equals("")){*/
+        String fzsj = sqggr;
+    //}
         syxxzl.setFzsj(fzsj);
         return syxxzl;
 
@@ -643,11 +643,17 @@ public class GeneralOcrParseUtil {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(rawData);
             List<JsonNode> itemNodes = jsonNode.findParents("item");
-            if(itemNodes.size()< 5){
-                return null;
-            }
-            System.out.println(itemNodes.size());
+            System.out.println(itemNodes);
+            int size = itemNodes.size();
             HashMap<String, String> resultMap = new HashMap();
+            for(int i=0; i<size;i++){
+                getValue(itemNodes.get(i),resultMap);
+            }
+/*            if(itemNodes.size()< 5){
+                return null;
+            }*/
+            System.out.println(itemNodes.size());
+            /*HashMap<String, String> resultMap = new HashMap();
             resultMap.put("creditId", itemNodes.get(0).get("itemstring").asText());
             resultMap.put("representative",itemNodes.get(1).get("itemstring").asText());
             resultMap.put("companyName", itemNodes.get(2).get("itemstring").asText());
@@ -655,10 +661,10 @@ public class GeneralOcrParseUtil {
             String time = itemNodes.get(4).get("itemstring").asText();
             String[] timeArr = time.split("至");
             resultMap.put("startTime",timeArr[0]);
-            resultMap.put("endTime", timeArr[1]);
-            if(resultMap.size()<6){
-                return null;
-            }
+            resultMap.put("endTime", timeArr[1]);*/
+//            if(resultMap.size()<6){
+//                return null;
+//            }
 
             return resultMap;
         }catch (Exception e){
@@ -666,6 +672,24 @@ public class GeneralOcrParseUtil {
             return null;
         }
 
+    }
+
+    public static void getValue(JsonNode node, HashMap map){
+
+        if(node.get("item").asText().equals("注册号")){
+            map.put("creditId", node.get("itemstring").asText());
+        }else if(node.get("item").asText().equals("法定代表人")){
+            map.put("representative",node.get("itemstring").asText());
+        }else if(node.get("item").asText().equals("公司名称")){
+            map.put("companyName",node.get("itemstring").asText());
+        }else if(node.get("item").asText().equals("地址")){
+            map.put("companyAddress",node.get("itemstring").asText());
+        }else if(node.get("item").asText().equals("营业期限")){
+            String time = node.get("itemstring").asText();
+            String[] timeArr = time.split("至");
+            map.put("startTime",timeArr[0]);
+            map.put("endTime", timeArr[1]);
+        }
     }
 
 

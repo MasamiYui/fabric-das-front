@@ -31,6 +31,7 @@ import java.util.Map;
 @Controller
 public class FileController {
 
+
     @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
     @ResponseBody
     public JSONObject singleFileUpload(MultipartFile file) throws IOException {
@@ -40,6 +41,7 @@ public class FileController {
         }
         String fileHash = MD5Util.md5HashCode(file.getInputStream());
         String path=FastDFSClient.saveFile(file);//将文件上传到fastDFS，返回http url
+        System.out.println("new path:"+path);
         Map<String,String> dataMap = new HashMap<String,String>();
         dataMap.put("path", path);
         Jedis client = RedisUtil.getJedis();
@@ -153,6 +155,7 @@ public class FileController {
         }
         String fileHash = MD5Util.md5HashCode(file.getInputStream());
         String path=FastDFSClient.saveFile(file);//将文件上传到fastDFS，返回http url
+
         //腾讯ocr识别
         ImageClient imageClient = new ImageClient("1252836514", "AKID0tcB3ktk086uhNwGSTK1XtDQVP8gNGIR", "iMp7FE6qVzJYcVEm9f3IMFas33tcDgy5");
         File f = File.createTempFile("tmp", null);
